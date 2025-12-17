@@ -1,0 +1,44 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12 p-5 d-flex justify-content-center align-items-center flex-column">
+            <img src="../../../../assets/robo.png" class="img-fluid mb-4">
+            <form [formGroup]="userLoginForm" (ngSubmit)="loginUser()">
+                <div class="loginBox p-3">
+                    <div class="form-group mb-2">
+                        <label>Username</label>
+                        <input type="text" class="form-control p-2" formControlName="userName">
+                    </div>
+                    <div class="error  text-danger"
+                        *ngIf="userLoginForm.controls['userName'].invalid && (userLoginForm.controls['userName'].dirty || userLoginForm.controls['userName'].touched)">
+                        <span *ngIf="userLoginForm.controls['userName'].errors.required">
+                            <small>Field Required!</small>
+                        </span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label>Password</label>
+                        <input type="password" class="form-control p-2" formControlName="password">
+                    </div>
+                    <div class="error  text-danger"
+                        *ngIf="userLoginForm.controls['password'].invalid && (userLoginForm.controls['password'].dirty || userLoginForm.controls['password'].touched)">
+                        <span *ngIf="userLoginForm.controls['password'].errors.required">
+                            <small>Field Required!</small>
+                        </span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <button type="submit" class="btn btn-outline-dark w-100 p-2">Login</button>
+                    </div>
+                    <div class="form-group pb-3 mb-2 border-bottom">
+                        <input type="checkbox" class="me-2">Remember me
+                    </div>
+                    <div class="form-group">
+                        <a>Forgot Your Password?</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col col-lg-6 col-md-6 col-sm-12 p-5 text-light user-side">
+            <h1>Welcome To Humanoid CRM</h1>
+            <blockquote>"Man is to technology what the bee is to the flower"</blockquote>
+        </div>
+    </div>
+</div>

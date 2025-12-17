@@ -1,0 +1,16 @@
+<div class="box">
+    <!-- 
+        Dashboard component is a parent component so what we do is to give output from header component 
+         once we get output from header component then we will send this output to sidebar component using
+        input Decorator 
+     -->
+    <main>
+        <app-sidebar [sidebarStatus]="hideSidebar" [ngClass]="{'closeSidebar':hideSidebar }"></app-sidebar>
+        <div  [ngClass]="hideSidebar ? 'displayAreaShrink' : 'displayArea'">
+            <app-header (showSidebarEvent)="hideSidebar = $event"></app-header>
+            <div class="routing-component p-3 ">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </main>
+  </div>

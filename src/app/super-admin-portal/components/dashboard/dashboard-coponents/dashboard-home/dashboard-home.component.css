@@ -1,0 +1,270 @@
+/* .container-fluid{
+    background-color: #F5F9FC;
+  } */
+/* .box {
+    background-color: #2B2D3E;
+    height: 150px;
+    padding: 35px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between !important;
+    color: white !important;
+    text-transform: uppercase;
+  }
+  
+  .shadow {
+    box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
+  }
+  
+  .sparkboxes .box {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-shadow: 0 1px 1px 1px #666;
+    box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
+    position: relative;
+    border-radius: 5px;
+  }
+  .box h1{
+    letter-spacing: 2px;
+    font-weight: 800;
+    font-size: 2.5rem;
+  }
+  .box img{
+    width: 70px;
+  }
+  .sparkboxes .box {
+    background-image: linear-gradient(to left top, #414141, #000000);
+  } */
+
+.order-card {
+  color: #fff;
+}
+
+.bg-c-blue {
+  background: linear-gradient(45deg, #4099ff, #73b4ff);
+}
+
+.bg-c-green {
+  background: linear-gradient(45deg, #2ed8b6, #59e0c5);
+}
+
+.bg-c-yellow {
+  background: linear-gradient(45deg, #FFB64D, #ffcb80);
+}
+
+.bg-c-pink {
+  background: linear-gradient(45deg, #FF5370, #ff869a);
+}
+
+.card {
+  border-radius: 5px;
+  -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(6, 37, 77, 0.16);
+  box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+  border: none;
+  margin-bottom: 30px;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.card .card-block {
+  padding: 25px;
+}
+
+.order-card i {
+  font-size: 26px;
+}
+
+.f-left {
+  float: left;
+}
+
+.f-right {
+  float: right;
+}
+
+.charts .col,
+.charts .col-lg-8,
+.charts .col-lg-4 {
+  background-color: white;
+  border-radius: 7px;
+}
+
+
+main {
+  display: grid;
+  /*
+     * auto-fit - create columns only if there's content for them
+     * auto-fill - create columns even if they will be empty
+     */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-auto-rows: 5rem;
+  grid-gap: 1rem;
+  border: 1px solid black;
+}
+
+article {
+  padding: 1rem;
+}
+
+.chart-box {
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
+  padding: 23px;
+}
+
+/* new-cards */
+/* new-cards */
+
+
+
+/* graph-container starts */
+.user-img img {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+}
+
+/* sub-section-activity-log start */
+.activity-log {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.activity-log h6 {
+
+  position: sticky;
+  top: 20px;
+  z-index: 1;
+  margin-bottom: 60px;
+}
+
+/* Add scrollbar styles for WebKit-based browsers (Chrome, Safari) */
+.activity-log::-webkit-scrollbar {
+  width: 12px;
+}
+
+.activity-log::-webkit-scrollbar-thumb {
+  background-color: #43B647;
+  border-radius: 6px;
+}
+
+.activity-log::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* sub-section-activity-log end */
+
+.user-content {
+  margin: 12px 0;
+}
+
+/* graph-container ends */
+
+
+/* user-profile-card starts */
+
+/* sub-section-user-timeline starts */
+.timeline-container {
+
+  position: relative;
+  /* Set relative position to allow absolute positioning of the line */
+}
+
+.timeline-container h2 {
+
+  position: sticky;
+  top: 20px;
+  z-index: 1;
+}
+
+.timeline-container.overflow-auto::-webkit-scrollbar {
+  width: 12px;
+}
+
+.timeline-container.overflow-auto::-webkit-scrollbar-thumb {
+  background-color: #43B647;
+  /* Match the color scheme */
+  border-radius: 6px;
+}
+
+.timeline-container.overflow-auto::-webkit-scrollbar-track {
+  background-color: rgba(177, 99, 163, 0.09);
+  /* Match the color scheme */
+}
+
+/* Timeline Styles */
+.timeline-container.overflow-auto {
+  max-height: 400px;
+  /* Set a maximum height for the container */
+  overflow-y: auto;
+  /* Add vertical scrollbar when content exceeds max-height */
+}
+
+/* sub-section-user-timeline ends */
+
+
+/* sub-section-user-profile-card starts */
+
+.user-profile-card-container .card {
+
+  --bs-card-border-width: none;
+  --bs-card-border-color: none;
+  --bs-card-border-radius: none;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 20px 0 0 20px;
+}
+
+.user-profile-card .card-body i {
+
+  margin: 0 8px;
+}
+
+.user-profile-card .user-profile-image {
+
+  background: #01C7CB;
+  padding: 60px 20px;
+  border-radius: 20px 0 0 20px;
+}
+
+/* sub-section-user-profile-card ends */
+
+/* user-profile-card starts */
+
+
+
+/* social-media-card starts */
+.social-media-card-container img {
+
+  margin: 15px;
+}
+
+.social-media-card-container .social-mail-card {
+  background: #01A9AC;
+}
+
+.social-media-card-container .social-insta-card {
+  background: #FE5D70;
+}
+
+.social-media-card-container .social-twitter-card {
+  background: #0AC282;
+}
+
+.social-media-card-container p {
+
+  color: #ffffff;
+}
+
+/* social-media-card ends */
+
+
+/* Media Queries Starts */
+
+
+/* Media Queries Ends */
+
+.scrolled {
+  background: black;
+  color: white;
+}

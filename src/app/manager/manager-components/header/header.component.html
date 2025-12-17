@@ -1,0 +1,18 @@
+
+
+<div class="navbar">
+    <div class="container-fluid ms-3">
+      <span class>
+        <div class="hamburger" [ngClass]="{'open':isOpen}" (click)="expandSidebar()">
+          <div class="line"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+        </div>
+      </span>
+      <div class=" me-3">
+        <div class="hamburger me-4 mt-2" role="button" pTooltip="Notifications" tooltipPosition="top"
+          data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling1" aria-controls="offcanvasScrolling1">
+          <i class="fa-solid fa-bell"></i>
+        </div>
+      </div>
+    </div>

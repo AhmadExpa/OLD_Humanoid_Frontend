@@ -1,0 +1,407 @@
+/* first-container-wrapper starts */
+.first-container-wrapper {
+
+  min-height: 55vh;
+  margin-top: 180px;
+  min-width: 98%;
+}
+
+.first-container-wrapper h1 {
+
+  font-size: var(--main-heading-size);
+  font-weight: var(--main-heading-weight);
+  line-height: 77px;
+  width: 600px;
+  margin-inline-start: 130px;
+}
+
+.first-container-wrapper h1 span {
+
+  font-size: var(--main-heading-size);
+  font-weight: var(--main-heading-weight);
+  line-height: 77px;
+  color: var(--element-color-2);
+}
+
+
+.first-container-wrapper p {
+
+  font-size: var(--text-size);
+  font-weight: var(--text-weight-2);
+  margin-inline-end: 250px;
+}
+
+/* first-container-wrapper ends */
+
+
+/* second-container-wrapper starts */
+.second-container-wrapper {
+  height: 80vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.second-container-wrapper .text h1 {
+  z-index: 1;
+  color: var(--element-color-white);
+  max-width: 218px;
+  font-size: var(--heading-size);
+  font-weight: var(--heading-weight);
+  margin-inline-start: 170px;
+}
+
+.second-container-wrapper::after {
+  content: '';
+  background: url(../../../../assets/New-Assets/annie-spratt-QckxruozjRg-unsplash.jpg) no-repeat;
+  background-size: 100% auto;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+/* second-container-wrapper ends */
+
+
+/* third-container-wrapper starts */
+.third-container-wrapper {
+
+  min-height: 60vh;
+  /* display: flex;
+  align-items: center; */
+  padding-top: 80px;
+}
+
+.third-container-wrapper p {
+
+  font-size: var(--text-size);
+  font-weight: var(--text-weight-2);
+  padding-top: 150px;
+}
+
+.third-container-wrapper img {
+
+  width: 55%;
+  height: 60%;
+  object-fit: contain;
+  border-radius: 20px;
+  margin-left: 125px;
+}
+
+/* third-container-wrapper ends */
+
+
+/* fourth-container-wrapper starts */
+.fourth-container-wrapper h1 {
+
+  color: var(--element-color-2);
+  font-size: var(--heading-size-2);
+  font-weight: var(--logo-heading-weight);
+}
+
+.fourth-container-wrapper .col-lg-6:nth-of-type(1) {
+
+  background: var(--element-color-2);
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+
+.fourth-container-wrapper .col-lg-6:nth-of-type(1) p {
+
+  color: #ffffff;
+  padding: 25px 10px 0px 10px;
+  
+}
+
+.fourth-container-wrapper img {
+
+  width: 100%;
+  border-radius: 20px;
+}
+/* fourth-container-wrapper ends */
+
+/* fifth-container-wrapper starts */
+.fifth-container-wrapper .card{
+
+  margin: 20px 0 20px 0;
+  /* background: #00CE33; */
+  background-color: #cdffd9;
+  border: none;
+}
+
+.fifth-container-wrapper h1{
+
+  color: #00CE33;
+  font-weight: 800;
+}
+
+.fifth-container-wrapper .card h5{
+
+  font-weight: 800;
+  color: #00CE33;
+}
+
+.fifth-container-wrapper .card p{
+
+  font-weight: 600;
+  color: #6AB476;
+}
+
+
+
+
+/* Media queries starts */
+/* max-width 1920px starts */
+@media (max-width:1920px) {
+
+  .fifth-container-wrapper .card {
+
+    min-height: 272px;
+
+  }
+
+}
+
+/* max-width 1920px ends */
+
+/* max-width 1558px starts */
+@media (max-width:1558px) {
+
+  .first-container-wrapper p {
+
+    margin-inline-start: 80px;
+  }
+
+   .fifth-container-wrapper .card {
+
+    min-height: 272px;
+
+  }
+  
+}
+
+/* max-width 1558px ends */
+
+
+/* max-width 1399px starts */
+@media (max-width:1399px) {
+
+  .first-container-wrapper h1 {
+
+    margin-inline-start: 80px;
+  }
+
+  .fifth-container-wrapper .card {
+
+    min-height: 272px;
+
+  }
+
+}
+/* max-width 1399px ends */
+
+
+/* max-width 1299px starts */
+@media (max-width:1399px) {
+
+  .first-container-wrapper h1 {
+
+    margin-inline-start: 80px;
+  }
+
+  .first-container-wrapper p {
+
+    margin-inline-start: 100px;
+    margin-inline-end: 180px;
+  }
+
+  .fifth-container-wrapper .card {
+
+    min-height: 272px;
+
+  }
+}
+/* max-width 1299px ends */
+
+
+/* max-width 1199px starts */
+@media (max-width:1199px) {
+
+  .first-container-wrapper h1 {
+
+    margin-inline-start: 10px;
+  }
+
+  .first-container-wrapper p {
+
+    margin-inline-start: 120px;
+    margin-inline-end: 120px;
+  }
+
+  .fifth-container-wrapper .card {
+
+    min-height: 296px;
+
+  }
+}
+/* max-width 1199px ends */
+
+
+/* max-width 991px starts */
+@media (max-width:991px) {
+
+  .first-container-wrapper h1 {
+
+    margin-inline-start: 0;
+    width: 100%;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    margin-bottom: 60px;
+  }
+
+  .first-container-wrapper p {
+
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+
+  }
+
+  .third-container-wrapper {
+
+
+    padding-top: 0;
+
+  }
+
+  .third-container-wrapper p {
+
+    padding-top: 0;
+  }
+
+  .second-container-wrapper {
+    height: 60vh;
+
+  }
+
+
+}
+/* max-width 991px ends */
+
+
+/* max-width 767px starts */
+@media (max-width:767px) {
+
+  .first-container-wrapper h1 {
+
+    font-size: var(--logo-heading-size);
+    font-weight: var(--logo-heading-weight);
+    line-height: 35px;
+    margin-inline-start: 140px;
+    margin-inline-end: 140px;
+    height: 0px;
+    width: 332px;
+    text-align: center;
+    margin-bottom: 180px;
+
+  }
+
+  .first-container-wrapper h1 span {
+
+    font-size: var(--logo-heading-size);
+    font-weight: var(--logo-heading-weight);
+
+
+  }
+
+  .first-container-wrapper p {
+
+    margin-bottom: 25px;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+  }
+
+  .first-container-wrapper .row {
+
+    padding-top: 80px;
+  }
+
+  .first-container-wrapper {
+
+    margin-top: 100px;
+  }
+
+  .second-container-wrapper .text h1 {
+
+    margin-inline-start: 100px;
+    margin-bottom: 230px;
+    font-size: var(--heading-size-3);
+    font-weight: var(--heading-weight-3);
+    max-width: 105px;
+    margin-bottom: 0;
+  }
+
+  .second-container-wrapper {
+    height: 40vh;
+
+  }
+
+}
+
+/* max-width 767px ends */
+
+
+/* max-width 575px starts */
+@media (max-width:575px) {
+
+  .first-container-wrapper h1 {
+    line-height: 10px;
+    margin-inline-start: 90px;
+    margin-inline-end: 90px;
+    height: 0px;
+    width: 332px;
+    text-align: center;
+    margin-bottom: 180px;
+
+  }
+
+  .first-container-wrapper p {
+
+    margin-inline-start: 110px;
+    margin-inline-end: 100px;
+    margin-bottom: 100px;
+
+  }
+
+  .second-container-wrapper .text h1 {
+
+    margin-inline-start: 30px;
+    margin-bottom: 30px;
+  }
+
+  .second-container-wrapper {
+
+    height: 30vh;
+
+  }
+
+  .fifth-container-wrapper .card {
+
+    min-height: 200px;
+
+  }
+}
+/* max-width 575px ends */
+
+
+/* max-width 499px starts */
+@media (max-width:499px) {}
+
+/* max-width 499px ends */

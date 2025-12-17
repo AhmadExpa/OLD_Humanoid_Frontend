@@ -1,0 +1,28 @@
+<div class="container box mt-5">
+    <div class="row">
+      <div class="col-12">
+        <form [formGroup]="assignTask" (ngSubmit)="submit()">
+  
+          <label for="inputEmail4" class="mt-3">First Name</label>
+          <input type="email" class="form-control" id="inputEmail4" placeholder="First Name" formControlName="firstName">
+  
+          <label for="inputText" class="mt-3">Last Name</label>
+          <input type="text" class="form-control" id="inputText" placeholder="Last Name" formControlName="lastName">
+  
+          <label for="inputAddress" class="mt-3">Assigning Date</label>
+          <input type="date" class="form-control"
+            formControlName="assign_date">
+  
+          <label for="inputAddress2" class="mt-3">Task</label>
+          <textarea class="form-control" formControlName="task"></textarea>
+  
+          <label for="inputAddress2" class="mt-3">Assign To</label>
+          <select formControlName="assign_to" class="form-control">
+            <option *ngFor="let data of role_list" [ngValue]="data">{{data}}</option>
+          </select>
+  
+          <button type="submit" class="btn btn-outline-success mt-3 w-100" [disabled]="assignTask.invalid">Assign Task</button>
+        </form>
+      </div>
+    </div>
+  </div>

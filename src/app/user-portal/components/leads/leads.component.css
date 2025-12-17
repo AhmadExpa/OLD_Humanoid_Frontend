@@ -1,0 +1,33 @@
+.wrapper{
+    border: 1px solid rgb(209, 208, 208);
+}
+.wrapper:hover{
+    background-color:rgb(243, 243, 243) ;
+}
+span{
+    font-weight: normal;
+}
+.writingstyle{
+    font-family: Helvetica;
+}
+label {
+    display: block;
+    margin-bottom: 10px;
+    
+  }
+  
+  input[type="datetime-local"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+.writingstyle{
+    font-family: Helvetica;
+}
+
+.custom-height {
+  height: 4vh;
+}

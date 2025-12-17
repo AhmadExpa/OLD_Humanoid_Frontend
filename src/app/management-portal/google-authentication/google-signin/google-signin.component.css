@@ -1,0 +1,167 @@
+.logo-wrapper {
+
+    box-shadow: var(--box-shadow-login);
+  }
+  
+  .logo img {
+  
+    width: 52px;
+    margin-bottom: 8px;
+  }
+  
+  .logo span {
+  
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--logo-heading-size);
+    font-weight: var(--logo-heading-weight);
+    margin-inline-start: 5px;
+  
+  }
+  
+  .form-control {
+    width: 380px;
+    display: inline-block;
+    border: 1px solid grey;
+  }
+  
+  .login-content-wrapper p {
+  
+    font-size: var(--text-size-2);
+    font-weight: 200;
+  }
+  
+  .login-content-wrapper small {
+  
+    font-size: 16px;
+    font-weight: 400;
+  }
+  
+  .login-content-wrapper form button {
+  
+    padding: 8px 0;
+    width: 380px;
+    border-radius: 5px;
+    background: var(--element-color-2);
+    border: none;
+    color: var(--element-color-white);
+  
+  }
+  
+  .login-content-wrapper form button:hover {
+  
+    background: var(--irish-green-color);
+  }
+  
+  .login-separator-component {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    
+  }
+  
+  .separator-line {
+    flex-grow: 1;
+    height: 2px;
+    background-color: #C5C7D0;
+    /* Change this to your desired line color */
+    margin: 0 10px;
+    /* Adjust the margin as needed */
+  }
+  
+  .google-signin button {
+  
+    padding: 8px 0;
+    width: 200px;
+    border-radius: 5px;
+  }
+  
+  .google-signin button:hover {
+  
+    background: var(--irish-green-color);
+  }
+  
+  .signup-container p {
+  
+    font-size: 16px;
+    font-weight: 400;
+  }
+  
+  
+  /* Media query Starts */
+  /* max-width 1919px starts */
+  @media (max-width:1919px) {
+  
+    .login-separator-component {
+  
+      margin: 0 600px;
+    }
+  }
+  /* max-width 1919px ends */
+  
+  
+  /* max-width 1599px starts */
+  @media (max-width:1599px) {
+  
+    .login-separator-component {
+  
+      margin: 0 450px;
+    }
+  }
+  /* max-width 1599px ends */
+  
+  /* max-width 1299px starts */
+  @media (max-width:1299px) {
+  
+    .login-separator-component {
+  
+      margin: 0 400px;
+    }
+  }
+  /* max-width 1299px ends */
+  
+  
+  /* max-width 1199px starts */
+  @media (max-width:1199px) {
+  
+    .login-separator-component {
+  
+      margin: 0 350px;
+  
+    }
+  }
+  /* max-width 1199px ends */
+  
+  
+  /* max-width 1099px starts */
+  @media (max-width:1099px) {
+  
+    .login-separator-component {
+  
+      margin: 0 300px;
+  
+    }
+  }
+  /* max-width 1099px ends */
+  
+  
+  /* max-width 991px starts */
+  @media (max-width:991px) {
+  
+    .login-separator-component {
+  
+      margin: 0 150px;
+    }
+  }
+  /* max-width 991px ends */
+  
+  /* max-width 699px starts */
+  @media (max-width:699px) {
+  
+    .login-separator-component {
+  
+      margin: 0 10px;
+    }
+  }
+  /* max-width 699px ends */

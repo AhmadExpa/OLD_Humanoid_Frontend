@@ -1,0 +1,71 @@
+.userInfo {
+    width: 80%;
+    margin: auto;
+    overflow-x: hidden;
+}
+
+.userInfo p span{
+    font-weight: 900;
+}
+
+hr {
+    margin: 1rem 0;
+    color: white;
+    border: 0;
+    border-top: 1px solid;
+    opacity: 45.25;
+}
+.userInfo .profile {
+    width: 70%;
+    margin: auto;
+    border: 3px solid #ffffff;
+    background-size: cover;
+    background-position: center center;
+    height: 131px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    transition: width 350ms ease, height 350ms ease;
+}
+
+.nav-item ul {
+    list-style-type: none;
+    padding: 0%;
+    width: 96%;
+    margin: auto;
+}
+
+.nav-item ul li {
+    padding: 10px;
+    width: 97%;
+    margin: 5px auto;
+}
+
+.nav-item ul li:hover {
+    background-color: #312135;
+}
+
+.nav-item ul li.active {
+    background-color: white;
+    color: black;
+    width: 97%;
+    margin: 5px auto;
+}
+
+.nav-item ul li span {
+    margin-left: 10px;
+    color: #ffffff;
+}
+
+.nav-item ul li span i.active {
+    color: black;
+}
+
+.nav-item ul li a {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 900;
+}
+
+.nav-item ul li a.active {
+    color: black;
+}

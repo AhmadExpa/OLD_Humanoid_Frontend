@@ -1,0 +1,189 @@
+/* endorsement-main-banner-wrapper starts */
+.endorsement-main-banner-wrapper {
+
+    height: 70vh;
+    position: relative;
+    margin-top: 90px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.endorsement-main-banner-wrapper .text-content {
+
+    margin-inline-start: 170px;
+    margin-bottom: 0px;
+    max-width: 50%;
+}
+
+.endorsement-main-banner-wrapper .text-content h2 {
+
+
+    font-weight: 700;
+    color: #ffffff;
+    z-index: 1;
+}
+
+.endorsement-main-banner-wrapper .text-content p {
+
+
+    margin: 50px 0;
+    color: #ffffff;
+    z-index: 1;
+
+}
+
+.endorsement-main-banner-wrapper::after {
+
+    content: '';
+    background: url(../../../../assets/New-Assets/brooke-cagle--uHVRvDr7pg-unsplash.jpg) no-repeat;
+    object-fit: cover;
+    background-size: 100% auto;
+    position: absolute;
+    border-radius: 15px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 95%;
+    z-index: -1;
+
+}
+
+/* endorsement-main-banner-wrapper ends */
+
+
+/* button-wrapper start */
+.button-wrapper {}
+
+
+
+.button-wrapper button {
+
+    margin: 0 8px;
+    border-radius: 20px;
+
+}
+
+.button-wrapper .border-button {
+
+
+    border-right: 1px solid #676879;
+
+}
+
+.filter-button button {
+
+    background: var(--element-color);
+    color: #ffffff;
+    border: none;
+}
+
+/* button-wrapper end */
+
+
+/* card-container start */
+.card-container .card {
+
+    margin: 20px 0;
+}
+
+/* card-container end */
+
+
+
+/* max-width 1920px start */
+@media (max-width:1920px) {}
+
+/* max-width 1920px end */
+
+
+/* max-width 1399px start */
+@media (max-width:1399px) {}
+
+/* max-width 1399px end */
+
+
+/* max-width 991px starts */
+@media (max-width:991px) {
+
+    .endorsement-main-banner-wrapper .text-content {
+
+        margin-inline-start: 35px;
+        margin-bottom: 0px;
+        max-width: 90%;
+        margin-bottom: 35%;
+    }
+
+    .endorsement-main-banner-wrapper .text-content {
+
+        margin-inline-start: 35px;
+        margin-bottom: 0px;
+        max-width: 90%;
+        margin-bottom: 16%;
+    }
+
+    .button-wrapper {
+
+        margin-top: -115px;
+    }
+
+    .button-content-wrapper {
+
+        display: none;
+    }
+
+    .filter-button {
+
+        z-index: 1;
+    }
+
+}
+
+/* max-width 991px ends */
+
+
+/* max-width 767px starts */
+@media (max-width:767px) {
+
+    .endorsement-main-banner-wrapper .text-content {
+
+        margin-inline-start: 35px;
+        margin-bottom: 0px;
+        max-width: 90%;
+        margin-bottom: 35%;
+    }
+
+    .endorsement-main-banner-wrapper .text-content h2 {
+
+
+        font-weight: 500;
+        color: #ffffff;
+        z-index: 1;
+    }
+
+    .endorsement-main-banner-wrapper .text-content h2 {
+
+        margin-bottom: 0;
+    }
+
+    .endorsement-main-banner-wrapper .text-content p {
+
+        margin-bottom: 20px;
+    }
+
+    .endorsement-main-banner-wrapper .text-content button {
+
+        margin-bottom: 135px;
+    }
+
+    .button-wrapper {
+
+        margin-top: -225px;
+    }
+}
+
+/* max-width 767px end */

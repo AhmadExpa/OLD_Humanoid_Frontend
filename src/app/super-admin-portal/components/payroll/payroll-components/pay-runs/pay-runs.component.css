@@ -1,0 +1,23 @@
+.cards_div{
+    width: 388px;
+    height: 118px;
+    background-color: white;
+    border: 1px solid white;
+    border-radius: 5px;
+    display: grid;
+}
+.btn-custom {
+    width: 130px;
+    height: 37px;
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+.pay_run_container{
+    margin-top: 60px;
+}
+.btn_radius{
+    border-radius: 17px; 
+ }
+ .table_head{
+    background-color:#335b70;
+ }

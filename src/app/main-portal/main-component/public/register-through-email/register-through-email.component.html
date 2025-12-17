@@ -1,0 +1,576 @@
+<section class="pattern">
+   
+<div >
+    <div class="container my-5" >
+        <div class="row" style="height: 10vh;"></div>
+        <div class="row" >
+            <div class="heading text-center my-3">
+                <h3 class="writingstyle">Personal Information Form {{companyName}}</h3>
+            </div>
+        </div>
+        <form (ngSubmit)="submitForm()" [formGroup]="registerThroughLeadForm">
+            <div class="row">
+                <div class="col-md-1">
+                    <label class="mt-1 text-secondary writingstyle" for="First Name">First Name</label>
+                </div>
+                <div class="col-md-5">
+                  
+                    <div class="form-floating mb-3">
+                       
+                        <input type="text" class="form-control px-2 py-1 custom-height w-75 text-secondary writingstyle" id="foreName" 
+                            formControlName="foreName">
+                       
+                        <!-- validation -->
+                        <div class="error  text-danger"
+                            *ngIf="registerThroughLeadForm.controls['foreName'].invalid && (registerThroughLeadForm.controls['foreName'].dirty || registerThroughLeadForm.controls['foreName'].touched)">
+                            <span *ngIf="(registerThroughLeadForm.controls['foreName'].errors.pattern)">
+                                Only Alphabets allowed</span>
+                            <span *ngIf="registerThroughLeadForm.controls['foreName'].errors.required">
+                                <small>Field Required!</small>
+                            </span>
+                        </div>
+                        <!-- validation -->
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <label class="mt-1 text-secondary writingstyle" for="surName">Last Name</label>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-floating mb-3">
+                       
+                        <input type="text" class="form-control px-2 py-1 text-secondary writingstyle custom-height w-75 text-secondary writingstyle" id="surName" 
+                            formControlName="surName">
+                      
+                        <!-- validation -->
+                        <div class="error  text-danger"
+                            *ngIf="registerThroughLeadForm.controls['surName'].invalid && (registerThroughLeadForm.controls['surName'].dirty || registerThroughLeadForm.controls['surName'].touched)">
+                            <span *ngIf="(registerThroughLeadForm.controls['surName'].errors.pattern)">
+                                Only Alphabets allowed</span>
+                            <span *ngIf="registerThroughLeadForm.controls['surName'].errors.required">
+                                <small>Field Required!</small>
+                            </span>
+                        </div>
+                        <!-- validation -->
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1">
+                    <label class="mt-1 text-secondary writingstyle" for="address">Address1</label>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-floating mb-3">
+                        
+                        <input type="text" class="form-control px-2 py-1 text-secondary writingstyle custom-height w-75" id="address1" placeholder="Address1"
+                            formControlName="address1">
+                       
+                        <!-- validation -->
+                        <div class="error  text-danger"
+                            *ngIf="registerThroughLeadForm.controls['address1'].invalid && (registerThroughLeadForm.controls['address1'].dirty || registerThroughLeadForm.controls['address1'].touched)">
+                            <span *ngIf="(registerThroughLeadForm.controls['address1'].errors.pattern)">
+                                Special Character not allowed</span>
+                            <span *ngIf="registerThroughLeadForm.controls['address1'].errors.required">
+                                <small>Field Required!</small>
+                            </span>
+                        </div>
+                        <!-- validation -->
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <label class="mt-1 text-secondary writingstyle" for="address">Address2</label>
+                </div>
+                <div class="col-md-5">  
+                    <div class="form-floating mb-3">
+                        
+                        <input type="text" class="form-control px-2 py-1 text-secondary writingstyle custom-height w-75" id="address2" placeholder="Address2"
+                            formControlName="address2">
+                       
+                        <!-- validation -->
+                        <div class="error  text-danger"
+                            *ngIf="registerThroughLeadForm.controls['address2'].invalid && (registerThroughLeadForm.controls['address2'].dirty || registerThroughLeadForm.controls['address2'].touched)">
+                            <span *ngIf="(registerThroughLeadForm.controls['address2'].errors.pattern)">
+                                Special Character not allowed</span>
+                            <span *ngIf="registerThroughLeadForm.controls['address2'].errors.required">
+                                <small>Field Required!</small>
+                            </span>
+                        </div>
+                        <!-- validation -->
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1">
+                    <label class="mt-1 text-secondary writingstyle" for="city">City</label>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-floating mb-3">
+                        
+                        <input type="text" class="form-control px-2 py-1 text-secondary writingstyle custom-height w-75" id="city" placeholder="City" formControlName="city">
+                        
+                        <!-- validation -->
+                        <div class="error  text-danger"
+                            *ngIf="registerThroughLeadForm.controls['city'].invalid && (registerThroughLeadForm.controls['city'].dirty || registerThroughLeadForm.controls['city'].touched)">
+                            <span *ngIf="(registerThroughLeadForm.controls['city'].errors.pattern)">
+                                Only Alphabets allowed</span>
+                            <span *ngIf="registerThroughLeadForm.controls['city'].errors.required">
+                                <small>Field Required!</small>
+                            </span>
+                        </div>
+                        <!-- validation -->
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <label class="mt-1 text-secondary writingstyle" for="postalCode">Postal Code</label>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control px-2 py-1 text-secondary writingstyle custom-height w-75" id="postalCode" placeholder="Postal Code"
+                            formControlName="postalCode">
+                      
+                        <!-- validation -->
+                        <div class="error  text-danger"
+                            *ngIf="registerThroughLeadForm.controls['postalCode'].invalid && (registerThroughLeadForm.controls['postalCode'].dirty || registerThroughLeadForm.controls['postalCode'].touched)">
+                            <span *ngIf="(registerThroughLeadForm.controls['postalCode'].errors.pattern)">
+                                Only Numbers allowed</span>
+                            <span *ngIf="registerThroughLeadForm.controls['postalCode'].errors.required">
+                                <small>Field Required!</small>
+                            </span>
+                        </div>
+                        <!-- validation -->
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1">
+                    <label class="mt-1 text-secondary writingstyle" for="postalCode">Date Of Birth</label>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-floating mb-3">
+                        <input type="date" class="form-control px-2 py-1 text-secondary writingstyle custom-height w-75" id="dob" placeholder="Date Of Birth" formControlName="dob">
+                       
+                        <!-- validation -->
+                        <div class="error  text-danger"
+                            *ngIf="registerThroughLeadForm.controls['dob'].invalid && (registerThroughLeadForm.controls['dob'].dirty || registerThroughLeadForm.controls['dob'].touched)">
+                            <span *ngIf="registerThroughLeadForm.controls['dob'].errors.required">
+                                <small>Field Required!</small>
+                            </span>
+                        </div>
+                        <!-- validation -->
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <label class="mt-1 text-secondary writingstyle" for="nationalNumber">National Number</label>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control  px-2 py-1 text-secondary writingstyle custom-height w-75" id="nationalNumber" placeholder="National Number"
+                            formControlName="nationalNumber">
+                        
+                        <!-- validation -->
+                        <div class="error  text-danger"
+                            *ngIf="registerThroughLeadForm.controls['nationalNumber'].invalid && (registerThroughLeadForm.controls['nationalNumber'].dirty || registerThroughLeadForm.controls['nationalNumber'].touched)">
+                            <span *ngIf="(registerThroughLeadForm.controls['nationalNumber'].errors.pattern)">
+                                Only Numbers allowed</span>
+                            <span *ngIf="registerThroughLeadForm.controls['nationalNumber'].errors.required">
+                                <small>Field Required!</small>
+                            </span>
+                        </div>
+                        <!-- validation -->
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1">
+                    <label  class="mt-1 text-secondary writingstyle" for="email">Email Address</label>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control p-1 custom-height w-75" id="email" placeholder="email" formControlName="email">
+                        
+                        <!-- validation -->
+                        <div class="error  text-danger"
+                            *ngIf="registerThroughLeadForm.controls['email'].invalid && (registerThroughLeadForm.controls['email'].dirty || registerThroughLeadForm.controls['email'].touched)">
+                            <span *ngIf="registerThroughLeadForm.controls['email'].errors.email">
+                                <small>Use correct pattern as example@example.com</small></span>
+                            <span *ngIf="registerThroughLeadForm.controls['email'].errors.required">
+                                <small>Field Required!</small>
+                            </span>
+                        </div>
+                        <!-- validation -->
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <label  class="mt-1 text-secondary writingstyle" for="phoneNumber">Phone Number</label>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control px-2 py-1 text-secondary writingstyle custom-height w-75" id="phoneNumber" placeholder="phoneNumber"
+                            formControlName="phoneNumber">
+                     
+                        <!-- validation -->
+                        <div class="error  text-danger"
+                            *ngIf="registerThroughLeadForm.controls['phoneNumber'].invalid && (registerThroughLeadForm.controls['phoneNumber'].dirty || registerThroughLeadForm.controls['phoneNumber'].touched)">
+                            <span
+                                *ngIf="registerThroughLeadForm.controls['phoneNumber'].errors.minlength || registerThroughLeadForm.controls['phoneNumber'].errors.maxlength ">
+                                <small>Phone Number should be atleast 11 digits</small></span>
+                            <span *ngIf="(registerThroughLeadForm.controls['phoneNumber'].errors.pattern)">
+                                only numbers allowed</span>
+                            <span *ngIf="registerThroughLeadForm.controls['phoneNumber'].errors.required">
+                                <small>Field Required!</small>
+                            </span>
+                        </div>
+                        <!-- validation -->
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="heading text-center my-3">
+                    <h3 class="writingstyle">Bank Account Information</h3>
+                </div>
+            </div>
+    
+            <div class="row">
+                <div class="col-md-1">
+                    <label class="mt-1 text-secondary writingstyle" for="city">Account Holder Name</label>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control px-2 py-1 text-secondary writingstyle custom-height w-75" id="accountHolderName" placeholder="Account Holder Name"
+                            formControlName="accountHolderName">
+                        
+                        <!-- validation -->
+                        <div class="error  text-danger"
+                            *ngIf="registerThroughLeadForm.controls['accountHolderName'].invalid && (registerThroughLeadForm.controls['accountHolderName'].dirty || registerThroughLeadForm.controls['accountHolderName'].touched)">
+                            <span *ngIf="(registerThroughLeadForm.controls['accountHolderName'].errors.pattern)">
+                                Only Alphabets allowed</span>
+                            <span *ngIf="registerThroughLeadForm.controls['accountHolderName'].errors.required">
+                                <small>Field Required!</small>
+                            </span>
+                        </div>
+                        <!-- validation -->
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <label class="mt-1 text-secondary writingstyle"  for="city">Name Of Bank</label>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control  px-2 py-1 text-secondary writingstyle custom-height w-75" id="nameOfBank" placeholder="Name Of Bank"
+                            formControlName="nameOfBank">
+                       
+                        <!-- validation -->
+                        <div class="error  text-danger"
+                            *ngIf="registerThroughLeadForm.controls['nameOfBank'].invalid && (registerThroughLeadForm.controls['nameOfBank'].dirty || registerThroughLeadForm.controls['nameOfBank'].touched)">
+                            <span *ngIf="(registerThroughLeadForm.controls['nameOfBank'].errors.pattern)">
+                                Only Alphabets allowed</span>
+                            <span *ngIf="registerThroughLeadForm.controls['nameOfBank'].errors.required">
+                                <small>Field Required!</small>
+                            </span>
+                        </div>
+                        <!-- validation -->
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1">
+                    <label class="mt-1 text-secondary writingstyle" for="accountNumber">Account Number</label>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control  px-2 py-1 text-secondary writingstyle custom-height w-75" id="accountNumber" placeholder="phoneNumber"
+                            formControlName="accountNumber">
+                       
+                        <!-- validation -->
+                        <div class="error  text-danger"
+                            *ngIf="registerThroughLeadForm.controls['accountNumber'].invalid && (registerThroughLeadForm.controls['accountNumber'].dirty || registerThroughLeadForm.controls['accountNumber'].touched)">
+                            <span
+                                *ngIf="registerThroughLeadForm.controls['accountNumber'].errors.minlength || registerThroughLeadForm.controls['accountNumber'].errors.maxlength ">
+                                <small>Account Number should be atleast 8 digits</small></span>
+                            <span *ngIf="(registerThroughLeadForm.controls['accountNumber'].errors.pattern)">
+                                only numbers allowed</span>
+                            <span *ngIf="registerThroughLeadForm.controls['accountNumber'].errors.required">
+                                <small>Field Required!</small>
+                            </span>
+                        </div>
+                        <!-- validation -->
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <label class="mt-1 text-secondary writingstyle" for="sortCode">Sort Code</label>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control px-2 py-1 text-secondary writingstyle custom-height w-75" id="sortCode" placeholder="sortCode"
+                            formControlName="sortCode">
+                       
+                    </div>
+                    <div class="error  text-danger"
+                        *ngIf="registerThroughLeadForm.controls['sortCode'].invalid && (registerThroughLeadForm.controls['sortCode'].dirty || registerThroughLeadForm.controls['sortCode'].touched)">
+                        <span
+                            *ngIf="registerThroughLeadForm.controls['sortCode'].errors.minlength || registerThroughLeadForm.controls['sortCode'].errors.maxlength ">
+                            <small>Number should be atleast 6 digits</small></span>
+                        <span *ngIf="(registerThroughLeadForm.controls['sortCode'].errors.pattern)">
+                            only numbers allowed</span>
+                        <span *ngIf="registerThroughLeadForm.controls['sortCode'].errors.required">
+                            <small>Field Required!</small>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="heading text-center my-3">
+                    <h3 class="writingstyle ">Employee Statement</h3>
+                    <p class="text-secondary writingstyle">You need to select one of the below statements A, B, C</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="checkBoxes mb-3">
+                    <h4 class="mb-2 writingstyle">CheckBox</h4>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="radio"
+                            value="This is my first job since last 6 April and i have not received any taxable benifits"
+                            id="flexCheckDefault1" formControlName="select1FromABC">
+                        <label class="form-check-label ms-2 mb-3 writingstyle text-secondary" or="flexCheckDefault1">
+                            This is my first job since last 6 April and i have not received any taxable benifits
+                        </label>
+                        <!-- Validation -->
+                        <div class="error  text-danger"
+                            *ngIf="registerThroughLeadForm.controls['select1FromABC'].invalid && (registerThroughLeadForm.controls['select1FromABC'].dirty || registerThroughLeadForm.controls['select1FromABC'].touched)">
+                            <span *ngIf="registerThroughLeadForm.controls['select1FromABC'].errors.required">
+                                <small>Field Required!</small>
+                            </span>
+                        </div>
+                        <!-- Validation -->
+                    </div>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="radio"
+                            value="This is now my only job but since last 6 April I've had another job or received taxable benifits.I do not not receive a state or occupational pension"
+                            id="flexCheckDefault2" formControlName="select1FromABC">
+                        <label class="form-check-label ms-2 mb-3 writingstyle text-secondary" for="flexCheckDefault2">
+                            This is now my only job but since last 6 April I've had another job or received taxable
+                            benifits.I do not not receive <br> a state or occupational pension
+                        </label>
+                        <!-- Validation -->
+                        <div class="error  text-danger"
+                            *ngIf="registerThroughLeadForm.controls['select1FromABC'].invalid && (registerThroughLeadForm.controls['select1FromABC'].dirty || registerThroughLeadForm.controls['select1FromABC'].touched)">
+                            <span *ngIf="registerThroughLeadForm.controls['select1FromABC'].errors.required">
+                                <small>Field Required!</small>
+                            </span>
+                        </div>
+                        <!-- Validation -->
+                    </div>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="radio"
+                            value="As well as my new job, I have another job or receive a state or occupational pension"
+                            id="flexCheckDefault3" formControlName="select1FromABC">
+                        <label class="form-check-label ms-2 mb-3 writingstyle text-secondary" for="flexCheckDefault">
+                            As well as my new job, I have another job or receive a state or occupational pension
+                        </label>
+                        <!-- Validation -->
+                        <div class="error  text-danger"
+                            *ngIf="registerThroughLeadForm.controls['select1FromABC'].invalid && (registerThroughLeadForm.controls['select1FromABC'].dirty || registerThroughLeadForm.controls['select1FromABC'].touched)">
+                            <span *ngIf="registerThroughLeadForm.controls['select1FromABC'].errors.required">
+                                <small>Field Required!</small>
+                            </span>
+                        </div>
+                        <!-- Validation -->
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="heading text-center my-3">
+                    <h3 class="writingstyle">Students Loan</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="fillBox mb-3">
+                        <p class="mb-1 writingstyle text-secondary">Do you have a student loan which is not fully repaid?
+                        </p>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" value="Yes" formControlName="studentLoanRepaid" type="radio"
+                                id="flexRadioDefault1">
+                            <label class="form-check-label ms-2 mb-2 writingstyle text-secondary" for="flexRadioDefault1">
+                                Yes
+                            </label>
+                            <!-- Validation -->
+                            <div class="error  text-danger"
+                                *ngIf="registerThroughLeadForm.controls['studentLoanRepaid'].invalid && (registerThroughLeadForm.controls['studentLoanRepaid'].dirty || registerThroughLeadForm.controls['studentLoanRepaid'].touched)">
+                                <span *ngIf="registerThroughLeadForm.controls['studentLoanRepaid'].errors.required">
+                                    <small>Field Required!</small>
+                                </span>
+                            </div>
+                            <!-- Validation -->
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="radio" id="flexRadioDefault1"
+                                formControlName="studentLoanRepaid" value="No">
+                            <label class="form-check-label ms-2 mb-2 writingstyle text-secondary" for="flexRadioDefault1">
+                                No
+                            </label>
+                            <!-- Validation -->
+                            <div class="error  text-danger"
+                                *ngIf="registerThroughLeadForm.controls['studentLoanRepaid'].invalid && (registerThroughLeadForm.controls['studentLoanRepaid'].dirty || registerThroughLeadForm.controls['studentLoanRepaid'].touched)">
+                                <span *ngIf="registerThroughLeadForm.controls['studentLoanRepaid'].errors.required">
+                                    <small>Field Required!</small>
+                                </span>
+                            </div>
+                            <!-- Validation -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="fillBox mb-3">
+                        <p class="mb-1 writingstyle text-secondary">what type of student loan do you have?
+                        </p>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" value="plan1" id="flexCheckDefault"
+                                formControlName="typeOfStudentLoan">
+                            <label class="form-check-label ms-2 mb-2 writingstyle text-secondary" for="flexCheckDefault">
+                                Plan 1
+                            </label>
+                            <!-- Validation -->
+                            <div *ngIf="registerThroughLeadForm.get('typeOfStudentLoan').invalid && registerThroughLeadForm.get('typeOfStudentLoan').touched">
+                                <span class="text-danger">Checkbox is required</span>
+                              </div>
+                            <!-- Validation -->
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" value="plan2" id="flexCheckDefault"
+                                formControlName="typeOfStudentLoan">
+                            <label class="form-check-label ms-2 mb-2 writingstyle text-secondary" for="flexCheckDefault">
+                                Plan 2
+                            </label>
+                            <!-- Validation -->
+                            <div *ngIf="registerThroughLeadForm.get('typeOfStudentLoan').invalid && registerThroughLeadForm.get('typeOfStudentLoan').touched">
+                                <span class="text-danger">Checkbox is required</span>
+                              </div>
+                            <!-- Validation -->
+                        </div>
+                    </div>
+                </div>
+               <div class="col-md-6">
+                <div class="fillBox mb-3">
+                    <p class="mb-1 writingstyle text-secondary">Are you repaying your student loan direct to the <br> student loans company by
+                        agreed monthly payments?
+                    </p>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="radio" formControlName="repayingLoan" id="flexRadioDefault1"
+                            value="Yes">
+                        <label class="form-check-labeln ms-2 mb-2 writingstyle text-secondary" for="flexRadioDefault1">
+                            Yes
+                        </label>
+                        <!-- Validation -->
+                        <div class="error  text-danger"
+                            *ngIf="registerThroughLeadForm.controls['repayingLoan'].invalid && (registerThroughLeadForm.controls['repayingLoan'].dirty || registerThroughLeadForm.controls['repayingLoan'].touched)">
+                            <span *ngIf="registerThroughLeadForm.controls['repayingLoan'].errors.required">
+                                <small>Field Required!</small>
+                            </span>
+                        </div>
+                        <!-- Validation -->
+                    </div>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="radio" formControlName="repayingLoan" id="flexRadioDefault1"
+                            value="No">
+                        <label class="form-check-labeln ms-2 mb-2 writingstyle text-secondary" for="flexRadioDefault1">
+                            No
+                        </label>
+                        <!-- Validation -->
+                        <div class="error  text-danger"
+                            *ngIf="registerThroughLeadForm.controls['repayingLoan'].invalid && (registerThroughLeadForm.controls['repayingLoan'].dirty || registerThroughLeadForm.controls['repayingLoan'].touched)">
+                            <span *ngIf="registerThroughLeadForm.controls['repayingLoan'].errors.required">
+                                <small>Field Required!</small>
+                            </span>
+                        </div>
+                        <!-- Validation -->
+                    </div>
+                </div>
+               </div>
+               <div class="col-md-6">
+                <div class="fillBox mb-2">
+                    <p class="mb-1 writingstyle text-secondary">Did you finish your studies before the last 6th April?
+                    </p>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="radio" id="flexRadioDefault1"
+                            formControlName="finishStudiesBefore6thApril" value="Yes">
+                        <label class="form-check-labeln ms-2 mb-2 writingstyle text-secondary" for="flexRadioDefault1">
+                            Yes
+                        </label>
+                        <!-- Validation -->
+                        <div class="error  text-danger"
+                            *ngIf="registerThroughLeadForm.controls['finishStudiesBefore6thApril'].invalid && (registerThroughLeadForm.controls['finishStudiesBefore6thApril'].dirty || registerThroughLeadForm.controls['finishStudiesBefore6thApril'].touched)">
+                            <span *ngIf="registerThroughLeadForm.controls['finishStudiesBefore6thApril'].errors.required">
+                                <small>Field Required!</small>
+                            </span>
+                        </div>
+                        <!-- Validation -->
+                    </div>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="radio" id="flexRadioDefault1"
+                            formControlName="finishStudiesBefore6thApril" value="No">
+                        <label class="form-check-labeln ms-2 mb-2 writingstyle text-secondary" for="flexRadioDefault1">
+                            No
+                        </label>
+                        <!-- Validation -->
+                        <div class="error  text-danger"
+                            *ngIf="registerThroughLeadForm.controls['finishStudiesBefore6thApril'].invalid && (registerThroughLeadForm.controls['finishStudiesBefore6thApril'].dirty || registerThroughLeadForm.controls['finishStudiesBefore6thApril'].touched)">
+                            <span *ngIf="registerThroughLeadForm.controls['finishStudiesBefore6thApril'].errors.required">
+                                <small>Field Required!</small>
+                            </span>
+                        </div>
+                        <!-- Validation -->
+                    </div>
+                </div>
+               </div>
+                
+            </div>
+            <div class="row">
+                <div class="heading text-center my-3">
+                    <h3 class="writingstyle">Personal Compliance</h3>
+                </div>
+            </div>
+            <div class="chooseFile">
+                <div class="mb-3">
+                    <label for="formFile" class="form-label writingstyle text-secondary">Proof Of Adress (no more than 3 month old)</label>
+                    <input class="form-control writingstyle text-secondary w-75" type="file" id="formFile" formControlName="fileValidator"
+                        (change)="getFile1($event)" multiple>
+                </div>
+                <div class="error  text-danger"
+                    *ngIf="registerThroughLeadForm.controls['fileValidator'].invalid && (registerThroughLeadForm.controls['fileValidator'].dirty || registerThroughLeadForm.controls['fileValidator'].touched)">
+                    <span *ngIf="registerThroughLeadForm.controls['fileValidator'].errors.required">
+                        <small>Field Required!</small>
+                    </span>
+                </div>
+            </div>
+            <div class="chooseFile">
+                <div class="mb-3">
+                    <label for="formFile" class="form-label writingstyle text-secondary">Proof Of Adress2 (no more than 3 month old)</label>
+                    <input class="form-control writingstyle text-secondary w-75" type="file" id="formFile" formControlName="fileValidator1"
+                        (change)="getFile2($event)" multiple>
+                </div>
+                <div class="error  text-danger"
+                    *ngIf="registerThroughLeadForm.controls['fileValidator1'].invalid && (registerThroughLeadForm.controls['fileValidator1'].dirty || registerThroughLeadForm.controls['fileValidator1'].touched)">
+                    <span *ngIf="registerThroughLeadForm.controls['fileValidator1'].errors.required">
+                        <small>Field Required!</small>
+                    </span>
+                </div>
+            </div>
+            <div class="chooseFile">
+                <div class="mb-3">
+                    <label for="formFile" class="form-label writingstyle text-secondary">Copy Of Passport-Picture Page</label>
+                    <input class="form-control writingstyle text-secondary w-75" type="file" id="formFile" formControlName="fileValidator2"
+                        (change)="getFile3($event)" multiple>
+                </div>
+                <div class="error  text-danger"
+                    *ngIf="registerThroughLeadForm.controls['fileValidator2'].invalid && (registerThroughLeadForm.controls['fileValidator2'].dirty || registerThroughLeadForm.controls['fileValidator2'].touched)">
+                    <span *ngIf="registerThroughLeadForm.controls['fileValidator2'].errors.required">
+                        <small>Field Required!</small>
+                    </span>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-outline-dark my-3 w-25"
+                [disabled]="registerThroughLeadForm.pristine || registerThroughLeadForm.invalid">Submit</button>
+        </form>
+    </div>
+</div>
+</section>

@@ -1,0 +1,125 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <form (ngSubmit)="submitForm()" [formGroup]="umbrellaForm">
+
+
+                <div class="form-floating mb-3 mt-3">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com"
+                        formControlName="companyName">
+                    <label for="floatingInput">Company Name</label>
+
+                    <!-- validation -->
+                    <div class="error  text-danger"
+                        *ngIf="umbrellaForm.controls['companyName'].invalid && (umbrellaForm.controls['companyName'].dirty || umbrellaForm.controls['companyName'].touched)">
+                        <span
+                            *ngIf="umbrellaForm.controls['companyName'].errors.minlength || umbrellaForm.controls['companyName'].errors.maxlength ">
+                            <small>Name between 4 to 20 Characters!</small></span>
+                        <span *ngIf="(umbrellaForm.controls['companyName'].errors.pattern)">
+                            Only Alphabets & Spaces Allowed</span>
+                        <span *ngIf="umbrellaForm.controls['companyName'].errors.required">
+                            <small>Field Required!</small>
+                        </span>
+                    </div>
+                    <!-- validation -->
+
+                </div>
+
+                <div class="form-floating mb-3 mt-3">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com"
+                        formControlName="companyEmail">
+                    <label for="floatingInput">Company Email</label>
+
+                    <!-- validation -->
+                    <div class="error  text-danger"
+                        *ngIf="umbrellaForm.controls['companyEmail'].invalid && (umbrellaForm.controls['companyEmail'].dirty || umbrellaForm.controls['companyEmail'].touched)">
+                        <span *ngIf="umbrellaForm.controls['companyEmail'].errors.email"></span>
+                        <span *ngIf="umbrellaForm.controls['companyEmail'].errors.required">
+                            <small>Field Required!</small>
+                        </span>
+                    </div>
+                    <!-- validation -->
+
+                </div>
+
+                <div class="form-floating mb-3 mt-3">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com"
+                        formControlName="companyNumber">
+                    <label for="floatingInput">Company Number</label>
+
+                    <!-- validation -->
+                    <div class="error  text-danger"
+                        *ngIf="umbrellaForm.controls['companyNumber'].invalid && (umbrellaForm.controls['companyNumber'].dirty || umbrellaForm.controls['companyNumber'].touched)">
+                        <span
+                            *ngIf="umbrellaForm.controls['companyNumber'].errors.minlength || umbrellaForm.controls['companyNumber'].errors.maxlength ">
+                            <small>Phone Number should be atleast 11 digits</small></span>
+                        <span *ngIf="(umbrellaForm.controls['companyNumber'].errors.pattern)">
+                            only numbers allowed</span>
+                        <span *ngIf="umbrellaForm.controls['companyNumber'].errors.required">
+                            <small>Field Required!</small>
+                        </span>
+                    </div>
+                    <!-- validation -->
+
+                </div>
+
+                <div class="form-floating mb-3 mt-3">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com"
+                        formControlName="companyWebsiteUrl">
+                    <label for="floatingInput">Company Website Url</label>
+
+                    <!-- validation -->
+                    <div class="error  text-danger"
+                        *ngIf="umbrellaForm.controls['companyWebsiteUrl'].invalid && (umbrellaForm.controls['companyWebsiteUrl'].dirty || umbrellaForm.controls['companyWebsiteUrl'].touched)">
+                        <span *ngIf="(umbrellaForm.controls['companyWebsiteUrl'].errors?.pattern)">
+                            Please enter a valid website URL.
+                        </span>
+                        <span *ngIf="umbrellaForm.controls['companyWebsiteUrl'].errors.required">
+                            <small>Field Required!</small>
+                        </span>
+                    </div>
+                    <!-- validation -->
+
+                </div>
+
+                <div class="form-floating mb-3 mt-3">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com"
+                        formControlName="companyDirector">
+                    <label for="floatingInput">Company Director</label>
+
+                    <!-- validation -->
+                    <div class="error  text-danger"
+                        *ngIf="umbrellaForm.controls['companyDirector'].invalid && (umbrellaForm.controls['companyDirector'].dirty || umbrellaForm.controls['companyDirector'].touched)">
+                        <span
+                            *ngIf="umbrellaForm.controls['companyDirector'].errors.minlength || umbrellaForm.controls['companyDirector'].errors.maxlength ">
+                            <small>Name between 4 to 20 Characters!</small></span>
+                        <span *ngIf="(umbrellaForm.controls['companyDirector'].errors.pattern)">
+                            Only Alphabets & Spaces Allowed</span>
+                        <span *ngIf="umbrellaForm.controls['companyDirector'].errors.required">
+                            <small>Field Required!</small>
+                        </span>
+                    </div>
+                    <!-- validation -->
+
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Choose Logo</label>
+                    <input type="file" #FileSelect class="form-control" formControlName="companyLogo"
+                        (change)="getImage($event)">
+
+                    <div class="error  text-danger"
+                        *ngIf="umbrellaForm.controls['companyLogo'].invalid && (umbrellaForm.controls['companyLogo'].dirty || umbrellaForm.controls['companyLogo'].touched)">
+                        <span *ngIf="umbrellaForm.controls['companyLogo'].errors.required">
+                            <small>Field Required!</small>
+                        </span>
+                    </div>
+
+                </div>
+
+                <button type="submit" [disabled]="umbrellaForm.pristine || umbrellaForm.invalid"
+                    class="btn btn-outline-primary w-100">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,245 @@
+/* main-individual-endorsement-wrapper start */
+.individual-endorsement-container {
+    min-height: 600px;
+    margin-top: 120px;
+    min-height: 70%;
+}
+
+
+/* main-individual-endorsement-wrapper end */
+
+
+/* individual-endorsement-container start */
+.individual-endorsement-left-side-container {
+    height: 90%;
+}
+
+/* Hide vertical scrollbar */
+.individual-endorsement-left-side-container::-webkit-scrollbar {
+    width: 0.5em; /* Adjust this value to your preference */
+ }
+ 
+ /* Track */
+ .individual-endorsement-left-side-container::-webkit-scrollbar-track {
+    background: transparent;
+ }
+ 
+ /* Handle */
+ .individual-endorsement-left-side-container::-webkit-scrollbar-thumb {
+    background: transparent;
+ }
+ 
+ /* Handle on hover */
+ .individual-endorsement-left-side-container::-webkit-scrollbar-thumb:hover {
+    background: transparent;
+ }
+
+.individual-endorsement-heading h1 {
+
+    opacity: .8;
+}
+
+.individual-endorsement-review p {
+
+    opacity: .8;
+}
+
+.individual-endorsement-banner img {
+
+    object-fit: cover;
+    width: 550px;
+}
+
+.individual-endorsement-tag span {
+
+    margin: 0 10px;
+}
+
+.individual-endorsement-tag span:nth-child(2),
+.individual-endorsement-tag span:nth-child(3),
+.individual-endorsement-tag span:nth-child(4) {
+
+    background: #F6F7F6;
+    color: #6BC417;
+    padding: 2px 12px;
+}
+
+.individual-overview-heading h1 {
+
+    opacity: .8;
+}
+
+.individual-overview-detail span {
+
+    margin-right: 15px;
+    opacity: .6;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.individual-overview-detail p {
+
+    border-left: 3px solid #B6E48B;
+    padding: 0 15px;
+    line-height: 35px;
+    opacity: .8;
+}
+
+.individual-overview-dashboard-heading h3 {
+
+    opacity: .8;
+}
+
+
+.individual-overview-dashboard img {
+
+    object-fit: cover;
+    width: 550px;
+}
+
+.individual-endorsement-right-side-container {
+
+    /* position: static;
+    top: 100px; */
+    margin-top: 15vh;
+    width: 100%;
+    margin-left: 80px;
+    box-shadow: var(--box-shadow-4);
+}
+
+
+.individual-endorsement-right-side-container-heading {
+
+    margin: 8px 20px;
+}
+
+.individual-endorsement-right-side-container-heading i {
+
+    cursor: pointer;
+}
+
+.individual-endorsement-right-side-container-content {
+
+    margin: 0px 130px;
+    width: 60%;
+}
+
+.individual-endorsement-right-side-container-content-2 {
+
+    margin: 15px 10px;
+    background: #F6F7F6;
+    padding: 15px 10px;
+    border-radius: 10px;
+}
+
+.individual-endorsement-right-side-container .card img {
+
+    object-fit: contain;
+    width: 56px;
+    border-radius: 50%;
+
+}
+
+.card-body-content i {
+
+    margin: 0 8px;
+    background: #F6F7F6;
+    padding: 8px;
+    border-radius: 50%;
+}
+
+.card-body-content-2 button {
+
+    margin: 10px 10px;
+    border-radius: 20px;
+}
+
+/* individual-endorsement-container end */
+
+
+
+/* individual-endorsement-container-2 start */
+.individual-endorsement-container-2 {
+
+    background: #EEFBE7;
+}
+
+.individual-endorsement-container-2 .card {
+
+    margin: 40px 0;
+}
+
+.individual-endorsement-container-2 .card img {
+    object-fit: cover;
+    width: 350px;
+    border-radius: 15px 15px 0 0;
+}
+
+/* individual-endorsement-container-2 end */
+
+
+/* max-width 1199px starts */
+@media (max-width:1199px) {
+
+    .individual-endorsement-right-side-container {
+
+        margin-left: 10%;
+
+    }
+
+
+    .individual-endorsement-container-2 .card {
+
+        margin: 0 0 0 20px;
+    }
+}
+
+
+/* max-width 991px starts */
+@media (max-width:991px) {
+
+    .individual-endorsement-right-side-container {
+
+        position: static;
+        top: 0;
+        margin-left: 0;
+        margin: 40px 0 0 0;
+    }
+
+    .individual-endorsement-right-side-container {
+
+
+        width: 100%;
+    }
+
+
+    .individual-endorsement-container-2 .card {
+
+        margin: 30px 0;
+    }
+
+
+}
+
+/* max-width 767px starts */
+@media (max-width:767px) {
+
+    .individual-endorsement-container-2 .card img {
+
+        object-fit: cover;
+        width: 250px;
+    }
+
+}
+
+
+/* max-width 575px starts */
+@media (max-width:575px) {
+
+    .individual-endorsement-container-2 .card img {
+
+        object-fit: cover;
+        width: 150px;
+    }
+
+}

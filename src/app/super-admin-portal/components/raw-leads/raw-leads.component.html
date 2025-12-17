@@ -1,0 +1,246 @@
+<div class="container-fluid">
+    <div class="fs-2 bg-success rounded-3 text-white p-3 mt-5 text-center">
+      Raw Leads
+    </div>
+  
+    <div class=" d-flex flex-row my-4">
+      <button
+        pButton
+        pRipple
+        label="Upload Leads using Spread Sheets"
+        class="p-button-success"
+        icon="pi pi-upload"
+        (click)="uploadLead = !uploadLead"
+      ></button>
+      <button
+      
+        pButton
+        pRipple
+        label="Create New Lead"
+        class="p-button-primary mx-3"
+        icon="pi pi-upload"
+        iconPos="right"
+        (click)="createNewLead = !createNewLead"
+  
+      ></button>
+      <button
+      pButton
+      pRipple
+      label="Leads Listing"
+      class="p-button-warning mx-3"
+      iconPos="right"
+      (click)="leadsListing = !leadsListing"
+    ></button>
+    </div>
+  
+  
+    <div class="row my-5" *ngIf="uploadLead">
+      <div class="col-12">
+        <!-- file upload  -->
+  
+        <div class="card flex justify-content-center">
+          <div class="fs-4 px-3 pt-3 opacity-75">
+            <b>Upload Leads using Spread Sheets</b>
+          </div>
+          <p class="px-3 pt-1 opacity-50">
+            Only Spread Sheets(.xls,.xlsx) files are allowed to upload.Sheet must
+            have two colums (name,phoneNumber) with data.
+          </p>
+  
+          <!-- <p-toast /> -->
+          <p-fileUpload
+            #fileUpload
+            name="demo[]"
+            (onSelect)="onFileSelected($event)"
+            (uploadHandler)="onUpload($event)"
+            [multiple]="true"
+            accept=".xls, application/vnd.ms-excel, .xlsx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            [maxFileSize]="1000000"
+            [customUpload]="true"
+          >
+            <ng-template pTemplate="content">
+              <p-progressBar
+                *ngIf="progressBar"
+                mode="indeterminate"
+                [style]="{ height: '7px' }"
+              ></p-progressBar>
+              <ul *ngIf="RawLeadsFiles.length">
+                <li *ngFor="let file of RawLeadsFiles">
+                  <i
+                    class="pi pi-file"
+                    [ngClass]="{
+                      'pi-file-excel': file.type?.includes('excel'),
+                      'pi-file-word': file.type?.includes('word')
+                    }"
+                  ></i>
+                  {{ file.name }} - {{ file.size }} bytes
+                  <p-tag [severity]="severity" [value]="tagValue" />
+                </li>
+              </ul>
+            </ng-template>
+          </p-fileUpload>
+        </div>
+  
+        <!-- file upload  -->
+      </div>
+    </div>
+  </div>
+  
+  <div class="row my-5"  *ngIf="createNewLead">
+    <div class="col-12">
+      <!-- file upload  -->
+  
+      <div class="card flex justify-content-center">
+        <div class="fs-4 px-3 pt-3 opacity-75"><b>Create New Lead</b></div>
+  
+        <form
+          class="px-3 my-5 w-50"
+          [formGroup]="rawLeadForm"
+          (ngSubmit)="createLead()"
+        >
+          <div class="row">
+            <div class="col-4 w-auto justify-content-center mb-3">
+              <div class="d-flex">
+                <label class="fw-bold fs-5 opacity-75" for="name">Name</label>
+                <div>
+                  <input
+                    class="w-auto mx-2"
+                    formControlName="name"
+                    pInputText
+                    id="name"
+                    aria-describedby="username-help"
+                  />
+  
+                  <app-validation-errors
+                    [control]="rawLeadForm.get('name')"
+                    [customMessages]="{
+                      required: 'Please enter your name',
+                      pattern: 'Only Characters A-Z are allowed'
+                    }"
+                  ></app-validation-errors>
+                </div>
+              </div>
+            </div>
+  
+            <div class="col-4 w-auto mb-3">
+              <div class="d-flex">
+                <label class="fw-bold fs-5 opacity-75" for="name"
+                  >Phone Number</label
+                >
+                <div>
+                  <input
+                    class="w-auto mx-2"
+                    formControlName="phoneNumber"
+                    pInputText
+                    id="name"
+                    aria-describedby="username-help"
+                  />
+  
+                  <app-validation-errors
+                    [control]="rawLeadForm.get('phoneNumber')"
+                    [customMessages]="{
+                      required: 'Please enter  phoneNumber',
+                      pattern: 'Only digits 0-9 and + sign are allowed'
+                    }"
+                  ></app-validation-errors>
+                </div>
+              </div>
+            </div>
+  
+            <div class="col-4 w-auto mb-3">
+              <button
+                pButton
+                pRipple
+                label="Create Lead"
+                type="submit"
+                class="p-button-success"
+                [disabled]="!rawLeadForm.valid"
+              ></button>
+            </div>
+          </div>
+        </form>
+      </div>
+  
+      <!-- file upload  -->
+    </div>
+  </div>
+  
+  
+  <div class="row my-5"  *ngIf="leadsListing">
+    <div class="col-12">
+      <div class="card mt-5 text-light" style="background-color: #172b4d;">
+          <div class="d-flex align-items-center">
+          </div>
+       <p-table [columns]="selectedColumns" #dt [value]="leads" dataKey="id" [rowHover]="true"
+          [reorderableColumns]="true" [rows]="8" editMode="row" [showCurrentPageReport]="true"
+          [rowsPerPageOptions]="[4, 25, 50]" [paginator]="true" [resizableColumns]="true"
+          [totalRecords]="leads.length"
+          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+          styleClass="p-datatable-gridlines"
+          [globalFilterFields]="['Id', 'name', 'phoneNumber', 'status', 'assignedTo', 'updatedAt']">
+          <ng-template pTemplate="caption">
+            <div class="table-header">
+              <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
+                selectedItemsLabel="{0} columns selected" [style]="{'min-width': '200px'}"
+                placeholder="Choose Columns"></p-multiSelect>
+              <span class="p-input-icon-left ms-3">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+                  placeholder="Global Search" />
+              </span>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns" pResizableColumn pReorderableColumn>
+                {{col.header}}
+                <p-columnFilter type="text" [field]="col.field" display="menu"></p-columnFilter>
+              </th>
+            </tr>
+            <tr>
+              <th *ngFor="let col of columns">
+                <input pInputText type="text" (input)="dt.filter($any($event.target).value, col.field, 'contains')"
+                  [value]="$any(dt.filters[col.field])?.value || ''" [placeholder]="'Search by ' + col.field"
+                  class="w-full">
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-clientsData let-columns="columns" let-editing="editing" let-ri="rowIndex">
+            <tr [pEditableRow]="clientsData">
+              <td *ngFor="let col of columns">
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <input pInputText type="text" [(ngModel)]="clientsData[col.field]" required>
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{clientsData[col.field]}}
+                  </ng-template>
+                </p-cellEditor>
+              </td>
+            </tr>
+          </ng-template>
+           <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr>
+        <td *ngFor="let col of columns">
+          <ng-container *ngIf="col.field === 'assignedTo'; else checkUpdatedAt">
+            {{ rowData[col.field] ? (rowData[col.field]?.firstName + ' ' + rowData[col.field]?.lastName) : '' }}
+          </ng-container>
+          <ng-template #checkUpdatedAt>
+            <ng-container *ngIf="col.field === 'updatedAt'">
+              {{ rowData['assignedTo'] && rowData['assignedTo'].firstName && rowData['assignedTo'].lastName ? (rowData[col.field] | date:'M/d/yy, h:mm a') : '' }}
+            </ng-container>
+            <ng-container *ngIf="col.field !== 'updatedAt'">
+              {{ rowData[col.field] ? rowData[col.field] : '' }}
+            </ng-container>
+          </ng-template>
+        </td>
+      </tr>
+    </ng-template>
+        </p-table>
+  
+        </div>
+      </div>
+  
+  
+    </div>
+  

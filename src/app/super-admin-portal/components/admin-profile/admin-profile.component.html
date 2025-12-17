@@ -1,0 +1,1016 @@
+<div class="main-wrapper overflow-hidden">
+  <!-- user-profile-main-container starts -->
+  <div class="container user-profile-main-container">
+    <div class="row">
+      <div class="col-md-6">
+        <h5>User Profile</h5>
+      </div>
+    </div>
+  </div>
+  <!-- user-profile-main-container ends -->
+
+
+  <!-- first-container starts -->
+  <div class="container first-container">
+
+    <!-- <div class="row"> -->
+    <div class="profile-bg-image">
+      <!-- <div class="col-12">
+
+        </div> -->
+    </div>
+
+    <div class="profile-image-container">
+
+      <img src="../../../../assets/avatar-2.avif" class="me-4" alt="">
+    </div>
+
+
+    <div class="User-content text-light">
+      <h2> {{ userName }}
+      </h2>
+      <span>{{ userRole }}</span>
+    </div>
+
+      <!-- <div class="user-button">
+        <button type="button" class="btn btn-info"><i class="fa-solid fa-plus" style="color: #ffffff;"></i>
+          Follow</button>
+        <button type="button" class="btn btn-info"><i class="fa-solid fa-message" style="color: #ffffff;"></i>
+          Info</button>
+      </div> -->
+      <!-- <div class="mt-2">
+        <span>Admin-Progress</span>
+      </div> -->
+      <div class="userprogress user-button">
+        <canvas id="pieChart" width="100" height="100" #piechart class="chartjs-size-monitor-shrink"></canvas>
+        
+      </div>
+
+
+    <div class="user-button">
+      <button type="button" class="btn btn-info"><i class="fa-solid fa-plus" style="color: #ffffff;"></i>
+        Follow</button>
+      <button type="button" class="btn btn-info"><i class="fa-solid fa-message" style="color: #ffffff;"></i>
+        Info</button>
+    </div>
+
+    <!-- </div> -->
+  </div>
+  <!-- first-container ends -->
+
+  <!-- Nav-tabs starts -->
+  <div class="container tabs mt-5">
+    <div class="row">
+
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <div class="col-12 col-md-3">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button"
+              role="tab" aria-controls="home" aria-selected="true">Personal Info</button>
+          </li>
+        </div>
+
+        <div class="col-12 col-md-3">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button"
+              role="tab" aria-controls="profile" aria-selected="false">User's Service</button>
+          </li>
+        </div>
+
+        <div class="col-12 col-md-3">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button"
+              role="tab" aria-controls="contact" aria-selected="false">User's Contact</button>
+          </li>
+        </div>
+
+        <div class="col-12 col-md-3">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="review-tab" data-bs-toggle="tab" data-bs-target="#review" type="button"
+              role="tab" aria-controls="contact" aria-selected="false">Reviews</button>
+          </li>
+        </div>
+      </ul>
+
+    </div>
+  </div>
+  <!-- Nav-tabs ends -->
+
+  <!-- tab-content starts -->
+  <div class="tab-content" id="myTabContent">
+
+    <!-- personal info starts -->
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+      <div class="container my-5">
+        <div class="row bg-white">
+          <div class="col-md-12">
+            About Me
+          </div>
+        </div>
+
+        <div class="row bg-white">
+          <div class="col-md-6">
+            <table class="table">
+
+              <tbody>
+                <tr>
+                  <th scope="row">Full Name</th>
+                  <td>Josephine Villa</td>
+
+                </tr>
+                <tr>
+                  <th scope="row">Gender</th>
+                  <td>Female</td>
+
+                </tr>
+                <tr>
+                  <th scope="row">Birth Date</th>
+                  <td>October 25th, 1990</td>
+
+                </tr>
+                <tr>
+                  <th scope="row">Marital Status</th>
+                  <td> Single</td>
+
+                </tr>
+                <tr>
+                  <th scope="row">Location</th>
+                  <td>New York, USA</td>
+
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+          <div class="col-md-6">
+            <table class="table">
+              <tbody>
+
+                  <tr *ngFor="let data of adminData">
+
+                    <th> Email</th>
+                    <td>{{data.email}}</td>
+
+
+                </tr>
+                <tr>
+
+                  <th>Mobile Number</th>
+                  <td>(0123) - 4567891</td>
+                </tr>
+                <tr>
+
+                  <th>Twitter</th>
+                  <td>@xyz</td>
+                </tr>
+                <tr>
+
+                  <th>Skype</th>
+                  <td>demo.skype</td>
+                </tr>
+                <tr>
+
+                  <th>Website</th>
+                  <td>www.demo.com</td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white my-5 p-4 container">
+
+        <h6 class="py-3">Description About Me</h6>
+        <p>
+          But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born
+          and I will give you a complete account of the system, and expound the actual teachings of the great
+          explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids
+          pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure
+          rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or
+          pursues or desires to obtain pain of itself, because it is pain, but because occasionally
+          circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial
+          example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from
+          it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no
+          annoying consequences, or one who avoids a pain that produces no resultant pleasure?" "On the other
+          hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by
+          the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and
+          trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through
+          weakness of will, which is the same as saying through shrinking from toil and pain. These cases are
+          perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and
+          when nothing prevents our being able To Do what we like best, every pleasure is to be welcomed and
+          every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of
+          business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The
+          wise man therefore always holds in these matters to this principle of selection: he rejects pleasures
+          to secure other greater pleasures, or else he endures pains to avoid worse pain.</p>
+
+      </div>
+
+    </div>
+    <!-- personal info ends -->
+
+    <!-- profile starts -->
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+      <div class="container profile-container bg-white py-3 ">
+        <div class="row">
+          <p class="my-3">User's Service</p>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 ">
+            <div class="card border-start border-2 border-success-subtle w-100">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+
+                <p class="card-text">Lorem ipsum dolor sit amet, consectet ur adipisicing
+                  elit, sed do eiusmod temp or incidi dunt ut labore et.Lorem ipsum dolor
+                  sit amet, consecte.</p>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card border-start border-2 border-danger-subtle w-100">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+
+                <p class="card-text">Lorem ipsum dolor sit amet, consectet ur adipisicing
+                  elit, sed do eiusmod temp or incidi dunt ut labore et.Lorem ipsum dolor
+                  sit amet, consecte.</p>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row my-3">
+          <div class="col-md-6">
+            <div class="card border-start border-2 border-warning w-100">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+
+                <p class="card-text">Lorem ipsum dolor sit amet, consectet ur adipisicing elit, sed do eiusmod
+                  temp or incidi dunt ut labore et.Lorem ipsum dolor sit amet, consecte.</p>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card border-start border-2 border-info w-100">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+
+                <p class="card-text">Lorem ipsum dolor sit amet, consectet ur adipisicing elit, sed do eiusmod
+                  temp or incidi dunt ut labore et.Lorem ipsum dolor sit amet, consecte.</p>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row my-3">
+          <div class="col-md-6 ">
+            <div class="card border-start border-2 border-success w-100">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+
+                <p class="card-text">Lorem ipsum dolor sit amet, consectet ur adipisicing elit, sed do eiusmod
+                  temp or incidi dunt ut labore et.Lorem ipsum dolor sit amet, consecte.</p>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card border-start border-2 border-danger w-100">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+
+                <p class="card-text">Lorem ipsum dolor sit amet, consectet ur adipisicing elit, sed do eiusmod
+                  temp or incidi dunt ut labore et.Lorem ipsum dolor sit amet, consecte.</p>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        <!-- update-code -->
+        <div class="container bg-white my-5 p-4 profit-chart">
+          <h6>Profit</h6>
+          
+        </div>
+      </div>
+
+    </div>
+    <!-- profile ends -->
+
+
+    <!-- Contact starts -->
+    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+
+      <div class="row">
+        <div class="col-12 col-xl-3">
+          <div class="container contact-tab bg-white py-3 my-5">
+            <div class="user-image">
+              <img src="/Assets/christopher-campbell-rDEOVtE7vOs-unsplash.jpg" alt="">
+              <span class="ms-3"><strong>Shrilla Mckenzie</strong></span>
+            </div>
+
+            <button type="button" class="btn btn-info">All Contacts</button>
+            <button type="button" class="btn btn-light">Recent Contacts</button>
+            <button type="button" class="btn btn-light">Favourite Contacts</button>
+
+            <div class="ps-3 my-2">
+              <h5>Groups</h5>
+            </div>
+
+            <p class="border m-0">Project <span class="badge text-bg-danger rounded-pill float-end">30</span>
+            </p>
+
+            <p class="border m-0">Notes <span class="badge text-bg-primary rounded-pill float-end">40</span></p>
+
+            <p class="border m-0">Activity <span class="badge text-light text-bg-info rounded-pill float-end">100</span>
+            </p>
+
+
+            <p class="border m-0">Schedule <span class="badge text-bg-success rounded-pill float-end">30</span>
+            </p>
+
+          </div>
+
+          <div class="container contact-tab-avatar my-5 bg-white py-5">
+            <h5 class="m-0">Contacts</h5>
+            <p class="text-muted">(100)</p>
+
+            <!-- Use the title attribute to set tooltips -->
+            <img src="/Assets/christopher-campbell-rDEOVtE7vOs-unsplash.jpg" alt="Tooltip 1" title="Shrilla">
+            <img src="/Assets/christopher-campbell-rDEOVtE7vOs-unsplash.jpg" alt="Tooltip 2" title="Emma Stone">
+            <img src="/Assets/christopher-campbell-rDEOVtE7vOs-unsplash.jpg" alt="Tooltip 3" title="Jessica Chastain">
+            <img src="/Assets/christopher-campbell-rDEOVtE7vOs-unsplash.jpg" alt="Tooltip 4" title="Rachel Weisz">
+            <img src="/Assets/christopher-campbell-rDEOVtE7vOs-unsplash.jpg" alt="Tooltip 5" title="Kristen Stewart">
+            <img src="/Assets/christopher-campbell-rDEOVtE7vOs-unsplash.jpg" alt="Tooltip 6" title="Jessica Chastain">
+            <img src="/Assets/christopher-campbell-rDEOVtE7vOs-unsplash.jpg" alt="Tooltip 7" title="Jessica Chastain">
+            <img src="/Assets/christopher-campbell-rDEOVtE7vOs-unsplash.jpg" alt="Tooltip 8" title="Jessica Chastain">
+          </div>
+
+        </div>
+
+        <div class="col-12 col-xl-9">
+
+          <div class="container contact-tab-table bg-white mt-xl-5 py-5">
+            <div class="table-reponsive box">
+              <table id="example" class="table table-striped table-bordered">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Office</th>
+                    <th>Age</th>
+                    <th>Start date</th>
+                    <th>Salary</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Tiger Nixon</td>
+                    <td>System Architect</td>
+                    <td>Edinburgh</td>
+                    <td>61</td>
+                    <td>2011/04/25</td>
+                    <td>$320,800</td>
+                  </tr>
+                  <tr>
+                    <td>Garrett Winters</td>
+                    <td>Accountant</td>
+                    <td>Tokyo</td>
+                    <td>63</td>
+                    <td>2011/07/25</td>
+                    <td>$170,750</td>
+                  </tr>
+                  <tr>
+                    <td>Ashton Cox</td>
+                    <td>Junior Technical Author</td>
+                    <td>San Francisco</td>
+                    <td>66</td>
+                    <td>2009/01/12</td>
+                    <td>$86,000</td>
+                  </tr>
+                  <tr>
+                    <td>Cedric Kelly</td>
+                    <td>Senior Javascript Developer</td>
+                    <td>Edinburgh</td>
+                    <td>22</td>
+                    <td>2012/03/29</td>
+                    <td>$433,060</td>
+                  </tr>
+                  <tr>
+                    <td>Airi Satou</td>
+                    <td>Accountant</td>
+                    <td>Tokyo</td>
+                    <td>33</td>
+                    <td>2008/11/28</td>
+                    <td>$162,700</td>
+                  </tr>
+                  <tr>
+                    <td>Brielle Williamson</td>
+                    <td>Integration Specialist</td>
+                    <td>New York</td>
+                    <td>61</td>
+                    <td>2012/12/02</td>
+                    <td>$372,000</td>
+                  </tr>
+                  <tr>
+                    <td>Herrod Chandler</td>
+                    <td>Sales Assistant</td>
+                    <td>San Francisco</td>
+                    <td>59</td>
+                    <td>2012/08/06</td>
+                    <td>$137,500</td>
+                  </tr>
+                  <tr>
+                    <td>Rhona Davidson</td>
+                    <td>Integration Specialist</td>
+                    <td>Tokyo</td>
+                    <td>55</td>
+                    <td>2010/10/14</td>
+                    <td>$327,900</td>
+                  </tr>
+                  <tr>
+                    <td>Colleen Hurst</td>
+                    <td>Javascript Developer</td>
+                    <td>San Francisco</td>
+                    <td>39</td>
+                    <td>2009/09/15</td>
+                    <td>$205,500</td>
+                  </tr>
+                  <tr>
+                    <td>Sonya Frost</td>
+                    <td>Software Engineer</td>
+                    <td>Edinburgh</td>
+                    <td>23</td>
+                    <td>2008/12/13</td>
+                    <td>$103,600</td>
+                  </tr>
+                  <tr>
+                    <td>Jena Gaines</td>
+                    <td>Office Manager</td>
+                    <td>London</td>
+                    <td>30</td>
+                    <td>2008/12/19</td>
+                    <td>$90,560</td>
+                  </tr>
+                  <tr>
+                    <td>Quinn Flynn</td>
+                    <td>Support Lead</td>
+                    <td>Edinburgh</td>
+                    <td>22</td>
+                    <td>2013/03/03</td>
+                    <td>$342,000</td>
+                  </tr>
+                  <tr>
+                    <td>Charde Marshall</td>
+                    <td>Regional Director</td>
+                    <td>San Francisco</td>
+                    <td>36</td>
+                    <td>2008/10/16</td>
+                    <td>$470,600</td>
+                  </tr>
+                  <tr>
+                    <td>Haley Kennedy</td>
+                    <td>Senior Marketing Designer</td>
+                    <td>London</td>
+                    <td>43</td>
+                    <td>2012/12/18</td>
+                    <td>$313,500</td>
+                  </tr>
+                  <tr>
+                    <td>Tatyana Fitzpatrick</td>
+                    <td>Regional Director</td>
+                    <td>London</td>
+                    <td>19</td>
+                    <td>2010/03/17</td>
+                    <td>$385,750</td>
+                  </tr>
+                  <tr>
+                    <td>Michael Silva</td>
+                    <td>Marketing Designer</td>
+                    <td>London</td>
+                    <td>66</td>
+                    <td>2012/11/27</td>
+                    <td>$198,500</td>
+                  </tr>
+                  <tr>
+                    <td>Paul Byrd</td>
+                    <td>Chief Financial Officer (CFO)</td>
+                    <td>New York</td>
+                    <td>64</td>
+                    <td>2010/06/09</td>
+                    <td>$725,000</td>
+                  </tr>
+                  <tr>
+                    <td>Gloria Little</td>
+                    <td>Systems Administrator</td>
+                    <td>New York</td>
+                    <td>59</td>
+                    <td>2009/04/10</td>
+                    <td>$237,500</td>
+                  </tr>
+                  <tr>
+                    <td>Bradley Greer</td>
+                    <td>Software Engineer</td>
+                    <td>London</td>
+                    <td>41</td>
+                    <td>2012/10/13</td>
+                    <td>$132,000</td>
+                  </tr>
+                  <tr>
+                    <td>Dai Rios</td>
+                    <td>Personnel Lead</td>
+                    <td>Edinburgh</td>
+                    <td>35</td>
+                    <td>2012/09/26</td>
+                    <td>$217,500</td>
+                  </tr>
+                  <tr>
+                    <td>Jenette Caldwell</td>
+                    <td>Development Lead</td>
+                    <td>New York</td>
+                    <td>30</td>
+                    <td>2011/09/03</td>
+                    <td>$345,000</td>
+                  </tr>
+                  <tr>
+                    <td>Yuri Berry</td>
+                    <td>Chief Marketing Officer (CMO)</td>
+                    <td>New York</td>
+                    <td>40</td>
+                    <td>2009/06/25</td>
+                    <td>$675,000</td>
+                  </tr>
+                  <tr>
+                    <td>Caesar Vance</td>
+                    <td>Pre-Sales Support</td>
+                    <td>New York</td>
+                    <td>21</td>
+                    <td>2011/12/12</td>
+                    <td>$106,450</td>
+                  </tr>
+                  <tr>
+                    <td>Doris Wilder</td>
+                    <td>Sales Assistant</td>
+                    <td>Sidney</td>
+                    <td>23</td>
+                    <td>2010/09/20</td>
+                    <td>$85,600</td>
+                  </tr>
+                  <tr>
+                    <td>Angelica Ramos</td>
+                    <td>Chief Executive Officer (CEO)</td>
+                    <td>London</td>
+                    <td>47</td>
+                    <td>2009/10/09</td>
+                    <td>$1,200,000</td>
+                  </tr>
+                  <tr>
+                    <td>Gavin Joyce</td>
+                    <td>Developer</td>
+                    <td>Edinburgh</td>
+                    <td>42</td>
+                    <td>2010/12/22</td>
+                    <td>$92,575</td>
+                  </tr>
+                  <tr>
+                    <td>Jennifer Chang</td>
+                    <td>Regional Director</td>
+                    <td>Singapore</td>
+                    <td>28</td>
+                    <td>2010/11/14</td>
+                    <td>$357,650</td>
+                  </tr>
+                  <tr>
+                    <td>Brenden Wagner</td>
+                    <td>Software Engineer</td>
+                    <td>San Francisco</td>
+                    <td>28</td>
+                    <td>2011/06/07</td>
+                    <td>$206,850</td>
+                  </tr>
+                  <tr>
+                    <td>Fiona Green</td>
+                    <td>Chief Operating Officer (COO)</td>
+                    <td>San Francisco</td>
+                    <td>48</td>
+                    <td>2010/03/11</td>
+                    <td>$850,000</td>
+                  </tr>
+                  <tr>
+                    <td>Shou Itou</td>
+                    <td>Regional Marketing</td>
+                    <td>Tokyo</td>
+                    <td>20</td>
+                    <td>2011/08/14</td>
+                    <td>$163,000</td>
+                  </tr>
+                  <tr>
+                    <td>Michelle House</td>
+                    <td>Integration Specialist</td>
+                    <td>Sidney</td>
+                    <td>37</td>
+                    <td>2011/06/02</td>
+                    <td>$95,400</td>
+                  </tr>
+                  <tr>
+                    <td>Suki Burks</td>
+                    <td>Developer</td>
+                    <td>London</td>
+                    <td>53</td>
+                    <td>2009/10/22</td>
+                    <td>$114,500</td>
+                  </tr>
+                  <tr>
+                    <td>Prescott Bartlett</td>
+                    <td>Technical Author</td>
+                    <td>London</td>
+                    <td>27</td>
+                    <td>2011/05/07</td>
+                    <td>$145,000</td>
+                  </tr>
+                  <tr>
+                    <td>Gavin Cortez</td>
+                    <td>Team Leader</td>
+                    <td>San Francisco</td>
+                    <td>22</td>
+                    <td>2008/10/26</td>
+                    <td>$235,500</td>
+                  </tr>
+                  <tr>
+                    <td>Martena Mccray</td>
+                    <td>Post-Sales support</td>
+                    <td>Edinburgh</td>
+                    <td>46</td>
+                    <td>2011/03/09</td>
+                    <td>$324,050</td>
+                  </tr>
+                  <tr>
+                    <td>Unity Butler</td>
+                    <td>Marketing Designer</td>
+                    <td>San Francisco</td>
+                    <td>47</td>
+                    <td>2009/12/09</td>
+                    <td>$85,675</td>
+                  </tr>
+                  <tr>
+                    <td>Howard Hatfield</td>
+                    <td>Office Manager</td>
+                    <td>San Francisco</td>
+                    <td>51</td>
+                    <td>2008/12/16</td>
+                    <td>$164,500</td>
+                  </tr>
+                  <tr>
+                    <td>Hope Fuentes</td>
+                    <td>Secretary</td>
+                    <td>San Francisco</td>
+                    <td>41</td>
+                    <td>2010/02/12</td>
+                    <td>$109,850</td>
+                  </tr>
+                  <tr>
+                    <td>Vivian Harrell</td>
+                    <td>Financial Controller</td>
+                    <td>San Francisco</td>
+                    <td>62</td>
+                    <td>2009/02/14</td>
+                    <td>$452,500</td>
+                  </tr>
+                  <tr>
+                    <td>Timothy Mooney</td>
+                    <td>Office Manager</td>
+                    <td>London</td>
+                    <td>37</td>
+                    <td>2008/12/11</td>
+                    <td>$136,200</td>
+                  </tr>
+                  <tr>
+                    <td>Jackson Bradshaw</td>
+                    <td>Director</td>
+                    <td>New York</td>
+                    <td>65</td>
+                    <td>2008/09/26</td>
+                    <td>$645,750</td>
+                  </tr>
+                  <tr>
+                    <td>Olivia Liang</td>
+                    <td>Support Engineer</td>
+                    <td>Singapore</td>
+                    <td>64</td>
+                    <td>2011/02/03</td>
+                    <td>$234,500</td>
+                  </tr>
+                  <tr>
+                    <td>Bruno Nash</td>
+                    <td>Software Engineer</td>
+                    <td>London</td>
+                    <td>38</td>
+                    <td>2011/05/03</td>
+                    <td>$163,500</td>
+                  </tr>
+                  <tr>
+                    <td>Sakura Yamamoto</td>
+                    <td>Support Engineer</td>
+                    <td>Tokyo</td>
+                    <td>37</td>
+                    <td>2009/08/19</td>
+                    <td>$139,575</td>
+                  </tr>
+                  <tr>
+                    <td>Thor Walton</td>
+                    <td>Developer</td>
+                    <td>New York</td>
+                    <td>61</td>
+                    <td>2013/08/11</td>
+                    <td>$98,540</td>
+                  </tr>
+                  <tr>
+                    <td>Finn Camacho</td>
+                    <td>Support Engineer</td>
+                    <td>San Francisco</td>
+                    <td>47</td>
+                    <td>2009/07/07</td>
+                    <td>$87,500</td>
+                  </tr>
+                  <tr>
+                    <td>Serge Baldwin</td>
+                    <td>Data Coordinator</td>
+                    <td>Singapore</td>
+                    <td>64</td>
+                    <td>2012/04/09</td>
+                    <td>$138,575</td>
+                  </tr>
+                  <tr>
+                    <td>Zenaida Frank</td>
+                    <td>Software Engineer</td>
+                    <td>New York</td>
+                    <td>63</td>
+                    <td>2010/01/04</td>
+                    <td>$125,250</td>
+                  </tr>
+                  <tr>
+                    <td>Zorita Serrano</td>
+                    <td>Software Engineer</td>
+                    <td>San Francisco</td>
+                    <td>56</td>
+                    <td>2012/06/01</td>
+                    <td>$115,000</td>
+                  </tr>
+                  <tr>
+                    <td>Jennifer Acosta</td>
+                    <td>Junior Javascript Developer</td>
+                    <td>Edinburgh</td>
+                    <td>43</td>
+                    <td>2013/02/01</td>
+                    <td>$75,650</td>
+                  </tr>
+                  <tr>
+                    <td>Cara Stevens</td>
+                    <td>Sales Assistant</td>
+                    <td>New York</td>
+                    <td>46</td>
+                    <td>2011/12/06</td>
+                    <td>$145,600</td>
+                  </tr>
+                  <tr>
+                    <td>Hermione Butler</td>
+                    <td>Regional Director</td>
+                    <td>London</td>
+                    <td>47</td>
+                    <td>2011/03/21</td>
+                    <td>$356,250</td>
+                  </tr>
+                  <tr>
+                    <td>Lael Greer</td>
+                    <td>Systems Administrator</td>
+                    <td>London</td>
+                    <td>21</td>
+                    <td>2009/02/27</td>
+                    <td>$103,500</td>
+                  </tr>
+                  <tr>
+                    <td>Jonas Alexander</td>
+                    <td>Developer</td>
+                    <td>San Francisco</td>
+                    <td>30</td>
+                    <td>2010/07/14</td>
+                    <td>$86,500</td>
+                  </tr>
+                  <tr>
+                    <td>Shad Decker</td>
+                    <td>Regional Director</td>
+                    <td>Edinburgh</td>
+                    <td>51</td>
+                    <td>2008/11/13</td>
+                    <td>$183,000</td>
+                  </tr>
+                  <tr>
+                    <td>Michael Bruce</td>
+                    <td>Javascript Developer</td>
+                    <td>Singapore</td>
+                    <td>29</td>
+                    <td>2011/06/27</td>
+                    <td>$183,000</td>
+                  </tr>
+                  <tr>
+                    <td>Donna Snider</td>
+                    <td>Customer Support</td>
+                    <td>New York</td>
+                    <td>27</td>
+                    <td>2011/01/25</td>
+                    <td>$112,000</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+    <!-- Contact ends -->
+
+
+
+
+
+    <!-- reviews starts -->
+    <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
+
+
+      <div class="container w-100 my-5 py-5">
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-body p-4">
+                <h4 class="text-start mb-4 pb-2">Reviews</h4>
+
+                <div class="row">
+                  <div class="col">
+                    <div class="d-flex flex-start">
+                      <img class="rounded shadow-1-strong me-3"
+                        src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp" alt="avatar" width="45"
+                        height="45" />
+                      <div class="flex-grow-1 flex-shrink-1">
+                        <div>
+                          <div class="d-flex justify-content-between align-items-center">
+                            <p class="mb-1">
+                              Maria Smantha <span class="small">- 2 hours ago</span>
+                            </p>
+                            <a href="#!"><i class="fas fa-reply fa-xs"></i><span class="small"> reply</span></a>
+                          </div>
+                          <p class="small mb-0">
+                            It is a long established fact that a reader will be distracted by
+                            the readable content of a page.
+                          </p>
+                        </div>
+
+                        <div class="d-flex flex-start mt-4">
+                          <a class="me-3" href="#">
+                            <img class="rounded shadow-1-strong"
+                              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(11).webp" alt="avatar" width="45"
+                              height="45" />
+                          </a>
+                          <div class="flex-grow-1 flex-shrink-1">
+                            <div>
+                              <div class="d-flex justify-content-between align-items-center">
+                                <p class="mb-1">
+                                  Simona Disa <span class="small">- 3 hours ago</span>
+                                </p>
+                              </div>
+                              <p class="small mb-0">
+                                letters, as opposed to using 'Content here, content here',
+                                making it look like readable English.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="d-flex flex-start mt-4">
+                          <a class="me-3" href="#">
+                            <img class="rounded shadow-1-strong"
+                              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp" alt="avatar" width="45"
+                              height="45" />
+                          </a>
+                          <div class="flex-grow-1 flex-shrink-1">
+                            <div>
+                              <div class="d-flex justify-content-between align-items-center">
+                                <p class="mb-1">
+                                  John Smith <span class="small">- 4 hours ago</span>
+                                </p>
+                              </div>
+                              <p class="small mb-0">
+                                the majority have suffered alteration in some form, by
+                                injected humour, or randomised words.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="d-flex flex-start mt-4">
+                      <img class="rounded shadow-1-strong me-3"
+                        src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(12).webp" alt="avatar" width="45"
+                        height="45" />
+                      <div class="flex-grow-1 flex-shrink-1">
+                        <div>
+                          <div class="d-flex justify-content-between align-items-center">
+                            <p class="mb-1">
+                              Natalie Smith <span class="small">- 2 hours ago</span>
+                            </p>
+                            <a href="#!"><i class="fas fa-reply fa-xs"></i><span class="small"> reply</span></a>
+                          </div>
+                          <p class="small mb-0">
+                            The standard chunk of Lorem Ipsum used since the 1500s is
+                            reproduced below for those interested. Sections 1.10.32 and
+                            1.10.33.
+                          </p>
+                        </div>
+
+                        <div class="d-flex flex-start mt-4">
+                          <a class="me-3" href="#">
+                            <img class="rounded shadow-1-strong"
+                              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(31).webp" alt="avatar" width="45"
+                              height="45" />
+                          </a>
+                          <div class="flex-grow-1 flex-shrink-1">
+                            <div>
+                              <div class="d-flex justify-content-between align-items-center">
+                                <p class="mb-1">
+                                  Lisa Cudrow <span class="small">- 4 hours ago</span>
+                                </p>
+                              </div>
+                              <p class="small mb-0">
+                                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
+                                scelerisque ante sollicitudin commodo. Cras purus odio,
+                                vestibulum in vulputate at, tempus viverra turpis.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="d-flex flex-start mt-4">
+                          <a class="me-3" href="#">
+                            <img class="rounded shadow-1-strong"
+                              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(29).webp" alt="avatar" width="45"
+                              height="45" />
+                          </a>
+                          <div class="flex-grow-1 flex-shrink-1">
+                            <div>
+                              <div class="d-flex justify-content-between align-items-center">
+                                <p class="mb-1">
+                                  Maggie McLoan <span class="small">- 5 hours ago</span>
+                                </p>
+                              </div>
+                              <p class="small mb-0">
+                                a Latin professor at Hampden-Sydney College in Virginia,
+                                looked up one of the more obscure Latin words, consectetur
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="d-flex flex-start mt-4">
+                          <a class="me-3" href="#">
+                            <img class="rounded shadow-1-strong"
+                              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp" alt="avatar" width="45"
+                              height="45" />
+                          </a>
+                          <div class="flex-grow-1 flex-shrink-1">
+                            <div>
+                              <div class="d-flex justify-content-between align-items-center">
+                                <p class="mb-1">
+                                  John Smith <span class="small">- 6 hours ago</span>
+                                </p>
+                              </div>
+                              <p class="small mb-0">
+                                Autem, totam debitis suscipit saepe sapiente magnam officiis
+                                quaerat necessitatibus odio assumenda, perferendis quae iusto
+                                labore laboriosam minima numquam impedit quam dolorem!
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- reviews ends -->
+
+  </div>
+  <!-- tab-content endss -->

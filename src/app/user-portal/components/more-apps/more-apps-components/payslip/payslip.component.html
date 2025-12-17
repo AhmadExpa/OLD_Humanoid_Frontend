@@ -1,0 +1,10 @@
+<div class="container-fluid">
+    <div class="d-flex justify-content-center align-content-center header my-3">
+      <ul class="d-lg-flex d-sm-block mt-3">
+        <li class="mx-5" routerLink="./time-sheet" routerLinkActive="active" [routerLinkActiveOptions]="{exact:false}">Time Sheet</li>
+        <li class="mx-5" routerLink="./time-sheet-report" routerLinkActive="active" [routerLinkActiveOptions]="{exact:false}">Time Sheet Report</li>
+        <li class="mx-5" routerLink="./companies" routerLinkActive="active" [routerLinkActiveOptions]="{exact:false}">Companies</li>
+      </ul>
+    </div>
+    <router-outlet></router-outlet>
+  </div>

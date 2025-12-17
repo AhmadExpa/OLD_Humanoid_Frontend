@@ -1,0 +1,303 @@
+<div class="main">
+    <div class [ngClass]="!isClosed ? 'sidebar':'sideBarOff'">
+      <div class="border-bottom mb-3" *ngIf="!isClosed">
+        <a class="navbar-brand ms-4" href="#">
+          <img src="../../assets/dashboard-images/logo.jpg" alt width="150" height="57">
+        </a>
+      </div>
+      <ul class="mt-4 mb-4 nav-item" *ngIf="!isClosed">
+  
+        <li class="mb-3 ms-4" >
+          <a class="d-flex px-3" role="button" [routerLink]="'Dashboard'" routerLinkActive="activeColor">
+            <span class="icon me-2" >
+              <i class="fa fa-home"></i>
+            </span>
+            <span class routerLinkActive="activeColor">Dashboard</span>
+          </a>
+        </li>
+        <li class="mb-3 ms-4" >
+            <a class="d-flex px-3" role="button" [routerLink]="'Create-User'"  routerLinkActive="activeColor">
+              <span class="icon me-2" >
+                <i class='fas fa-qrcode'></i>
+              </span>
+              <span class routerLinkActive="activeColor">Create-User</span>
+            </a>
+          </li>
+        <li class="mb-3 ms-4" >
+            <a class="d-flex px-3" role="button" [routerLink]="'Assign-Task'"  routerLinkActive="activeColor">
+              <span class="icon me-2" >
+                <i class='fas fa-qrcode'></i>
+              </span>
+              <span class routerLinkActive="activeColor">Assign-Task</span>
+            </a>
+          </li>
+        <li>
+          <!-- <hr class="divider"> -->
+        </li>
+        <!-- <li>
+          <a routerLink="admin-profile" type="button" class="btn btn-outline-success  w-100" 
+           tooltipPosition="top"><i class="pi pi-user me-2 "></i><span class="display-7 "> ddfdf</span></a>
+        </li> -->
+      </ul>
+    </div>
+  
+    <div class="content">
+      <!-- header navbar -->
+  
+  
+      <nav class="navbar navbar-expand-lg navbar-light new-nav mb-2" aria-label="Eighth navbar example">
+        <div class="container-fluid">
+          <div class="hamburger mx-4" role="button">
+            <i class="fa-solid fa-bars" (click)="toggleSidebar()"></i>
+          </div>
+          <a class="navbar-brand x_secure" href="#">
+            <!-- <img src="https://codingyaar.com/wp-content/uploads/coding-yaar-logo.png" alt=""> -->
+            Welcome To Admin Dashboard
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <!-- <li class="nav-item mt-2">
+                <img src="../../assets/New-Assets/icons8-chatgpt-24.png" alt srcset>
+                <span class="me-4 ">
+                  Ask Chat-GPt
+                </span>
+              </li> -->
+  
+              <li class="nav-item">
+                <div class="hamburger me-4 mt-2" role="button" pTooltip="Notifications" tooltipPosition="top"
+                  data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling1" aria-controls="offcanvasScrolling1">
+                  <i class="fa-solid fa-bell"></i>
+                </div>
+              </li>
+              <li class="nav-item">
+                <div class="hamburger me-4 mt-2">
+                  <i class="fa-solid fa-inbox " type="button" data-bs-toggle="modal" data-bs-target="#exampleModal4"></i>
+                </div>
+              </li>
+              <li class="nav-item">
+                <div class="hamburger me-4 mt-2">
+                  <i class="pi pi-user-plus " type="button" data-bs-toggle="modal" data-bs-target="#exampleModal3"></i>
+                </div>
+              </li>
+              <li class="nav-item">
+                <div class="hamburger me-4 mt-2">
+                  <i class="fa-solid fa-puzzle-piece" type="button" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal7"></i>
+                </div>
+              </li>
+              <div class="hamburger me-4 mt-2">
+                <i class="fa-solid fa-magnifying-glass" type="button" data-bs-toggle="modal"
+                  data-bs-target="#exampleModal1"></i>
+              </div>
+              <div class="hamburger me-4 mt-2" role="button" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
+                <i class="fa-solid fa-question"></i>
+              </div>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  <i class="fa fa-gear" style="color: black;"></i>
+                </a>
+                <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+                  <ul>
+
+                    <li>
+                      <!-- <hr class="dropdown-divider"> -->
+                    </li>
+                    <li><a class="dropdown-item sign_out" >Sign out</a></li>
+                    <li>
+                      <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                  </ul>
+                </div>
+               
+              </li>
+  
+  
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  <i class="pi pi-user me-2"></i>
+                </a>
+                <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+                  <ul>
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="pi pi-user me-2"></i>User</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="pi pi-download me-2"></i>Import Data</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-code me-2"></i>Developers</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="pi pi-trash me-2"></i>Trash</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-box-archive me-2"></i>Archive</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="pi pi-spin pi-cog me-2"></i>Administration</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="pi pi-users me-2"></i>Teams</a></li>
+                    <li><a class="dropdown-item" (click)="signOut()"><i class="pi pi-sign-out me-2"></i>Log out</a>
+                    </li>
+                    <li><a class="dropdown-item"><i class="pi pi-arrow-right-arrow-left me-2"></i>Switch Accounts</a></li>
+  
+                  </ul>
+                  <ul>
+                    <li><a class="dropdown-item" href="#">Explore</a></li>
+  
+                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-puzzle-piece me-2"></i>App Marketplace</a>
+                    </li>
+                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-mobile-screen me-2"></i>Mobile App</a>
+                    </li>
+                    <li><a class="dropdown-item" href="#"><i
+                          class="fa-solid fa-filter fa-flip-vertical me-2"></i>humanoid.labs</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-folder-plus me-2"></i>Shortcuts</a></li>
+                    <hr class="dropdown-divider">
+                    <li><a class="dropdown-item" href="#"><i class="pi pi-plus me-2"></i>Invite Members</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-question me-2"></i>Get Help</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="pi pi-sun me-2"></i>Change Theme</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-wand-magic-sparkles me-2"></i>Upgrade</a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+  
+  
+            </ul>
+  
+  
+          </div>
+        </div>
+      </nav>
+  
+  
+  
+  
+  
+  
+      <!-- header navbar -->
+      <div class="main-content">
+        <router-outlet></router-outlet>
+        <!-- OffCanvas H -->
+        <div class="offcanvas offcanvas-end " style="margin-top: 70px; width:600px;" data-bs-scroll="true"
+          data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Colored with
+              scrolling</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <p>Try scrolling the rest of the page to see this option in action.</p>
+          </div>
+        </div>
+  
+        <!-- Modal help -->
+  
+        <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog  modal-fullscreen">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title mt-5 text-secondary mx-3" id="exampleModalLabel">Search Everything</h1>
+                <button type="button" class="btn-close mt-1" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                ...
+              </div>
+  
+            </div>
+          </div>
+        </div>
+  
+        <!-- Modal Market place -->
+  
+        <div class="modal fade" id="exampleModal7" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog  modal-fullscreen">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title text-secondary mx-3" id="exampleModalLabel">Navbar</h5>
+                <button type="button" class="btn-close mt-1" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                Side-bar and body
+              </div>
+  
+            </div>
+          </div>
+        </div>
+  
+        <!-- Modal Invite Members-->
+  
+        <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+              <!-- <div class="modal-header">
+          <h5 class="modal-title text-secondary mx-3" id="exampleModalLabel">Navbar</h5>
+          <button type="button" class="btn-close mt-1" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div> -->
+              <div class="modal-body">
+                <div class="container">
+                  <div class="row my-3">
+                    <div class="col-md-12">
+                      <h4 class="my-3">Invite to work management</h4>
+                    </div>
+                  </div>
+                  <div class="row my-2">
+                    <div class="my-3">
+                      <label for="exampleInputEmail1" class="form-label">Invite
+                        with email</label>
+                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+  
+                      <div class="form-check form-check-inline my-2">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                          value="option1">
+                        <label class="form-check-label" for="inlineRadio1">Member</label>
+                      </div>
+                      <div class="form-check form-check-inline my-2">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
+                          value="option2">
+                        <label class="form-check-label" for="inlineRadio2">Viewer(Read-only)</label>
+                      </div>
+  
+                    </div>
+                  </div>
+                </div>
+  
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Invite</button>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Modal Market place -->
+  
+        <div class="modal fade" id="exampleModal4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog  modal-fullscreen">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title text-secondary mx-3" id="exampleModalLabel">Tabs</h5>
+                <button type="button" class="btn-close mt-1" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                Sidediv
+              </div>
+  
+  
+            </div>
+          </div>
+        </div>
+        <!-- OffCanvas H -->
+        <div class="offcanvas offcanvas-end " style="margin-top: 70px; width:600px;" data-bs-scroll="true"
+          data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling1" aria-labelledby="offcanvasScrollingLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Notifictaions</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <p>Try scrolling the rest of the page to see this option in
+              action.</p>
+          </div>
+        </div>
+  
+      </div>
+    </div>
+    </div>
+

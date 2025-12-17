@@ -1,0 +1,120 @@
+
+
+<div class="d-flex justify-content-center mx-2 my-3">
+  <button class="btn btn-outline-primary me-auto" data-bs-toggle="offcanvas"
+    data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Fill Your Details</button>
+  <!-- <button class="btn btn-primary" (click)="backward()"><i
+      class="fa-solid fa-backward"></i></button>
+  <span class="mt-1 mx-2"><p class="fs-5 writingstyle"> {{contractName}}</p></span>
+  <button class="btn btn-primary" (click)="forward()"><i
+      class="fa-solid fa-forward"></i></button> -->
+</div>
+
+<div class="container-fluid">
+  <ngx-extended-pdf-viewer
+    [src]="pdfSrc"
+    [showTextEditor]="true"
+    [showOpenFileButton]="false"
+    [(sidebarVisible)]="sidebarVisible">
+  </ngx-extended-pdf-viewer>
+</div>
+
+<div class="offcanvas  offcanvas-end" tabindex="-1" id="offcanvasRight"
+  aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-header">
+    <h5 id="offcanvasRightLabel"></h5>
+    <button type="button" class="btn-close text-reset"
+      data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <form (ngSubmit)="submitSignatureForm()" [formGroup]="mySignatureForm">
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Name</label>
+        <input type="text" class="form-control" formControlName="name">
+                 <!-- validation -->
+                 <div class="error  text-danger"
+                 *ngIf="mySignatureForm.controls['name'].invalid && (mySignatureForm.controls['name'].dirty || mySignatureForm.controls['name'].touched)">
+                 <span *ngIf="(mySignatureForm.controls['name'].errors.pattern)">
+                     Only Alphabets allowed</span>
+                 <span *ngIf="mySignatureForm.controls['name'].errors.required">
+                     <small>Field Required!</small>
+                 </span>
+             </div>
+             <!-- validation -->
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Address</label>
+        <input type="text" class="form-control" formControlName="address">
+                 <!-- validation -->
+                 <div class="error  text-danger"
+                 *ngIf="mySignatureForm.controls['address'].invalid && (mySignatureForm.controls['address'].dirty || mySignatureForm.controls['address'].touched)">
+                 <span *ngIf="(mySignatureForm.controls['address'].errors.pattern)">
+                     Special Character not allowed</span>
+                 <span *ngIf="mySignatureForm.controls['address'].errors.required">
+                     <small>Field Required!</small>
+                 </span>
+             </div>
+             <!-- validation -->
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Phone Number</label>
+        <input type="text" class="form-control" formControlName="phoneNumber">
+                 <!-- validation -->
+                 <div class="error  text-danger"
+                 *ngIf="mySignatureForm.controls['phoneNumber'].invalid && (mySignatureForm.controls['phoneNumber'].dirty || mySignatureForm.controls['phoneNumber'].touched)">
+                 <span
+                     *ngIf="mySignatureForm.controls['phoneNumber'].errors.minlength || mySignatureForm.controls['phoneNumber'].errors.maxlength ">
+                     <small>Phone Number should be atleast 11 digits</small></span>
+                 <span *ngIf="(mySignatureForm.controls['phoneNumber'].errors.pattern)">
+                     only numbers allowed</span>
+                 <span *ngIf="mySignatureForm.controls['phoneNumber'].errors.required">
+                     <small>Field Required!</small>
+                 </span>
+             </div>
+             <!-- validation -->
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Position</label>
+        <input type="text" class="form-control" formControlName="position">
+                 <!-- validation -->
+                 <div class="error  text-danger"
+                 *ngIf="mySignatureForm.controls['position'].invalid && (mySignatureForm.controls['position'].dirty || mySignatureForm.controls['position'].touched)">
+                 <span *ngIf="(mySignatureForm.controls['position'].errors.pattern)">
+                     Only Alphabets allowed</span>
+                 <span *ngIf="mySignatureForm.controls['position'].errors.required">
+                     <small>Field Required!</small>
+                 </span>
+             </div>
+             <!-- validation -->
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Date</label>
+        <input type="date" class="form-control" id="date" placeholder="Date" formControlName="date">
+       
+        <!-- validation -->
+        <div class="error  text-danger"
+            *ngIf="mySignatureForm.controls['date'].invalid && (mySignatureForm.controls['date'].dirty || mySignatureForm.controls['date'].touched)">
+            <span *ngIf="mySignatureForm.controls['date'].errors.required">
+                <small>Field Required!</small>
+            </span>
+        </div>
+        <!-- validation -->
+    </div>
+    
+    <div class="block border border-4 my-auto">
+      <canvas
+      #canvas
+      (touchstart)="startDrawing($event)"
+      (touchmove)="moved($event)"
+      width="300"
+      height="300"></canvas>
+    </div>
+    <button class="btn btn-outline-danger my-2 me-2" (click)="clearPad($event)">Clear</button>
+    <button type="submit" class="btn btn-outline-primary my-2"   [disabled]="!mySignatureForm.valid"><span>Submit the signature</span>
+      <small class="loadingspinner d-inline-block ms-2" *ngIf="submitDetials"></small></button>
+  </form>
+  <!-- <div *ngFor="let imageData of imageFormArray.controls; let i = index">
+    <img [src]="imageData.value" alt="Image {{ i + 1 }}">
+  </div> -->
+  </div>
+</div>

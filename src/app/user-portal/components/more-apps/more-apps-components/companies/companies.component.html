@@ -1,0 +1,44 @@
+<div class="container-fluid">
+    <div class="row">
+  
+      <div class="col-md-12">
+  
+        <div class="d-flex bd-highlight bg-light  my-2">
+          <div class="p-2 flex-grow-1 bd-highlight fs-4">Companies</div>
+          <div class="p-2 bd-highlight"><i class="fa-sharp fa-solid fa-magnifying-glass fs-4 p-2"></i></div>
+          <div class="p-2 bd-highlight"><i class="fa-solid fa-square-plus fs-4 p-2 text-danger"></i></div>
+          <div class="p-2 bd-highlight"><i class="fa-solid fa-bars fs-4 p-2 "></i></div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-md-12 ">
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Company Name</th>
+                <th scope="col">Company Email</th>
+                <th scope="col">Company Director</th>
+                <th scope="col">Company Logo</th>
+                <th scope="col">Created Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of companyData; let i=index">
+                <td>{{i+1}}</td>
+                <td>{{data?.companyName}}</td>
+                <td>{{data?.companyEmail}}</td>
+                <td >{{data?.companyDirector}}</td>
+                <td class="text-center"><img [src]="data?.imageDetails[0]?.imageUrl" class="rounded-image" alt="Cinque Terre"></td>
+                <td>{{data?.createdAt | date}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  
+  </div>

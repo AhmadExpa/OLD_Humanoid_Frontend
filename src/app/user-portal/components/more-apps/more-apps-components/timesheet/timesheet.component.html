@@ -1,0 +1,215 @@
+<div class="container-fluid">
+    <div class="row">
+      <h3>Sweet Umbrella LTD</h3>
+    </div>
+    <div class="row">
+      <div class="background bg-light pt-1">
+        <h3>Timesheet</h3>
+      </div>
+    </div>
+    <form [formGroup]="timeSheetForm" (ngSubmit)="submitData()">
+      <div class="row my-3">
+        <div class="col-md-2">
+          <label for="exampleFormControlSelect1" class="my-3">Candidate</label>
+        </div>
+        <div class="col-md-4">
+          <div class="form-floating">
+           <select class="form-select scrollable-dropdown" id="client" aria-label="Floating label select example" formControlName="client">
+              <option *ngFor="let data of candidateNames" [ngValue]="data">{{data.name}}</option>
+            </select> 
+            <!-- <select class="form-select scrollable-dropdown" id="client" aria-label="Floating label select example" formControlName="client">
+              <option *ngFor="let data of allClients.sort((a, b) => { return a.name.localeCompare(b.name) })" [ngValue]="data">{{data.name}}</option>
+            </select> -->
+            
+  
+            <label for="clientName">Choose Client</label>
+          </div>
+          <div class="error  text-danger"
+            *ngIf="timeSheetForm.controls['client'].invalid && (timeSheetForm.controls['client'].dirty || timeSheetForm.controls['client'].touched)">
+            <span *ngIf="timeSheetForm.controls['client'].errors.required">
+              <small>Field Required!</small>
+            </span>
+          </div>
+        </div>
+      </div>
+      <!--  -->
+      <div class="row my-3">
+        <div class="col-md-2">
+          <label for="" class="my-3">Use Margin Fee</label>
+        </div>
+        <div class="col-md-4">
+          <div class="form-floating">
+            <select class="form-select" id="useMarginFee" aria-label="Floating label select example"
+              formControlName="useMarginFee">
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+            <label for="useMarginFee">User Margin Fee</label>
+          </div>
+          <div class="error  text-danger"
+            *ngIf="timeSheetForm.controls['useMarginFee'].invalid && (timeSheetForm.controls['useMarginFee'].dirty || timeSheetForm.controls['useMarginFee'].touched)">
+            <span *ngIf="timeSheetForm.controls['useMarginFee'].errors.required">
+              <small>Field Required!</small>
+            </span>
+          </div>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-md-2">
+          <label for="" class="my-3">Agency</label>
+        </div>
+  
+        <div class="col-md-4">
+          <div class="form-floating" >
+            <select class="form-select" id="agency" aria-label="Floating label select example"
+              formControlName="agency">
+              <option *ngFor="let item of getAllUmbrellaServiceData" [ngValue]="item">{{item?.companyName}}</option>
+            </select>
+            <label for="Agency">Agency Names</label>
+          </div>
+          <div class="error  text-danger"
+            *ngIf="timeSheetForm.controls['agency'].invalid && (timeSheetForm.controls['agency'].dirty || timeSheetForm.controls['agency'].touched)">
+            <span *ngIf="timeSheetForm.controls['agency'].errors.required">
+              <small>Field Required!</small>
+            </span>
+          </div>
+        </div>
+        
+        <div class="col-md-6"></div>
+      </div>
+  
+      <div class="row my-3">
+        <div class="col-md-2">
+          <label for="" class="my-3">Week</label>
+        </div>
+        <div class="col-md-4">
+          <div class="form-floating mx-1">
+            <input type="number" class="form-control w-100" id="week" placeholder="week" formControlName="week" (change)="checkWeek($event)">
+            <label for="week">Week</label>
+          </div>
+          <div class="error  text-danger"
+            *ngIf="timeSheetForm.controls['week'].invalid && (timeSheetForm.controls['week'].dirty || timeSheetForm.controls['week'].touched)">
+            <span *ngIf="timeSheetForm.controls['week'].errors.required">
+              <small>Field Required!</small>
+            </span>
+          </div>
+        </div>
+      </div>
+  
+      <ng-container *ngIf="!timeSheetForm.invalid && showTimeSheetControls">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="heading">
+              <h3>Timesheet</h3>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <!-- Table -->
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead class="table-light">
+                  <tr>
+                    <th scope="col" class="text-center">From</th>
+                    <th scope="col" class="text-center">To</th>
+                    <th scope="col" class="text-center">Unit</th>
+                    <th scope="col" class="text-center">Rate</th>
+                    <th scope="col" class="text-center">TotalPay</th>
+                    <th scope="col" class="text-center">Selected Week</th>
+                    <th scope="col" class="text-center">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <ng-container formArrayName="timeSheetControlsArray">
+                    <tr *ngFor="let rowData of initRowData().controls; let i=index" [formGroupName]="i">
+                      <td scope="col">
+                        <input type="date" class="form-control w-100" placeholder="From" formControlName="from">
+                      </td>
+                      <td scope="col"> <input type="date" class="form-control w-100" placeholder="To"
+                          formControlName="to">
+                      </td>
+                      <td scope="col"> <input type="number" class="form-control w-100" placeholder="Unit"
+                          formControlName="unit"></td>
+                      <td scope="col"> <input type="number" class="form-control w-100" placeholder="Rate"
+                          formControlName="rate" (change)="totalTimeSheet(i)"></td>
+                      <td scope="col"> <input type="number" class="form-control w-100" placeholder="Total Pay"
+                          formControlName="totalPay"></td>
+                      <td scope="col"> <input type="number" class="form-control w-100"
+                          formControlName="paySlipWeek" readonly></td>
+                      <td scope="col" class="text-center"><i class="fas fa-trash text-danger"
+                          (click)="removeTimeSheetRow(i)"></i></td>
+                    </tr>
+                  </ng-container>
+                  <tr>
+                    <th scope="row" colspan="7" class="text-center pink"><span (click)="addRow()">+ Add New</span></th>
+                  </tr>
+  
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+  
+        <div class="row">
+          <div class="col-md-12">
+            <div class="heading">
+              <h3>Deductions</h3>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <!-- Table -->
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead class="table-light">
+                  <tr>
+                    <th scope="col" class="text-center">Deductions</th>
+                    <th scope="col" class="text-center">From</th>
+                    <th scope="col" class="text-center">To</th>
+                    <th scope="col" class="text-center">Selected Week</th>
+                    <th scope="col" class="text-center">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <ng-container formArrayName="deductionControlsArray">
+                    <tr *ngFor="let rowData of initDeductionRowData().controls; let i=index" [formGroupName]="i">
+                      <td scope="col"> <input type="number" class="form-control w-100" placeholder="Deduction"
+                          formControlName="dedutcions" (change)="totalDeduction(i)"></td>
+                      <td scope="col"> <input type="date" class="form-control w-100" placeholder="From"
+                          formControlName="from"></td>
+                      <td scope="col"> <input type="date" class="form-control w-100" placeholder="To"
+                          formControlName="to">
+                      </td>
+                          <td scope="col"> <input type="number" class="form-control w-100"
+                            formControlName="paySlipWeek" readonly></td>
+                      <td scope="col" class="text-center"><i class="fas fa-trash text-danger"
+                          (click)="removeDeductionRow(i)"></i></td>
+                    </tr>
+                  </ng-container>
+                  <tr>
+                    <th scope="row" colspan="5" class="text-center pink"><span (click)="addDeductionRow()">+ Add
+                        New</span>
+                    </th>
+                  </tr>
+  
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="buttons mb-3 w-100">
+              <button type="submit" class="btn btn-outline-dark w-100" [disabled]="timeSheetForm.pristine || timeSheetForm.invalid">Submit</button>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </form>
+  </div>
+  
+  
+  
+  
+  
+  
+  

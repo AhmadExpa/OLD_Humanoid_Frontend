@@ -1,0 +1,49 @@
+.pink {
+    color: #ff0098;
+  }
+  
+  .btnPink {
+    border: 1px solid #ff0098;
+    background: #ff0098;
+    color: white;
+    border-radius: 0%;
+  }
+  
+  .btnPink:hover {
+    border: 1px solid #ff0098;
+    background: #ff0098;
+    color: white;
+    border-radius: 0%;
+  }
+  
+  .btn-outline-secondary {
+    border-radius: 0%;
+  }
+  
+  .ukImage {
+    height: 5vh;
+    width: 100%;
+  }
+  
+  select {
+    position: relative;
+    top: 0px;
+  }
+  
+  .icon {
+    position: absolute;
+    right: 52%;
+  }
+  
+  span:hover {
+    cursor: pointer;
+  }
+  
+  i:hover {
+    cursor: pointer;
+  }
+  
+  .scrollable-dropdown {
+    max-height: 150px;
+    overflow-y: auto;
+  }

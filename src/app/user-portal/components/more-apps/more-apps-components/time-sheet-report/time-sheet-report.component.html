@@ -1,0 +1,437 @@
+<!-- Prime-Table -->
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 mb-3">
+        <p-table #dt [value]="paySlips" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
+          [totalRecords]="paySlips.length" [rowsPerPageOptions]="[5, 10, 16]"
+          [globalFilterFields]="['client.name', 'createdAt', 'paySlipWeeklyInformation', 'agency', 'client.businessAndCompanyName']"
+          dataKey="id">
+          <ng-template pTemplate="caption" class="coustoms">
+            <div class="flex">
+              <span class="p-input-icon-left ml-auto">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+                  placeholder="Search keyword" />
+              </span>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th pSortableColumn="client.name" class="w-full">Client <p-sortIcon field="client.name"></p-sortIcon></th>
+              <th pSortableColumn="client.businessAndCompanyName" class="w-full">Bussiness And Company Name <p-sortIcon field="client.businessAndCompanyName"></p-sortIcon></th>
+              <th pSortableColumn="createdAt" class="w-full">Created Date <p-sortIcon
+                  field="createdAt" class="w-full"></p-sortIcon></th>
+              <th pSortableColumn="week" class="w-full">Weeks <p-sortIcon field="week"></p-sortIcon></th>
+              <th pSortableColumn="agency" class="w-full">Agency<p-sortIcon field="agency"></p-sortIcon>
+              </th>
+              <th>
+                <span class="text-center ps-2">Actions</span>
+              </th>
+            </tr>
+            <tr>
+            </tr>
+          </ng-template>
+  
+          <ng-template pTemplate="body" let-paySlips >
+            <tr>
+            <td>{{paySlips?.client?.name}}</td>
+            <td>{{paySlips?.client?.businessAndCompanyName}}</td>
+            <td>{{paySlips?.createdAt | date}}</td>
+            <td><span *ngFor="let subData of paySlips.paySlipWeeklyInformation">{{subData.week + ','}}</span></td>
+            <td>{{paySlips?.agency}}</td>
+              <td>
+                <p-button icon="pi pi-eye" (click)="getPaySlipById(paySlips?._id)" styleClass="p-button-success" data-bs-toggle="modal"
+                data-bs-target="#exampleModal" class="me-1"></p-button>
+              <p-button icon="pi pi-trash" styleClass="p-button-danger" class="me-1"
+              data-bs-toggle="modal" data-bs-target="#exampleModal5" (click)="activeModal(paySlips?._id)"></p-button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+  
+  
+      </div>
+    </div>
+  </div>
+  <!-- Prime-Table -->
+  
+  <!-- Updated-Table -->
+  <!-- <p-table [columns]="selectedColumns" #dt [value]="paySlips" [tableStyle]="{'min-width': '50rem'}" dataKey="id"
+    [rowHover]="true" [reorderableColumns]="true" [rows]="5" editMode="row" [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[4, 25, 50]" [paginator]="true" [resizableColumns]="true" [totalRecords]="paySlips.length"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+    styleClass="p-datatable-gridlines" [globalFilterFields]="['client.name', 'client.businessAndCompanyName', 'createdAt', 'paySlipWeeklyInformation','agency']">
+    <ng-template pTemplate="caption">
+      <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
+        selectedItemsLabel="{0} columns selected" [style]="{'min-width': '200px'}"
+        placeholder="Choose Columns"></p-multiSelect>
+  
+      <span class="p-input-icon-left ms-3">
+        <i class="pi pi-search"></i>
+        <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+          placeholder="Global Search" />
+      </span>
+      <span>
+        <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt)"></button>
+      </span>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns pResizableColumn pReorderableColumn>
+      <tr>
+        <th *ngFor="let col of columns">
+          {{col.header}}
+          <p-columnFilter type="text" [field]="col.field" display="menu"></p-columnFilter>
+        </th>
+        <th>
+          <span>Perform-Actions</span>
+        </th>
+      </tr>
+      <tr>
+        <th *ngFor="let col of columns">
+          <input pInputText type="text" (input)="dt.filter($any($event.target).value, col.field, 'contains')"
+            [value]="$any(dt.filters[col.field])?.value || ''" [placeholder]="'Search by' + col.header" class="w-full">
+        </th>
+        <th>
+          <span>Perform-Actions</span>
+        </th>
+      </tr>
+  
+    </ng-template>
+    <ng-template pTemplate="body" let-paySlips let-columns="columns" let-editing="editing" let-ri="rowIndex">
+      <tr>
+        <td *ngFor="let col of columns">
+          <ng-container *ngIf="col.field !== 'createdAt'; else specialField">
+            {{ getNestedValue(paySlips, col.field) }}
+          </ng-container>
+          <ng-template #specialField>
+        <td *ngIf="col.field === 'createdAt'">{{ paySlips[col.field] | date }}</td>
+        <td *ngIf="col.field === 'paySlipWeeklyInformation'">
+          <ng-container *ngFor="let subData of col.field">
+        <td>{{ subData.week}}</td>
+        </ng-container>
+        </td>
+    </ng-template>
+    </td>
+    <td>
+      <p-button icon="pi pi-eye" (click)="getPaySlipById(paySlips?._id)" styleClass="p-button-success" data-bs-toggle="modal"
+      data-bs-target="#exampleModal" class="me-1"></p-button>
+    <p-button icon="pi pi-trash" styleClass="p-button-danger" class="me-1"
+    data-bs-toggle="modal" data-bs-target="#exampleModal5" (click)="activeModal(paySlips?._id)"></p-button>
+    </td>
+    </tr>
+    </ng-template>
+  
+  </p-table> -->
+  
+  
+  
+  
+  
+  <!-- Update the pTable component -->
+  <!-- Updated-Table -->
+  
+  
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Humanoidcrm</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row text-center">
+            <div class="col">
+              <img src="https://www.pngkit.com/png/full/72-729913_user-blank-avatar-png.png" alt=""
+                class="img-fluid rounded mb-3">
+              <h4 class="mt-2">{{ paySlipIndividualData?.client?.name }}</h4>
+              <div class="container text-center border-bottom">
+                <div class="accordion accordion-flush w-100" id="accordionFlushExample">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingOne">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        <h4 class="mt-2">{{ paySlipIndividualData?.client?.name }} Details</h4>
+                      </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                      data-bs-parent="#accordionFlushExample">
+                      <div class="accordion-body">
+                        <div class="table-responsive">
+                          <table class="table table-borderless">
+                            <thead>
+                              <tr>
+                                <th>Client Name</th>
+                                <th>Bussiness And Company Name</th>
+                                <th>NINO</th>
+                                <th>Address</th>
+                                <th>Date of Birth</th>
+                                <th>Joining date</th>
+                                <th>Email</th>
+                                <th>Uk PostCode</th>
+                                <th>Gender</th>
+                                <th>Sort Code</th>
+                                <th>Bank Account Number</th>
+                                <th>Created At</th>
+                                <th>Updated At</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>{{ paySlipIndividualData?.client?.name }}</td>
+                                <td>{{ paySlipIndividualData?.client?.businessAndCompanyName }}</td>
+                                <td>{{ paySlipIndividualData?.client?.nino }}</td>
+                                <td>{{ paySlipIndividualData?.client?.address }}</td>
+                                <td>{{ paySlipIndividualData?.client?.dob | date }}</td>
+                                <td>{{ paySlipIndividualData?.client?.joiningDate | date }}</td>
+                                <td> {{ paySlipIndividualData?.client?.email }}</td>
+                                <td> {{ paySlipIndividualData?.client?.ukPostCode }}</td>
+                                <td> {{ paySlipIndividualData?.client?.gender }}</td>
+                                <td> {{ paySlipIndividualData?.client?.sortCode }}</td>
+                                <td> {{ paySlipIndividualData?.client?.bankAccountNumber }}</td>
+                                <td> {{ paySlipIndividualData?.client?.createdAt | date }}</td>
+                                <td> {{ paySlipIndividualData?.client?.updatedAt | date }}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingOne">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseOne">
+                    Rti Code
+                  </button>
+                </h2>
+                <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                  data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body">
+                    <p>{{paySlipIndividualData?.rtiCodeXml}}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingTwo">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                    Download Pay Slips
+                  </button>
+                </h2>
+                <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
+                  data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body">
+                    <div class="btn-group mx-2" *ngFor="let data of paySlipIndividualData?.paySlipWeeklyInformation">
+                      <a class="btn btn-outline-primary px-2 rounded-0" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasExample" aria-controls="offcanvasExample"
+                        (click)="getWeeklySlip({week:data.week})">Week {{data.week}}
+                      </a>
+                      <a class="btn btn-outline-danger rounded-0" data-bs-toggle="modal" data-bs-target="#exampleModal4"
+                        (click)="activeWeekModal(data)"><i class="fas fa-trash"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+  
+        <!-- Canvas -->
+        <div class="offcanvas offcanvas-end w-50" tabindex="-1" id="offcanvasExample"
+          aria-labelledby="offcanvasExampleLabel">
+          <div class="offcanvas-header">
+            <div>
+              <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div>
+              <button printTitle="" [useExistingCss]="true" type="button" class="btn btn-outline-dark mx-2"
+                data-bs-dismiss="offcanvas" printSectionId="print-section" ngxPrint>Download</button>
+            </div>
+          </div>
+          <div class="offcanvas-body">
+            <div class="container-fluid" id="print-section" #PaySlip>
+              <div class="row ">
+                <div class="col-md-8">
+  
+                </div>
+                <div class="col-md-4">
+                  <div class="logo me-1">
+                    <img src="../../../../../../assets/logo.png" alt="" width="220" height="70" srcset="">
+                  </div>
+                </div>
+              </div>
+  
+              <div class="row mt-5">
+                <div class="col-md-8"></div>
+                <div class="col-md-4">
+                  <div class="headings">
+                    <p>Sweet Umbrella Limited</p>
+                    <p>4th Floor, Silverstream House 45 Fitzroy Street,</p>
+                    <p>Fitzrovia London W1T 6EB</p>
+                    <p>Pay Slip</p>
+                    <p>Tel:+44 02039927879</p>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="row">
+                <div class="col">
+                  <div class="border border-dark d-flex p-2">
+                    <div>
+                      <p>Remittance Advice</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="table-responsive">
+                  <table class="table border border-dark table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Contructor Name</th>
+                        <th>Process Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">{{paySlipIndividualData?.client?.name}}</th>
+                        <th scope="row">{{paySlipIndividualData?.createdAt | date}}</th>
+                      </tr>
+                  </table>
+                </div>
+              </div>
+  
+              <div class="row">
+                <div class="container">
+                  <div class="row">
+                    <div class="col">
+                      <div class="table-responsive">
+                        <table class="table">
+                          <thead>
+                            <tr class="border border-dark table-bordered">
+                              <th class="text-center">From</th>
+                              <th class="text-center">To</th>
+                              <th class="text-center">Units</th>
+                              <th class="text-center">Rate</th>
+                              <th class="text-center">Total Pay</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr class="border border-dark table-bordered" *ngFor="let data of timeSheetData">
+                              <th scope="row" class="text-center">{{data?.from | date}}</th>
+                              <th scope="row" class="text-center">{{data?.to | date}}</th>
+                              <th scope="row" class="text-center">{{data?.unit}}</th>
+                              <th scope="row" class="text-center">£ {{data?.rate}}</th>
+                              <th scope="row" class="text-center">£ {{data?.totalPay}}</th>
+                            </tr>
+                            <tr class="border border-dark table-bordered">
+                              <td colspan="2"></td>
+                              <td colspan="2" class="text-center border border-dark table-bordered"><span>Total Ts
+                                  Value</span><br><span>Total
+                                  Deduction</span></td>
+                              <td class="text-center"><span>£ {{totalTsValue}}</span><br>£ {{totalDeduction}}</td>
+                            </tr>
+                            <tr class="border border-dark table-bordered">
+                              <td colspan="2"></td>
+                              <td colspan="2" class="text-center border border-dark table-bordered"><span>Gross
+                                  Amount</span></td>
+                              <td class="text-center">£ {{grossAmount}}</td>
+                            </tr>
+  
+                            <tr *ngIf="deductionSheetData.length>0">
+                              <td colspan="5"></td>
+                            </tr>
+  
+                            <ng-container *ngIf="deductionSheetData.length>0">
+                              <tr class="border border-dark table-bordered">
+                                <td colspan="4">Deductions</td>
+                                <td class="text-center">Value</td>
+                              </tr>
+                              <tr class="border border-dark table-bordered" *ngFor="let data of deductionSheetData">
+                                <td colspan="4"></td>
+                                <td class="text-center">- £ {{data?.dedutcions}}</td>
+                              </tr>
+                              <tr class="border border-dark table-bordered">
+                                <td colspan="2"></td>
+                                <td colspan="2" class="text-center border border-dark table-bordered"><span>Total
+                                    Deduction Value</span>
+                                </td>
+                                <td class="text-center"><span>- £ {{totalDeductions}}</span></td>
+                              </tr>
+                              <tr class="border border-dark table-bordered">
+                                <td colspan="2"></td>
+                                <td colspan="2" class="text-center border border-dark table-bordered"><span>Total Gross
+                                    Amount</span>
+                                </td>
+                                <td class="text-center">£ {{totalDeductionValue}}</td>
+                              </tr>
+                            </ng-container>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button type="button" class="btn btn-outline-dark w-100"
+              (click)="sendEmailToClient(paySlipIndividualData?.client)">Send Email To Client</button>
+          </div>
+        </div>
+        <!-- Canvas -->
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->
+  
+  <!-- Confirmation Modal  -->
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal5" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" data-bs-dismiss="modal" class="btn btn-outline-danger"
+            (click)="deletePaySlip(paySlipId)">Are you
+            sure you want to Delete it?</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Confirmation Modal -->
+  
+  
+  
+  <!-- Confirmation Week delete Modal -->
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" data-bs-dismiss="modal" class="btn btn-outline-danger"
+            (click)="deleteParticularField(weekId)">Are you
+            sure you want to Delete it?</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Confirmation Modal -->

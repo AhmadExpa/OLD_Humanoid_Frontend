@@ -1,0 +1,475 @@
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div class="col-md-12 mb-3">
+
+            <p-toolbar styleClass="mb-4 gap-2">
+                <ng-template pTemplate="left">
+                    <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"
+                        (click)="openNew()"></button>
+                    <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash"
+                        (click)="clear(dt)" class="ms-4"></button>
+
+                </ng-template>
+              
+            </p-toolbar>
+
+            <!-- primeng-Modal -->
+            <p-dialog [(visible)]="leadDialog" [style]="{ width: '850px' }" header="Leads Details" [modal]="true"
+            styleClass="p-fluid">
+            <form (ngSubmit)="submitLeadForm()" [formGroup]="LeadForm">
+
+                        <div class="row" style="height:10vh ;"></div>
+                        <div class="row my-2">
+                            <h4 class="writingstyle">Personal Information</h4>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-1">
+                        
+                                <label for="foreName" class="mt-1 text-secondary writingstyle">First Name</label>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control p-1 custom-height w-75" id="foreName"
+                                        placeholder="foreName" formControlName="foreName">
+
+                                    <!-- validation -->
+                                    <div class="error  text-danger"
+                                        *ngIf="LeadForm.controls['foreName'].invalid && (LeadForm.controls['foreName'].dirty || LeadForm.controls['foreName'].touched)">
+                                        <span *ngIf="(LeadForm.controls['foreName'].errors.pattern)">
+                                            Only Alphabets allowed</span>
+                                        <span *ngIf="LeadForm.controls['foreName'].errors.required">
+                                            <small>Field Required!</small>
+                                        </span>
+                                    </div>
+                                    <!-- validation -->
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <label class="mt-1 text-secondary writingstyle" for="surName">Last Name</label>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control p-1 custom-height w-75" id="surName"
+                                        placeholder="surName" formControlName="surName">
+
+                                    <!-- validation -->
+                                    <div class="error  text-danger"
+                                        *ngIf="LeadForm.controls['surName'].invalid && (LeadForm.controls['surName'].dirty || LeadForm.controls['surName'].touched)">
+                                        <span *ngIf="(LeadForm.controls['surName'].errors.pattern)">
+                                            Only Alphabets allowed</span>
+                                        <span *ngIf="LeadForm.controls['surName'].errors.required">
+                                            <small>Field Required!</small>
+                                        </span>
+                                    </div>
+                                    <!-- validation -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1">
+                                <label class="mt-1 text-secondary writingstyle" for="email">Email Address</label>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-floating mb-3">
+                                    <input type="email" class="form-control p-1 custom-height w-75" id="email"
+                                        placeholder="email" formControlName="email">
+
+                                    <!-- validation -->
+                                    <div class="error  text-danger"
+                                        *ngIf="LeadForm.controls['email'].invalid && (LeadForm.controls['email'].dirty || LeadForm.controls['email'].touched)">
+                                        <span *ngIf="LeadForm.controls['email'].errors.email">
+                                            <small>Use correct pattern as example@example.com</small></span>
+                                        <span *ngIf="LeadForm.controls['email'].errors.required">
+                                            <small>Field Required!</small>
+                                        </span>
+                                    </div>
+                                    <!-- validation -->
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <label class="mt-1 text-secondary writingstyle" for="phoneNumber">Phone
+                                    Number</label>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-floating mb-3">
+                                    <input type="text" style="height:4vh;"
+                                        class="form-control w-75 p-1 custom-height" id="phoneNumber"
+                                        placeholder="phoneNumber" formControlName="phoneNumber">
+                                    <div class="error text-danger"
+                                        *ngIf="LeadForm.controls['phoneNumber'].invalid && (LeadForm.controls['phoneNumber'].dirty || LeadForm.controls['phoneNumber'].touched)">
+                                        <span
+                                            *ngIf="LeadForm.controls['phoneNumber'].errors.minlength || LeadForm.controls['phoneNumber'].errors.maxlength">
+                                            <small>Phone Number should be atleast 11 digits</small>
+                                        </span>
+                                        <span *ngIf="(LeadForm.controls['phoneNumber'].errors.pattern)">
+                                            only numbers allowed
+                                        </span>
+                                        <span *ngIf="LeadForm.controls['phoneNumber'].errors.required">
+                                            <small>Field Required!</small>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1">
+                                <label class="mt-1 text-secondary writingstyle" for="agency">Agency Names</label>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-floating">
+                                    <select class="form-select w-75 custom-height p-1" id="agency"
+                                        aria-label="Floating label select example" formControlName="agency">
+                                        <option *ngFor="let item of getAllUmbrellaServiceData"
+                                            [ngValue]="item?.companyName">
+                                            {{item?.companyName}}
+                                        </option>
+                                    </select>
+
+                                    <!-- validation -->
+                                    <div class="error  text-danger"
+                                        *ngIf="LeadForm.controls['agency'].invalid && (LeadForm.controls['agency'].dirty || LeadForm.controls['agency'].touched)">
+                                        <span *ngIf="LeadForm.controls['agency'].errors.required">
+                                            <small>Field Required!</small>
+                                        </span>
+                                    </div>
+                                    <!-- validation -->
+                                </div>
+                            </div>
+
+                            <div class="col-md-1">
+                                <label class="mt-1 text-secondary writingstyle" for="productType">Product
+                                    Type</label>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-floating mb-3">
+                                    <select class="form-select w-75 custom-height p-1" id="productType"
+                                        aria-label="Floating label select example" formControlName="productType"
+                                        (change)="populateFee($event)">
+                                        <option *ngFor="let item of productTypeArray" [ngValue]="item"
+                                            [value]="item">{{item}}
+                                        </option>
+                                    </select>
+
+                                    <!-- validation -->
+                                    <div class="error  text-danger"
+                                        *ngIf="LeadForm.controls['productType'].invalid && (LeadForm.controls['productType'].dirty || LeadForm.controls['productType'].touched)">
+                                        <span *ngIf="LeadForm.controls['productType'].errors.required">
+                                            <small>Field Required!</small>
+                                        </span>
+                                    </div>
+                                    <!-- validation -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1">
+                                <label class="mt-1 text-secondary writingstyle" for="salesExecutive">Sales
+                                    Executives</label>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-floating mb-3">
+                                    <select class="form-select w-75 custom-height p-1" id="salesExecutive"
+                                        aria-label="Floating label select example" formControlName="salesExecutive">
+                                        <option *ngFor="let item of dummyArray" [ngValue]="item">{{item}}
+                                        </option>
+                                    </select>
+
+                                    <!-- validation -->
+                                    <div class="error  text-danger"
+                                        *ngIf="LeadForm.controls['salesExecutive'].invalid && (LeadForm.controls['salesExecutive'].dirty || LeadForm.controls['salesExecutive'].touched)">
+                                        <span *ngIf="LeadForm.controls['salesExecutive'].errors.required">
+                                            <small>Field Required!</small>
+                                        </span>
+                                    </div>
+                                    <!-- validation -->
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <label class="mt-1 text-secondary writingstyle" for="productType">Fee %</label>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-floating">
+                                    <select class="form-select w-75 custom-height p-1" id="fee"
+                                        aria-label="Floating label select example" formControlName="fee">
+                                        <option *ngFor="let item of populateFeeArray" [ngValue]="item">{{item}}
+                                        </option>
+                                    </select>
+
+                                    <!-- validation -->
+                                    <div class="error  text-danger"
+                                        *ngIf="LeadForm.controls['fee'].invalid && (LeadForm.controls['fee'].dirty || LeadForm.controls['fee'].touched)">
+                                        <span *ngIf="LeadForm.controls['fee'].errors.required">
+                                            <small>Field Required!</small>
+                                        </span>
+                                    </div>
+                                    <!-- validation -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <h4 class="my-3 writingstyle">Lead Information</h4>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1">
+                                <label class="mt-1 text-secondary writingstyle" for="leadOwner">Lead Owner</label>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-floating mb-3">
+                                    <select class="form-select p-1 custom-height w-75" id="leadOwner"
+                                        aria-label="Floating label select example" formControlName="leadOwner">
+                                        <option *ngFor="let item of dummyArray" [ngValue]="item">{{item}}
+                                        </option>
+                                    </select>
+
+                                   
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <label class="mt-1 text-secondary writingstyle" for="industry">Industry</label>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-floating mb-3">
+                                    <select class="form-select p-1 custom-height w-75" id="industry"
+                                        aria-label="Floating label select example" formControlName="industry">
+                                        <option *ngFor="let item of dummyArray" [ngValue]="item">{{item}}
+                                        </option>
+                                    </select>
+
+                                  
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1">
+                                <label class="mt-1 text-secondary writingstyle" for="leadStatus">Laed Status</label>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-floating mb-3">
+                                    <select class="form-select p-1 custom-height w-75" id="leadStatus"
+                                        aria-label="Floating label select example" formControlName="leadStatus">
+                                        <option *ngFor="let item of dummyArray" [ngValue]="item">{{item}}
+                                        </option>
+                                    </select>
+
+                                   
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-check mt-3">
+                                    <input class="form-check-input " type="checkbox" value="" id="flexCheckDefault"
+                                        formControlName="leadConfirmed">
+                                    <label class="mt-1 text-secondary writingstyle" class="form-check-label ms-3"
+                                        for="flexCheckDefault">
+                                        Lead confirmed
+                                    </label>
+                                  
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1">
+                                <label class="mt-1 text-secondary writingstyle" for="dateTime">Date and
+                                    Time:</label>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-floating mb-3">
+                                    <input type="datetime-local" class="form-control p-1 custom-height w-75"
+                                        id="dateTime" placeholder="Date-Time" name="dateTime"
+                                        formControlName="dateTime">
+
+                                  
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <label class="mt-1 text-secondary writingstyle" for="acountName">Account
+                                    Name</label>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-floating mb-3">
+                                    <select class="form-select p-1 custom-height w-75" id="acountName"
+                                        aria-label="Floating label select example" formControlName="acountName">
+                                        <option *ngFor="let item of dummyArray" [ngValue]="item">{{item}}
+                                        </option>
+                                    </select>
+
+                                 
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-outline-primary mt-3 w-100">Create</button>
+                        </div>
+
+
+            </form>
+        </p-dialog>
+            <!-- primeng-Modal -->
+
+           
+
+            <p-table [columns]="selectedColumns" #dt [value]="getAllLeadData" dataKey="id" [rowHover]="true"
+                [reorderableColumns]="true" [rows]="10" editMode="row" [showCurrentPageReport]="true"
+                [rowsPerPageOptions]="[4, 25, 50]" [paginator]="true" [resizableColumns]="true"
+                [totalRecords]="getAllLeadData.length"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+                styleClass="p-datatable-gridlines"
+                [globalFilterFields]="['clientName', 'campaign', 'email', 'status','platform']">
+                <ng-template pTemplate="caption">
+
+                    <div class="table-header">
+                        <span class="me-5"> List of Leads</span>
+                      
+                        <!-- Multi-Select -->
+                        <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
+                            selectedItemsLabel="{0} columns selected" [style]="{'min-width': '200px'}"
+                            placeholder="Choose Columns"></p-multiSelect>
+                        <!-- Multi-Select -->
+                        <span class="p-input-icon-left ms-3">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text"
+                                (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+                                placeholder="Global Search" />
+                        </span>
+
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+
+                        <th *ngFor="let col of columns" pResizableColumn pReorderableColumn>
+                            {{col.header}}
+                          
+                            <p-columnFilter type="text" [field]="col.field" display="menu"></p-columnFilter>
+                        </th>
+                        <th pResizableColumn>
+                            <span>Perform-Actions</span>
+                        </th>
+
+                    </tr>
+
+                    <tr>
+
+                        <th *ngFor="let col of columns">
+                            <input pInputText type="text"
+                                (input)="dt.filter($any($event.target).value, col.field, 'contains')"
+                                [value]="$any(dt.filters[col.field])?.value || ''"
+                                [placeholder]="'Search by ' + col.header" class="w-full">
+                        </th>
+
+                        <th>
+                            <span>Perform-Actions</span>
+                        </th>
+                    </tr>
+                    <tr>
+
+                    </tr>
+
+                </ng-template>
+
+                <ng-template pTemplate="body" let-getAllLeadData let-columns="columns" let-editing="editing"
+                    let-ri="rowIndex">
+                    <tr [pEditableRow]="getAllLeadData">
+                        <td *ngFor="let col of columns">
+                            <p-cellEditor>
+
+                                <ng-template pTemplate="input">
+                                    <ng-container *ngIf="col.field === 'status'  ">
+                                        <p-dropdown [options]="getOptions(col.field)"
+                                            [(ngModel)]="getAllLeadData[col.field]" [editable]="false"
+                                            appendTo="body"></p-dropdown>
+                                    </ng-container>
+                                    <ng-container *ngIf="col.field !== 'status' ">
+                                        <input pInputText type="text" [(ngModel)]="getAllLeadData[col.field]">
+                                    </ng-container>
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    <ng-container *ngIf="col.header === 'Status'">
+                                        <p-tag [value]="getAllLeadData[col.field]"
+                                            [severity]="getSeverity(getAllLeadData[col.field])"></p-tag>
+                                    </ng-container>
+
+                                    <ng-container *ngIf="col.header !== 'Status' ">
+                                        {{ getAllLeadData[col.field] }}
+                                    </ng-container>
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td style="text-align:center">
+                            <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
+                                class="p-button-success me-1" (click)="onRowEditInit(getAllLeadData, ri)"></button>
+
+                            <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check"
+                                (click)="onRowEditSave(getAllLeadData, ri)" class="p-button-success"
+                                class="me-2"></button>
+                            <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
+                                (click)="onRowEditCancel(getAllLeadData, ri)" class="p-button-danger me-2"></button>
+                            <p-button icon="pi pi-trash" styleClass="p-button-danger" class="me-1"
+                                data-bs-toggle="modal" (click)="activeModal({_id:getAllLeadData?._id,modal:'hard'})"
+                                data-bs-target="#exampleModal1"></p-button>
+                            <p-button icon="pi pi-trash" styleClass="p-button-warning" data-bs-toggle="modal"
+                                (click)="activeModal({_id:getAllLeadData?._id,modal:'soft'})"
+                                data-bs-target="#exampleModal1"></p-button>
+                        </td>
+                    </tr>
+
+
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal  -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{activeSoftDeleteModal ? 'Archived' :
+                    activeHardDeleteModal ? 'Delete' : ''}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" data-bs-dismiss="modal" class="btn"
+                    [ngClass]=" activeSoftDeleteModal ? 'btn-outline-success' : activeHardDeleteModal ? 'btn-outline-danger' : '' "
+                    (click)="activeSoftDeleteModal ? softDeleteLeadDataWithId(this.getLeadDataOfId) : activeHardDeleteModal ? deleteLeadDataWithId(this.getLeadDataOfId) : null">Are
+                    you sure you want to {{activeSoftDeleteModal ? 'Archived' : activeHardDeleteModal ?
+                    'Delete' : ''}}
+                    it?</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+
+
+
+
+
+
+<!-- Confirmation Modal  -->
+<!-- Modal -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" data-bs-dismiss="modal" class="btn btn-outline-danger"
+                    (click)="deleteLeadDataWithId(leadsId)">Are you
+                    sure you want to Delete it?</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Confirmation Modal -->

@@ -1,0 +1,39 @@
+<button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Create-User-Role
+</button>
+
+<!-- User-Role Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <form [formGroup]="createUserRole" (ngSubmit)="submitRole()">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add-Role</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <label for="inputEmail4" class="mt-3">Create Role</label>
+                    <input type="email" class="form-control" placeholder="Create Role" formControlName="role" />
+                        <!-- validation -->
+                        <div class="error  text-danger"
+                        *ngIf="createUserRole.controls['role'].invalid && (createUserRole.controls['role'].dirty || createUserRole.controls['role'].touched)">
+                        <span *ngIf="(createUserRole.controls['role'].errors.pattern)">
+                            Only Alphabets allowed</span>
+                        <span *ngIf="createUserRole.controls['role'].errors.required">
+                            <small>Field Required!</small>
+                        </span>
+                    </div>
+                    <!-- validation -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save
+                        changes</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- User-Role Modal -->

@@ -1,0 +1,371 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 mb-3">
+      <p-toolbar styleClass="mb-4 gap-2">
+        <ng-template pTemplate="left">
+          <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"
+            (click)="openNew()"></button>
+            <!-- <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash"
+            (click)="clear(dt)" class="ms-4"></button> -->
+        </ng-template>
+      </p-toolbar>
+
+      <p-dialog [(visible)]="agencyDialog" [style]="{ width: '850px' }" header="Agency Details" [modal]="true"
+        styleClass="p-fluid">
+
+
+        <form (ngSubmit)="submitAgencyForm()" [formGroup]="agencyForm">
+
+<div class="container">
+          <div class="row my-2">
+
+
+            <div class="col-md-1">
+              <label for="email" class="mt-1 text-secondary writingstyle">Email</label>
+            </div>
+            <div class="col-md-5">
+              <div class="form-floating mb-3">
+                <input type="email" class="form-control p-1 custom-height w-75" id="email" placeholder="email"
+                  formControlName="email">
+
+              </div>
+              <!-- <div class="error  text-danger"
+                              *ngIf="agencyForm.controls['email'].invalid && (agencyForm.controls['email'].dirty || agencyForm.controls['email'].touched)">
+                              <span *ngIf="agencyForm.controls['email'].errors.email">
+                                <small>Use correct pattern as example@example.com</small></span>
+                              <span *ngIf="agencyForm.controls['email'].errors.required">
+                                <small>Field Required!</small>
+                              </span>
+                            </div> -->
+            </div>
+            <div class="col-md-1">
+              <label for="firstName" class="mt-1 text-secondary writingstyle">First Name</label>
+            </div>
+            <div class="col-md-5">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control p-1 custom-height w-75" id="firstName" placeholder="First Name"
+                  formControlName="firstName">
+
+              </div>
+              <!-- <div class="error  text-danger"
+                                *ngIf="agencyForm.controls['firstName'].invalid && (agencyForm.controls['firstName'].dirty || agencyForm.controls['firstName'].touched)">
+                                <span *ngIf="(agencyForm.controls['firstName'].errors.pattern)">
+                                  Only Alphabets allowed</span>
+                                <span *ngIf="agencyForm.controls['firstName'].errors.required">
+                                  <small>Field Required!</small>
+                                </span>
+                              </div> -->
+            </div>
+          </div>
+          <div class="row">
+
+            <div class="col-md-1">
+              <label for="surName" class="mt-1 text-secondary writingstyle">Last Name</label>
+            </div>
+            <div class="col-md-5">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control p-1 custom-height w-75" id="surName" placeholder="Last Name"
+                  formControlName="lastName">
+
+              </div>
+              <!-- <div class="error  text-danger"
+                                        *ngIf="agencyForm.controls['lastName'].invalid && (agencyForm.controls['lastName'].dirty || agencyForm.controls['lastName'].touched)">
+                                        <span *ngIf="(agencyForm.controls['lastName'].errors.pattern)">
+                                          Only Alphabets allowed</span>
+                                        <span *ngIf="agencyForm.controls['lastName'].errors.required">
+                                          <small>Field Required!</small>
+                                        </span>
+                                      </div> -->
+            </div>
+            <div class="col-md-1">
+              <label for="Contract Owner" class="mt-1 text-secondary writingstyle">Contract Owner</label>
+            </div>
+            <div class="col-md-5">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control p-1 custom-height w-75" id="Contract Owner"
+                  placeholder="Contract Owner" formControlName="contractOwner">
+
+              </div>
+              <!-- <div class="error  text-danger"
+                                          *ngIf="agencyForm.controls['surName'].invalid && (agencyForm.controls['surName'].dirty || agencyForm.controls['surName'].touched)">
+                                          <span *ngIf="(agencyForm.controls['surName'].errors.pattern)">
+                                            Only Alphabets allowed</span>
+                                          <span *ngIf="agencyForm.controls['surName'].errors.required">
+                                            <small>Field Required!</small>
+                                          </span>
+                                        </div> -->
+            </div>
+
+          </div>
+          <div class="row my-2">
+            <div class="col-md-1">
+              <label for="email" class="mt-1 text-secondary writingstyle">Job Title</label>
+            </div>
+            <div class="col-md-5">
+              <div class="form-floating mb-3">
+                <input type="email" class="form-control p-1 custom-height w-75" id="email" placeholder="Job Title"
+                  formControlName="jobTitle">
+
+              </div>
+              <!-- <div class="error  text-danger"
+                              *ngIf="agencyForm.controls['email'].invalid && (agencyForm.controls['email'].dirty || agencyForm.controls['email'].touched)">
+                              <span *ngIf="agencyForm.controls['email'].errors.email">
+                                <small>Use correct pattern as example@example.com</small></span>
+                              <span *ngIf="agencyForm.controls['email'].errors.required">
+                                <small>Field Required!</small>
+                              </span>
+                            </div> -->
+            </div>
+            <div class="col-md-1">
+              <label for="marginFee" class="mt-1 text-secondary writingstyle">Lifecycle Stage</label>
+            </div>
+            <div class="col-md-5">
+              <div class="">
+
+                <!-- <i class="pi pi-user"></i> -->
+                <!-- <input   type="text" class="form-control" id="marginFee" 
+                                  formControlName="marginFee"> -->
+                <input class="form-control p-1 custom-height w-75" type="text" aria-label=".form-control-sm example"
+                  formControlName="lifecycleStage">
+
+                <!-- validation -->
+                <!-- <div class="error  text-danger"
+                                *ngIf="agencyForm.controls['marginFee'].invalid && (agencyForm.controls['marginFee'].dirty || agencyForm.controls['marginFee'].touched)">
+                                <span *ngIf="agencyForm.controls['marginFee'].errors.required">
+                                  <small>Field Required!</small>
+                                </span>
+                                <span *ngIf="(agencyForm.controls['marginFee'].errors.pattern)">
+                                  only numbers allowed</span>
+                                </div> -->
+                <!-- validation -->
+              </div>
+            </div>
+          </div>
+          <div class="row my-2">
+            <div class="col-md-1">
+              <label for="surName" class="mt-1 text-secondary writingstyle">Lead Status</label>
+            </div>
+            <div class="col-md-5">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control p-1 custom-height w-75" id="businessAndCompanyName"
+                  placeholder="Lead Status" formControlName="leadStatus">
+
+              </div>
+              <!-- <div class="error  text-danger"
+                                *ngIf="agencyForm.controls['businessAndCompanyName'].invalid && (agencyForm.controls['businessAndCompanyName'].dirty || agencyForm.controls['businessAndCompanyName'].touched)">
+                                <span *ngIf="agencyForm.controls['businessAndCompanyName'].errors.required">
+                                  <small>Field Required!</small>
+                                </span>
+                              </div> -->
+            </div>
+            <div class="col-md-1">
+              <label for="sortCode" class="mt-1 text-secondary writingstyle">Industry</label>
+            </div>
+            <div class="col-md-5">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control p-1 custom-height w-75" id="sortCode" placeholder="sortCode"
+                  formControlName="industry">
+
+              </div>
+              <!-- <div class="error  text-danger"
+                                *ngIf="agencyForm.controls['sortCode'].invalid && (agencyForm.controls['sortCode'].dirty || agencyForm.controls['sortCode'].touched)">
+                                <span
+                                  *ngIf="agencyForm.controls['sortCode'].errors.minlength || agencyForm.controls['sortCode'].errors.maxlength ">
+                                  <small>Number should be atleast 6 digits</small></span>
+                                <span *ngIf="(agencyForm.controls['sortCode'].errors.pattern)">
+                                  only numbers allowed</span>
+                                <span *ngIf="agencyForm.controls['sortCode'].errors.required">
+                                  <small>Field Required!</small>
+                                </span>
+                              </div> -->
+            </div>
+
+          </div>
+
+
+
+          <div class="row">
+            <div class="col-md-1">
+              <label for="email" class="mt-1 text-secondary writingstyle">Secondary Email</label>
+            </div>
+            <div class="col-md-5">
+              <div class="form-floating mb-3">
+                <input type="email" class="form-control p-1 custom-height w-75" id="email" placeholder="Secondary Email"
+                  formControlName="secondaryEmail">
+
+              </div>
+              <!-- <div class="error  text-danger"
+                                  *ngIf="agencyForm.controls['email'].invalid && (agencyForm.controls['email'].dirty || agencyForm.controls['email'].touched)">
+                                  <span *ngIf="agencyForm.controls['email'].errors.email">
+                                    <small>Use correct pattern as example@example.com</small></span>
+                                  <span *ngIf="agencyForm.controls['email'].errors.required">
+                                    <small>Field Required!</small>
+                                  </span>
+                                </div> -->
+            </div>
+
+            <div class="col-md-1">
+              <label for="phoneNumber" class="mt-1 text-secondary writingstyle">Phone Number</label>
+            </div>
+            <div class="col-md-5">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control p-1 custom-height w-75" id="phoneNumber"
+                  placeholder="phoneNumber" formControlName="phoneNumber">
+
+              </div>
+              <!-- <div class="error  text-danger"
+                                  *ngIf="agencyForm.controls['phoneNumber'].invalid && (agencyForm.controls['phoneNumber'].dirty || agencyForm.controls['phoneNumber'].touched)">
+                                  <span
+                                    *ngIf="agencyForm.controls['phoneNumber'].errors.minlength || agencyForm.controls['phoneNumber'].errors.maxlength ">
+                                    <small>Phone Number should be atleast 11 digits</small></span>
+                                  <span *ngIf="(agencyForm.controls['phoneNumber'].errors.pattern)">
+                                    only numbers allowed</span>
+                                  <span *ngIf="agencyForm.controls['phoneNumber'].errors.required">
+                                    <small>Field Required!</small>
+                                  </span>
+                                </div> -->
+            </div>
+          </div>
+
+
+
+
+
+          <button type="submit" class="btn btn-outline-primary mt-3 w-100">Create</button>
+
+
+
+
+
+        </div>
+        </form>
+
+      </p-dialog>
+
+      <p-table [columns]="selectedColumns" #dt [value]="agencyData" dataKey="id" [rowHover]="true"
+        [reorderableColumns]="true" [rows]="10" editMode="row" [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[4, 25, 50]" [paginator]="true" [resizableColumns]="true"
+        [totalRecords]="agencyData.length"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+        styleClass="p-datatable-gridlines"
+        [globalFilterFields]="['titleName', 'foreName', 'surName', 'email', 'gender', 'businessAndCompanyName', 'marginFee', 'sortCode', 'bankAccountNumber', 'comments', 'phoneNumber','name']">
+        <ng-template pTemplate="caption">
+
+          <div class="table-header">
+            <span class="me-5"> List of View-Conversion-Sale</span>
+            <!-- Multi-Select -->
+            <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
+              selectedItemsLabel="{0} columns selected" [style]="{'min-width': '200px'}"
+              placeholder="Choose Columns"></p-multiSelect>
+            <!-- Multi-Select -->
+            <span class="p-input-icon-left ms-3">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+                placeholder="Global Search" />
+            </span>
+            <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash"
+                          (click)="clear(dt)" class="ms-4"></button>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let col of columns" pResizableColumn pReorderableColumn>
+              {{col.header}}
+              <!-- <p-sortIcon [field]="col.field"></p-sortIcon> -->
+              <p-columnFilter type="text" [field]="col.field" display="menu"></p-columnFilter>
+            </th>
+            <th pResizableColumn>
+              <span>Perform-Actions</span>
+            </th>
+
+          </tr>
+
+          <tr>
+            <!-- <th>
+                    <input pInputText type="text"
+                        (input)="dt.filter($any($event.target).value, 'clientName', 'contains')"
+                        [value]="$any(dt.filters['clientName'])?.value" placeholder="Search by Country"
+                        class="w-full">
+                </th> -->
+            <th *ngFor="let col of columns">
+              <input pInputText type="text" (input)="dt.filter($any($event.target).value, col.field, 'contains')"
+                [value]="$any(dt.filters[col.field])?.value || ''" [placeholder]="'Search by ' + col.field"
+                class="w-full">
+            </th>
+            <th>
+              <span>Perform-Actions</span>
+            </th>
+          </tr>
+          <tr>
+          </tr>
+
+        </ng-template>
+
+        <ng-template pTemplate="body" let-agencyData let-columns="columns" let-editing="editing" let-ri="rowIndex">
+          <tr [pEditableRow]="agencyData">
+            <td *ngFor="let col of columns">
+              <!-- <p-cellEditor>
+  
+                        <ng-template pTemplate="input">
+                            <ng-container>
+                                <input pInputText type="text">
+                            </ng-container>
+                        </ng-template>
+                    </p-cellEditor> -->
+
+              <p-cellEditor>
+
+                <ng-template pTemplate="input">
+                  <input pInputText type="text" [(ngModel)]="agencyData[col.field]" required>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{agencyData[col.field]}}
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <td style="text-align:center">
+              <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
+                class="p-button-success me-1" (click)="onRowEditInit(agencyData, ri)"></button>
+
+              <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check"
+                (click)="onRowEditSave(agencyData, ri)" class="p-button-success" class="me-2"></button>
+              <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
+                (click)="onRowEditCancel(agencyData, ri)" class="p-button-danger me-2"></button>
+              <p-button icon="pi pi-trash" styleClass="p-button-danger" class="me-1" data-bs-toggle="modal"
+                (click)="activeModal({_id:agencyData?._id,modal:'hard'})" data-bs-target="#exampleModal1"></p-button>
+              <p-button icon="pi pi-trash" styleClass="p-button-warning" data-bs-toggle="modal"
+                (click)="activeModal({_id:agencyData?._id,modal:'soft'})" data-bs-target="#exampleModal1"></p-button>
+            </td>
+          </tr>
+
+
+        </ng-template>
+      </p-table>
+
+
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{activeSoftDeleteModal ? 'Archived' : activeHardDeleteModal ?
+          'Delete' : ''}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" data-bs-dismiss="modal" class="btn"
+          [ngClass]=" activeSoftDeleteModal ? 'btn-outline-success' : activeHardDeleteModal ? 'btn-outline-danger' : '' "
+          (click)="activeSoftDeleteModal ? softDeleteAgencyWithId(agencyId) : activeHardDeleteModal ? hardDeleteAgencyWithId(agencyId) : null">Are
+          you sure you want to {{activeSoftDeleteModal ? 'Archived' : activeHardDeleteModal ? 'Delete' : ''}}
+          it?</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->

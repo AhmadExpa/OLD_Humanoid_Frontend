@@ -1,0 +1,61 @@
+<!-- <app-pay-calendar></app-pay-calendar> -->
+<div class="container">
+    <h4 class="fw-bold mt-5">Pay Runs</h4>
+    <p class="h6">Process your employees' pay in the pay cycles you operate. You can also review and edit previous pay runs.</p>
+    <div class="pay_run_container">
+  <div class="row">
+    <div class="d-flex">
+        <div class="col-lg-6">
+            <div class="card-body cards_div pb-4 mb-3" *ngFor="let data of weeklyCalendars">
+              <ng-container>
+                <div>
+                  <h6 class="ms-3 fw-bold mt-3">Next {{data.calenderType}} Pay Run</h6>
+                  <div class="d-flex">
+                    <p class="mt-2 px-3">Due {{data.firstPayRun | date:'MMM d, y'}} (Week 10)</p>
+                    <button class="btn btn-custom btn-outline-success btn_radius me-3">
+                      Process Pay Run
+                    </button>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+            <a routerLink="/super-admin-portal/payroll/pay-calendar" class="text-success"><p class="ms-2 mt-2">Setup New Calendar</p></a>
+        </div>
+
+  <div class="col-lg-6">
+    <table class="table">
+        <thead class="table_head">
+          <tr>
+            <th scope="col" class="text-white">#</th>
+            <th scope="col"class="text-white" >First</th>
+            <th scope="col" class="text-white">Last</th>
+            <th scope="col" class="text-white">Handle</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>mdo</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>fat</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td colspan="2">Larry the Bird</td>
+            <td>twitter</td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+
+  </div>
+</div>
+   </div>
+</div>
+  

@@ -1,0 +1,396 @@
+<div class="container">
+    <h4 class="fw-bold mt-5">Pay Day Calendar Settings</h4>
+    <p>Specify when your pay days occur in each pay run.</p>
+    <button routerLink="/super-admin-portal/payroll/pay-runs" class="btn btn-success">Back</button>
+    <div class="container pay_run_container">
+      <div class="row g-4">
+        <div class="col-12 col-md-3 col-lg-3">
+          <div class="card" style="width: 100%">
+            <div class="card-body pb-4" >
+              <ng-container *ngIf="weeklyCalendars.length > 0; else addWeeklyCalendar">
+                <div *ngFor="let calendar of weeklyCalendars">
+                  <h6 class="ms-3 fw-bold mt-3">Weekly Pay Days</h6>
+                  <div class="d-flex">
+                    <p class="fw-bold mt-2 px-3">Pay Day</p>
+                    <p class="mt-2 px-3">{{ calendar?.payDay }}</p>
+                  </div>
+                  <div>
+                    <p class="fw-bold mt-2 px-3">Schedule on</p>
+                    <p class="px-3">Dates that avoid public holidays and weekends</p>
+                  </div>
+               
+                <div class="dropdown">
+                  <button class="btn btn-success btn_radius dropdown-toggle ms-2" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Manage Frequency
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item edit" data-bs-toggle="modal" data-bs-target="#exampleModal1" (click)="getDataById(calendar._id)">Edit Pay days</a>
+                    <a class="dropdown-item delete" (click)="deletePayCalendar(calendar._id)">Delete Frequency</a>
+                  </div>
+                </div>
+              </div>
+              </ng-container>
+              <ng-template #addWeeklyCalendar>
+                <h6 class="ms-3 fw-bold mt-3">Weekly Pay Days</h6>
+                <button class="btn btn-success btn_radius ms-2" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                  Set up Weekly Calendar
+                </button>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Weekly pay Modal Start -->
+        <div
+        class="modal fade"
+        id="exampleModal1"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title fw-bold" id="exampleModalLabel">Weekly Pay Days</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form [formGroup]="weekly_pay" (ngSubmit)="weeklyPaySubmit()">
+                <div class="form-group">
+                  <label for="exampleInputEmail1" class="fw-bold">Pay Day*</label>
+                  <select class="form-select form-select-sm mb-3 mt-2" aria-label=".form-select-example" formControlName="payDay">
+                    <option *ngFor="let days of pay_Day" [value]="days.day">{{days.day}}</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1" class="fw-bold">First Pay Run*</label><br>
+                  <p-calendar
+                    formControlName="firstPayRun"
+                    placeholder="06/05/24"
+                    [showIcon]="true"
+                    inputId="icondisplay"
+                  ></p-calendar>
+                </div>
+                <div class="form-group d-flex mt-4 mb-3">
+                  <label for="exampleInputPassword1" class="fw-bold">Avoid Public Holidays and Weekends*</label>
+                  <input class="form-check-input ms-5" type="checkbox" value="" id="flexCheckChecked" formControlName="avoidPublicHolidaysAndWeekends">
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <button type="submit" class="btn btn-success" [innerHTML]="isUpdateMode ? 'Update' : 'Save'"></button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+        <!-- Weekly pay Modal End -->
+  
+  
+        <div class="col-12 col-md-3 col-lg-3">
+          <div class="card" style="width: 100%">
+            <div class="card-body pb-4">
+              <ng-container *ngIf="monthly_Calendar.length > 0; else addMonthlyCalendar">
+                <div *ngFor="let month of monthly_Calendar">
+                  <h6 class="ms-3 fw-bold mt-3">Monthly Pay Days</h6>
+                  <div class="d-flex">
+                    <p class="fw-bold mt-2 px-3">Pay Day</p>
+                    <p class="mt-2 px-3">{{ month.payOn }}</p>
+                  </div>
+                  <div class="d-flex">
+                    <p class="fw-bold mt-2 px-3">Day of the month</p>
+                    <p class="mt-2 px-3">{{ month.dayOfTheMonth }}</p>
+                  </div>
+                  <div>
+                    <p class="fw-bold mt-2 px-3">Schedule on</p>
+                    <p class="px-3">Dates that avoid public holidays and weekends</p>
+                  </div>
+                
+                <div class="dropdown">
+                  <button class="btn btn-success btn_radius dropdown-toggle ms-2" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Manage Frequency
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item edit" data-bs-toggle="modal" data-bs-target="#exampleModal2" (click)="getMonthlyCalendarById(month._id)">Edit Pay days</a>
+                    <a class="dropdown-item delete" (click)="deleteMonthlyCalendar(month._id)">Delete Frequency</a>
+                  </div>
+                </div>
+              </div>
+              </ng-container>
+              <ng-template #addMonthlyCalendar>
+                <h6 class="ms-3 fw-bold mt-3">Monthly Pay Days</h6>
+                <button class="btn btn-success btn_radius ms-2" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                  Set up Monthly Calendar
+                </button>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+  
+              <!-- Monthly pay Modal Start -->
+              <div
+              class="modal fade"
+              id="exampleModal2"
+              tabindex="-1"
+              aria-labelledby="exampleModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title fw-bold" id="exampleModalLabel">Monthly Pay Days</h5>
+                    
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                      <form [formGroup]="monthly_pay">
+                          <div class="form-group">
+                            <label for="exampleInputEmail1" class="fw-bold">Pay on*</label>
+                            <select class="form-select form-select-sm mb-3 mt-2" aria-label=".form-select- example" formControlName="payOn">
+                              <option *ngFor="let pays of pay_On">{{pays.pay}}</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                              <label for="exampleInputEmail1" class="fw-bold">Day of the month*</label>
+                              <select class="form-select form-select-sm mb-3 mt-2" aria-label=".form-select- example" formControlName="dayOfTheMonth">
+                                <option *ngFor="let days of select_Day_Of_Month">{{days.day}}</option>
+                              </select>
+                            </div>
+                            
+                            <div class="form-group">
+                              <label for="exampleInputEmail1" class="fw-bold">First Pay Run*</label><br>
+                              <p-calendar
+                              formControlName="firstPayRun"
+                              placeholder="06/05/24"
+                              [showIcon]="true"
+                              inputId="icondisplay"
+                            />
+                            </div>
+                            <div class="form-group d-flex mt-4 mb-3">
+                              <label for="exampleInputPassword1" class="fw-bold">Avoid Public Holidays and Weekends*</label>
+                              <input class="form-check-input ms-5" type="checkbox" value="" id="flexCheckChecked" formControlName="avoidPublicHolidaysAndWeekends">
+                            </div>
+                        </form>
+                    </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-outline-secondary"
+                      data-bs-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                    <button type="button" (click)="monthlyPaySubmit()" data-bs-dismiss="modal" class="btn btn-success" [innerHTML]="isUpdateMode ? 'Update' : 'Save'"></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Monthly pay Modal End -->
+  
+        <div class="col-12 col-md-3 col-lg-3">
+          <div class="card" style="width: 100%">
+            <div class="card-body pb-4">
+              <ng-container *ngIf="two_weeklyCalendar.length > 0; else addTwoWeeklyCalendar">
+                <div *ngFor="let calendar of two_weeklyCalendar">
+                  <h6 class="ms-3 fw-bold mt-3">2-Weekly Pay Days</h6>
+                  <div class="d-flex">
+                    <p class="fw-bold mt-2 px-3">Pay Day</p>
+                    <p class="mt-2 px-3">{{ calendar.payDay }}</p>
+                  </div>
+                  <div>
+                    <p class="fw-bold mt-2 px-3">Schedule on</p>
+                    <p class="px-3">Dates that avoid public holidays and weekends</p>
+                  </div>
+                  <div class="dropdown">
+                    <button class="btn btn-success btn_radius dropdown-toggle ms-2" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Manage Frequency
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <!-- Dropdown items -->
+                      <a class="dropdown-item edit" data-bs-toggle="modal" data-bs-target="#exampleModal3" (click)="getDataById(calendar._id)" >Edit Pay days</a>
+                      <a class="dropdown-item delete" (click)="deletePayCalendar(calendar._id)">Delete Frequency</a>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-template #addTwoWeeklyCalendar>
+                <h6 class="ms-3 fw-bold mt-3">2-Weekly Pay Days</h6>
+                <button class="btn btn-success btn_radius ms-2" data-bs-toggle="modal" data-bs-target="#exampleModal3">
+                  Set up 2-Weekly Calendar
+                </button>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+  
+                    <!-- 2-Weekly pay Modal Start -->
+                    <div
+                    class="modal fade"
+                    id="exampleModal3"
+                    tabindex="-1"
+                    aria-labelledby="exampleModalLabel"
+                    aria-hidden="true"
+                  >
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title fw-bold" id="exampleModalLabel">2-Weekly Pay Days</h5>
+                          
+                          <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          ></button>
+                        </div>
+                        <div class="modal-body">
+                          <form [formGroup]="two_weekly_pay">
+                              <div class="form-group">
+                                <label for="exampleInputEmail1" class="fw-bold">Pay Day*</label>
+                                <select class="form-select form-select-sm mb-3 mt-2" aria-label=".form-select- example" formControlName="payDay">
+                                  <option *ngFor="let days of pay_Day" [value]="days.day">{{days.day}}</option>
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label for="exampleInputPassword1" class="fw-bold">First Pay Run*</label><br>
+                                <p-calendar
+                                formControlName="firstPayRun"
+                                placeholder="06/05/24"
+                                [showIcon]="true"
+                                inputId="icondisplay"
+                              />
+                              </div>
+                              <div class="form-group d-flex mt-4 mb-3">
+                                <label for="exampleInputPassword1" class="fw-bold">Avoid Public Holidays and Weekends*</label>
+                                <input class="form-check-input ms-5" type="checkbox" value="" id="flexCheckChecked" formControlName="avoidPublicHolidaysAndWeekends">
+                              </div>
+                            </form>
+                          </div>
+                        <div class="modal-footer">
+                          <button
+                            type="button"
+                            class="btn btn-outline-secondary"
+                            data-bs-dismiss="modal"
+                          >
+                            Close
+                          </button>
+                          <button type="button" data-bs-dismiss="modal" (click)="twoWeeklySubmit()" class="btn btn-success" [innerHTML]="isUpdateMode ? 'Update' : 'Save'"></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 2-Weekly pay Modal End -->
+  
+        <div class="col-12 col-md-3 col-lg-3">
+          <div class="card" style="width: 100%">
+            <div class="card-body pb-4">
+              <ng-container *ngIf="four_weeklyCalendar.length > 0; else addfourWeeklyCalendar">
+                <div *ngFor="let calendar of four_weeklyCalendar">
+                  <h6 class="ms-3 fw-bold mt-3">4-Weekly Pay Days</h6>
+                  <div class="d-flex">
+                    <p class="fw-bold mt-2 px-3">Pay Day</p>
+                    <p class="mt-2 px-3">{{ calendar.payDay }}</p>
+                  </div>
+                  <div>
+                    <p class="fw-bold mt-2 px-3">Schedule on</p>
+                    <p class="px-3">Dates that avoid public holidays and weekends</p>
+                  </div>
+                  <div class="dropdown">
+                    <button class="btn btn-success btn_radius dropdown-toggle ms-2" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Manage Frequency
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item edit" data-bs-toggle="modal" data-bs-target="#exampleModal4" (click)="getDataById(calendar._id)">Edit Pay days</a>
+                      <a class="dropdown-item delete" (click)="deletePayCalendar(calendar._id)">Delete Frequency</a>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-template #addfourWeeklyCalendar>
+                <h6 class="ms-3 fw-bold mt-3">4-Weekly Pay Days</h6>
+                <button class="btn btn-success btn_radius ms-2" data-bs-toggle="modal" data-bs-target="#exampleModal4">
+                  Set up 4-Weekly Calendar
+                </button>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+  
+                          <!-- 4-Weekly pay Modal Start -->
+                          <div
+                          class="modal fade"
+                          id="exampleModal4"
+                          tabindex="-1"
+                          aria-labelledby="exampleModalLabel"
+                          aria-hidden="true"
+                        >
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title fw-bold" id="exampleModalLabel">4-Weekly Pay Days</h5>
+                                
+                                <button
+                                  type="button"
+                                  class="btn-close"
+                                  data-bs-dismiss="modal"
+                                  aria-label="Close"
+                                ></button>
+                              </div>
+                              <div class="modal-body">
+                                  <form [formGroup]="four_weekly_pay">
+                                      <div class="form-group">
+                                        <label for="exampleInputEmail1" class="fw-bold">Pay Day*</label>
+                                        <select class="form-select form-select-sm mb-3 mt-2" aria-label=".form-select- example" formControlName="payDay">
+                                          <option *ngFor="let days of pay_Day" [value]="days.day">{{days.day}}</option>
+                                        </select>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="exampleInputPassword1" class="fw-bold">First Pay Run*</label><br>
+                                        <p-calendar
+                                        formControlName="firstPayRun"
+                                        placeholder="06/05/24"
+                                        [showIcon]="true"
+                                        inputId="icondisplay"
+                                      />
+                                      </div>
+                                      <div class="form-group d-flex mt-4 mb-3">
+                                        <label for="exampleInputPassword1" class="fw-bold">Avoid Public Holidays and Weekends*</label>
+                                        <input class="form-check-input ms-5" type="checkbox" value="" id="flexCheckChecked" formControlName="avoidPublicHolidaysAndWeekends">
+                                      </div>
+                                    </form>
+                                </div>
+                              <div class="modal-footer">
+                                <button
+                                  type="button"
+                                  class="btn btn-outline-secondary"
+                                  data-bs-dismiss="modal"
+                                >
+                                  Close
+                                </button>
+                                <button type="button" data-bs-dismiss="modal" (click)="fourWeeklySubmit()" class="btn btn-success">save</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- 4-Weekly pay Modal End -->
+      </div>
+    </div>
+  </div>
+  

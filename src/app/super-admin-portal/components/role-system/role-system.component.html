@@ -1,0 +1,117 @@
+<section class="pattern">
+  <form (ngSubmit)="submitRoleSystemForm()" [formGroup]="roleSystemForm">
+
+    <div class="d-flex justify-content-center align-items-center align-items-start-sm">
+      <div class="container">
+        <div class="row mt-5">
+          <div class="col-md-1">
+            <label for="firstName" class="mt-1 text-secondary writingstyle">First Name</label>
+          </div>
+          <div class="col-md-5">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control p-1 custom-height w-75" id="firstName" placeholder="lastName"
+                formControlName="firstName">
+
+            </div>
+            <div class="error  text-danger"
+              *ngIf="roleSystemForm.controls['firstName'].invalid && (roleSystemForm.controls['firstName'].dirty || roleSystemForm.controls['firstName'].touched)">
+              <span *ngIf="(roleSystemForm.controls['firstName'].errors.pattern)">
+                Only Alphabets allowed</span>
+              <span *ngIf="roleSystemForm.controls['firstName'].errors.required">
+                <small>Field Required!</small>
+              </span>
+            </div>
+          </div>
+          <div class="col-md-1">
+            <label for="lastName" class="mt-1 text-secondary writingstyle">Last Name</label>
+          </div>
+          <div class="col-md-5">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control p-1 custom-height w-75" id="lastName" placeholder="lastName"
+                formControlName="lastName">
+
+            </div>
+            <div class="error  text-danger"
+              *ngIf="roleSystemForm.controls['lastName'].invalid && (roleSystemForm.controls['lastName'].dirty || roleSystemForm.controls['lastName'].touched)">
+              <span *ngIf="(roleSystemForm.controls['lastName'].errors.pattern)">
+                Only Alphabets allowed</span>
+              <span *ngIf="roleSystemForm.controls['lastName'].errors.required">
+                <small>Field Required!</small>
+              </span>
+            </div>
+          </div>
+
+        </div>
+        <div class="row my-2">
+          <div class="col-md-1">
+            <label for="email" class="mt-1 text-secondary writingstyle">Email</label>
+          </div>
+          <div class="col-md-5">
+            <div class="form-floating mb-3">
+              <input type="email" class="form-control p-1 custom-height w-75" id="email" placeholder="email"
+                formControlName="email">
+
+            </div>
+            <div class="error  text-danger"
+              *ngIf="roleSystemForm.controls['email'].invalid && (roleSystemForm.controls['email'].dirty || roleSystemForm.controls['email'].touched)">
+              <span *ngIf="roleSystemForm.controls['email'].errors.email">
+                </span>
+              <span *ngIf="roleSystemForm.controls['email'].errors.required">
+                <small>Field Required!</small>
+              </span>
+            </div>
+          </div>
+          <div class="col-md-1">
+            <label for="password" class="mt-1 text-secondary writingstyle">Password</label>
+          </div>
+          <div class="col-md-5">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control p-1 custom-height w-75" id="password" placeholder="password"
+                formControlName="password">
+
+            </div>
+            <div class="error  text-danger"
+              *ngIf="roleSystemForm.controls['password'].invalid && (roleSystemForm.controls['password'].dirty || roleSystemForm.controls['password'].touched)">
+              <span *ngIf="roleSystemForm.controls['password'].errors.required">
+                <small>Field Required!</small>
+              </span>
+            </div>
+          </div>
+
+          <div class="col-md-5 mt-5">
+            <label for="">Assign Roles to User</label>
+            <div class="form-floating mb-3">
+              <div class="form-check form-switch" *ngFor="let data of menuList">
+                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" [value]="data.title" (change)="assignRoles($event)">
+                <label class="form-check-label" for="flexSwitchCheckDefault">{{data.title}}</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-5 mt-5">
+            <label for="">Companies User Can Access?</label>
+            <div class="form-floating mb-3">
+              <div class="form-check form-switch" *ngFor="let data of agenciesData">
+                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" [value]="data?.companyName" (change)="assignCompanies($event)">
+                <label class="form-check-label" for="flexSwitchCheckDefault">{{data?.companyName}}</label>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-5 mt-5">
+            <label for="">Can User Edit Data of Clients?</label>
+            <div class="form-floating mb-3">
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" (change)="assignEditRights($event)">
+                <label class="form-check-label" for="flexSwitchCheckDefault"></label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-grid gap-2 col-6 mx-auto">
+      <button class="btn btn-primary" type="submit">Register</button>
+    </div>
+  </form>
+</section>

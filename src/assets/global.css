@@ -1,0 +1,223 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Lato:ital@1&family=Martian+Mono&family=Nunito+Sans:opsz@6..12&family=Oswald&family=Raleway&family=Roboto&family=Roboto+Condensed&display=swap');
+
+
+
+
+/* input validation code */
+input.ng-invalid.ng-touched {
+  border: 2px solid red;
+  animation: shake 300ms
+}
+
+textarea.ng-invalid.ng-touched {
+  border: 2px solid red;
+  animation: shake 300ms
+}
+
+input.ng-valid.ng-touched {
+  border: 2px solid green;
+}
+
+textarea.ng-valid.ng-touched {
+  border: 2px solid green;
+}
+
+select.ng-invalid.ng-touched {
+  border: 2px solid red;
+  animation: shake 300ms
+}
+
+select.ng-valid.ng-touched {
+  border: 2px solid green;
+}
+
+/* * {
+    font-family: 'Fira Sans', sans-serif;
+  } */
+
+@keyframes shake {
+  25% {
+    transform: translateX(4px)
+  }
+
+  50% {
+    transform: translateX(-4px)
+  }
+
+  75% {
+    transform: translateX(4px)
+  }
+}
+
+/* input validation code */
+
+* {
+
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+/* --------------- Global-Colors --------------- */
+
+
+/* variable declaration Starts */
+:root {
+
+  --background-color: #0E1110;
+  --background-color-2: #0a0e0a;
+  --background-color-3: #19231A;
+  --Jagged-ice-color: #B3ECE4;
+  --mint-tulip-color: #CEF1E3;
+  --mint-tulip-color: #CEF1E3;
+  --irish-green-color: #189136;
+  --element-color: #52A84F;
+  --element-color-2: #43B647;
+  --element-color-3: #256127;
+  --element-color-white: #ffffff;
+  --box-shadow: 2px 2px 8px 0px rgba(67, 182, 72, 0.75);
+  --box-shadow-2: rgba(67, 182, 72, 0.75) 0px 14px 28px, rgba(17, 136, 34, 0.22) 0px 10px 10px;
+  --box-shadow-3: 0px 1px 4px 6px rgba(17, 136, 34, 0.75);
+  --box-shadow-4: rgba(199, 230, 184, 0.75) 0px 8px 24px, rgba(199, 230, 184, 0.1) 0px 16px 56px, rgba(199, 230, 184, 0.1) 0px 24px 80px;
+  --box-shadow-black: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  --box-shadow-login: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  --box-shadow-silver-tree: rgb(222, 248, 216) 0 0 10px 15px;
+  --box-shadow-light-green: rgb(106, 180, 72) 0px 0px 15px 0px;
+  --text-size: 22px;
+  --text-weight: 300;
+  --text-size-2: 42px;
+  --text-weight-2: 400;
+  --main-heading-size: 72px;
+  --main-heading-weight: 800;
+  --maing-heading-line-height: 85px;
+  --logo-heading-size: 28px;
+  --logo-heading-weight: 800;
+  --heading-size: 60px;
+  --heading-weight: 800;
+  --heading-size-2: 44px;
+  --heading-weight-2: 700;
+  --heading-size-3: 30px;
+  --heading-weight-3: 700;
+  --line-height: 40px;
+  --line-height-2: 60px;
+  --line-height-3: 72px;
+  --line-height-4: 85px;
+}
+
+/* variable declaration ends */
+
+/* custom-button-css start*/
+.signin {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--element-color-3);
+  border-radius: 20px;
+  color: #fff;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.3s ease;
+
+}
+
+.signin i {
+  position: absolute;
+  right: 20px;
+  transition: right 0.3s ease;
+}
+
+.signin:hover {
+  background: var(--element-color-2);
+}
+
+.signin:hover i {
+
+  right: 13px;
+}
+
+/* custom-button-css end*/
+
+
+/* custom-button-css-2 start*/
+.signin-2 {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--element-color-2);
+  border-radius: 20px;
+  padding: 8px 41px;
+  color: #fff;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  transition: right 0.3s ease;
+}
+
+.signin-2 i {
+  position: absolute;
+  right: 20px;
+  transition: right 0.3s ease;
+}
+
+.signin-2:hover i {
+  right: 13px;
+}
+
+/* custom-button-css-2 end*/
+
+
+/* anchor-underline-transition starts */
+.contact-wrapper a {
+
+  display: inline-flex;
+  align-items: center;
+  padding: 0 35px;
+  color: var(--element-color-3);
+  border: none;
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.3s ease;
+  padding-bottom: 2px;
+  text-decoration: none;
+}
+
+.contact-wrapper a::before {
+
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  /* Thickness of the underline */
+  background: var(--element-color-2);
+  /* Color of the underline */
+  bottom: 0;
+  left: 36px;
+  transition: width 0.3s ease;
+
+}
+
+.contact-wrapper a:hover::before {
+
+  width: 70%;
+}
+
+.contact-wrapper a i {
+
+  position: absolute;
+  right: 15px;
+  /* Initial position: off the left side */
+  transition: right 0.3s ease;
+}
+
+.contact-wrapper a:hover {
+
+  color: var(--element-color-2);
+}
+
+.contact-wrapper a:hover i {
+
+  right: 8px;
+}
+
+/* anchor-underline-transition ends */

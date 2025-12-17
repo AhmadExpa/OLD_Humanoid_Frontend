@@ -1,0 +1,750 @@
+<form [formGroup]="payeForm">
+  <div class="container-fluid">
+    <div class="card shadow p-4 mb-5 bg-white rounded form-container">
+      <div class="heading">
+        <h4 class="text-center mb-4 form-header">PAYE - Payslip Generator</h4>
+        <button
+          pButton
+          label="Payslip History"
+          icon="pi pi-arrow-right"
+          class="p-button-warning"
+          routerLink="./paye-timeline"
+        ></button>
+      </div>
+      <!-- Company & Client Section -->
+      <div class="form-section">
+        <h5 class="section-title">
+          <i class="fa fa-briefcase me-2"></i>Company & Client
+        </h5>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Company Name</label>
+            <p-dropdown
+              [options]="companies"
+              optionLabel="label"
+              [filter]="true"
+              (onChange)="onCompanySelect($event.value)"
+              placeholder="Choose a Company"
+              styleClass="w-100"
+            ></p-dropdown>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Client Name</label>
+            <p-dropdown
+              [options]="clients"
+              optionLabel="label"
+              [filter]="true"
+              (onChange)="onClientSelect($event.value)"
+              placeholder="Choose a Client"
+              styleClass="w-100"
+            ></p-dropdown>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Margin</label>
+            <input formControlName="companyMargin" class="form-control" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Employee NI</label>
+            <input formControlName="employeeNI" class="form-control" />
+          </div>
+        </div>
+        <!-- Display auto-filled fields -->
+        <div class="row" *ngIf="payeForm.get('companyName')?.value">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Company Email</label>
+            <input
+              formControlName="companyEmail"
+              class="form-control"
+              readonly
+            />
+          </div>
+        </div>
+        <div class="row" *ngIf="payeForm.get('clientName')?.value">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Client Email</label>
+            <input
+              formControlName="clientEmail"
+              class="form-control"
+              readonly
+            />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Employee Name</label>
+            <input
+              formControlName="employeeName"
+              class="form-control"
+              readonly
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Units & Rates Section -->
+      <div class="form-section">
+        <h5 class="section-title">
+          <i class="fa fa-person-circle me-2"></i>Units & Rates
+        </h5>
+        <div formArrayName="unitRates">
+          <div
+            *ngFor="let unitRate of unitRates.controls; let i = index"
+            [formGroupName]="i"
+            class="row align-items-end unitRates-row"
+          >
+            <div class="col-md-3 mb-2">
+              <input
+                formControlName="units"
+                class="form-control"
+                placeholder="Units"
+                (change)="calculateTotals()"
+              />
+            </div>
+            <div class="col-md-3 mb-2">
+              <input
+                formControlName="rate"
+                type="number"
+                step="0.01"
+                class="form-control"
+                placeholder="Rate (£)"
+                (change)="calculateTotals()"
+              />
+            </div>
+            <div class="col-md-3 mb-2">
+              <input
+                formControlName="totalAmount"
+                type="number"
+                class="form-control"
+                readonly
+                placeholder="Total Amount (£)"
+              />
+            </div>
+            <div class="col-md-3 mb-2">
+              <button
+                class="btn btn-danger btn-sm w-100"
+                type="button"
+                (click)="unitRates.removeAt(i); calculateTotals()"
+              >
+                <i class="fa fa-trash"></i> Remove
+              </button>
+            </div>
+          </div>
+          <button
+            type="button"
+            class="btn btn-secondary mt-2"
+            (click)="addUnitRate()"
+          >
+            <i class="fa fa-plus-circle"></i> Add Unit&Rate
+          </button>
+        </div>
+      </div>
+
+      <!-- Agency Information -->
+      <div class="form-section">
+        <h5 class="section-title">
+          <i class="fa fa-building me-2"></i>Agency Information
+        </h5>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Agency Name</label>
+            <input formControlName="agency" class="form-control" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Agency Description</label>
+            <input formControlName="agencyDescription" class="form-control" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Employee Details -->
+      <div class="form-section">
+        <h5 class="section-title">
+          <i class="fa fa-person-circle me-2"></i>Employee Details
+        </h5>
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <label class="form-label">Employee Number</label>
+            <input formControlName="employeeNumber" class="form-control" />
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label">NI Number</label>
+            <input formControlName="niNumber" class="form-control" />
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label">Tax Code</label>
+            <input formControlName="taxCode" class="form-control" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Pay Information -->
+      <div class="form-section">
+        <h5 class="section-title">
+          <i class="fa fa-calculator me-2"></i>Pay Information
+        </h5>
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <label class="form-label">Pay Date</label>
+            <input
+              type="date"
+              formControlName="payDate"
+              class="form-control"
+              (change)="calculateTotals()"
+            />
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label">Periods</label>
+            <input formControlName="periods" class="form-control" />
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label">Pay Frequency</label>
+            <select formControlName="payFrequency" class="form-select">
+              <option value="Weekly">Weekly</option>
+              <option value="Fortnightly">Fortnightly</option>
+              <option value="Monthly">Monthly</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payments Section -->
+      <div class="form-section">
+        <h5 class="section-title">
+          <i class="fa fa-credit-card me-2"></i>Payments
+        </h5>
+        <div formArrayName="payments">
+          <div
+            *ngFor="let payment of payments.controls; let i = index"
+            [formGroupName]="i"
+            class="row align-items-end payment-row"
+          >
+            <div class="col-md-4 mb-2">
+              <input
+                formControlName="description"
+                class="form-control"
+                placeholder="Description"
+              />
+            </div>
+            <div class="col-md-2 mb-2">
+              <input
+                formControlName="units"
+                type="number"
+                class="form-control"
+                placeholder="Units"
+                (change)="calculateTotals()"
+              />
+            </div>
+            <div class="col-md-2 mb-2">
+              <input
+                formControlName="rate"
+                type="number"
+                step="0.01"
+                class="form-control"
+                placeholder="Rate (£)"
+                (change)="calculateTotals()"
+              />
+            </div>
+            <div class="col-md-2 mb-2">
+              <input
+                formControlName="totalAmount"
+                type="number"
+                class="form-control"
+                readonly
+                placeholder="Total Amount (£)"
+              />
+            </div>
+            <div class="col-md-2 mb-2">
+              <button
+                class="btn btn-danger btn-sm w-100"
+                type="button"
+                (click)="payments.removeAt(i); calculateTotals()"
+              >
+                <i class="fa fa-trash"></i> Remove
+              </button>
+            </div>
+          </div>
+          <button
+            type="button"
+            class="btn btn-secondary mt-2"
+            (click)="addPayment()"
+          >
+            <i class="fa fa-plus-circle"></i> Add Payment
+          </button>
+        </div>
+        <!-- Display calculated payment sum -->
+        <div class="row mt-3">
+          <div class="col-md-4 offset-md-8">
+            <label class="form-label">Total Payments</label>
+            <input formControlName="paymentSum" class="form-control" readonly />
+          </div>
+        </div>
+      </div>
+
+      <!-- Deductions Section -->
+      <div class="form-section">
+        <h5 class="section-title">
+          <i class="fa fa-receipt-cutoff me-2"></i>Deductions
+        </h5>
+        <div formArrayName="deductions">
+          <div
+            *ngFor="let deduction of deductions.controls; let i = index"
+            [formGroupName]="i"
+            class="row align-items-end deduction-row"
+          >
+            <div class="col-md-5 mb-2">
+              <input
+                formControlName="description"
+                class="form-control"
+                placeholder="Description"
+              />
+            </div>
+            <div class="col-md-5 mb-2">
+              <input
+                formControlName="amount"
+                type="number"
+                step="0.01"
+                class="form-control"
+                placeholder="Amount (£)"
+                (change)="calculateTotals()"
+              />
+            </div>
+            <div class="col-md-2 mb-2">
+              <button
+                class="btn btn-danger btn-sm w-100"
+                type="button"
+                (click)="deductions.removeAt(i); calculateTotals()"
+              >
+                <i class="fa fa-trash"></i> Remove
+              </button>
+            </div>
+          </div>
+          <button
+            type="button"
+            class="btn btn-secondary mt-2"
+            (click)="addDeduction()"
+          >
+            <i class="fa fa-plus-circle"></i> Add Deduction
+          </button>
+        </div>
+        <!-- Display calculated deduction sum -->
+        <div class="row mt-3">
+          <div class="col-md-4 offset-md-8">
+            <label class="form-label">Total Deductions</label>
+            <input
+              formControlName="deductionSum"
+              class="form-control"
+              readonly
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Additional Information -->
+      <div class="form-section">
+        <h5 class="section-title">
+          <i class="fa fa-file-earmark-text me-2"></i>Additional Information
+        </h5>
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <label class="form-label">PAYE Reference</label>
+            <input formControlName="payeReference" class="form-control" />
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label">Tax Period</label>
+            <input formControlName="taxPeriod" class="form-control" />
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label">Period Ending</label>
+            <input formControlName="periodEnding" class="form-control" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <label class="form-label">Expenses</label>
+            <input
+              formControlName="expenses"
+              class="form-control"
+              (change)="calculateTotals()"
+            />
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label">Net Payment</label>
+            <input formControlName="netPayment" class="form-control" readonly />
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label">Total Payment</label>
+            <input
+              formControlName="totalPayment"
+              class="form-control"
+              readonly
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Client Message -->
+      <div class="form-section">
+        <div class="mb-3">
+          <label class="form-label">Message</label>
+          <textarea
+            formControlName="message"
+            class="form-control"
+            rows="3"
+          ></textarea>
+        </div>
+      </div>
+      <div class="form-section">
+        <div class="mb-3">
+          <label class="form-label">Address</label>
+          <textarea
+            formControlName="clientAddress"
+            class="form-control"
+            rows="3"
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+        <button
+          type="button"
+          class="btn btn-primary me-md-2 preview-btn"
+          (click)="showPayslipPreview()"
+        >
+          <i class="fa fa-eye-fill me-2"></i>Preview Payslip
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
+<!-- Payslip Preview Modal -->
+<p-dialog
+  header="Payslip Preview"
+  [(visible)]="showPreview"
+  [modal]="true"
+  [style]="{ width: '80vw', 'max-width': '900px' }"
+  [contentStyle]="{ 'max-height': '80vh', 'overflow-y': 'auto' }"
+>
+  <div class="payslip-container">
+    <!-- Payslip Header -->
+    <div class="payslip-header">
+      <div class="company-info">
+        <h2>
+          {{
+            payeForm.get("companyName")?.value?.companyName || "Company Name"
+          }}
+        </h2>
+        <div class="header-grid">
+          <p class="header-item">
+            Company Margin: £{{
+              payeForm.get("companyMargin")?.value | number : "1.2-2"
+            }}
+          </p>
+          <p class="header-item">
+            Company Income and Costs: £{{
+              payeForm.get("companyIncomeAndCosts")?.value | number : "1.2-2"
+            }}
+          </p>
+          <p class="header-item">
+            Employee's NI:£{{
+              payeForm.get("employeeNI")?.value | number : "1.2-2"
+            }}
+          </p>
+        </div>
+      </div>
+      <div class="payslip-title">
+        <h1>PAYSLIP</h1>
+        <p class="pay-period">
+          {{ payeForm.get("payDate")?.value | date : "MMMM yyyy" }}
+        </p>
+        <p>
+          PAYE Reference: {{ payeForm.get("payeReference")?.value || "N/A" }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Employee Information -->
+    <div class="employee-section">
+      <div class="employee-details">
+        <h3>Employee Details</h3>
+        <p>
+          <strong>Name:</strong>
+          {{ payeForm.get("employeeName")?.value || "N/A" }}
+        </p>
+        <p>
+          <strong>Employee No:</strong>
+          {{ payeForm.get("employeeNumber")?.value || "N/A" }}
+        </p>
+        <p>
+          <strong>NI Number:</strong>
+          {{ payeForm.get("niNumber")?.value || "N/A" }}
+        </p>
+        <p>
+          <strong>Tax Code:</strong>
+          {{ payeForm.get("taxCode")?.value || "N/A" }}
+        </p>
+      </div>
+
+      <div class="payment-details">
+        <h3>Payment Details</h3>
+        <p>
+          <strong>Pay Date:</strong>
+          {{ payeForm.get("payDate")?.value | date : "dd/MM/yyyy" }}
+        </p>
+        <p>
+          <strong>Pay Frequency:</strong>
+          {{ payeForm.get("payFrequency")?.value || "N/A" }}
+        </p>
+        <p>
+          <strong>Periods:</strong>
+          {{ payeForm.get("periods")?.value || "N/A" }}
+        </p>
+        <p>
+          <strong>Tax Period:</strong>
+          {{ payeForm.get("taxPeriod")?.value || "N/A" }}
+        </p>
+        <p>
+          <strong>Period Ending:</strong>
+          {{ payeForm.get("periodEnding")?.value || "N/A" }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Agency Information -->
+    <div
+      class="agency-section"
+      *ngIf="
+        payeForm.get('agency')?.value ||
+        payeForm.get('agencyDescription')?.value
+      "
+    >
+      <h3>Agency Information</h3>
+      <div class="agency-grid">
+        <div class="agency-item">
+          <span>Agency Name:</span>
+          <span>{{ payeForm.get("agency")?.value || "N/A" }}</span>
+        </div>
+        <div class="agency-item">
+          <span>Description:</span>
+          <span>{{ payeForm.get("agencyDescription")?.value || "N/A" }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Earnings Section -->
+    <div class="earnings-section">
+      <h3>Earnings</h3>
+      <table class="payslip-table">
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Units</th>
+            <th>Rate</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let payment of payments.controls">
+            <td>{{ payment.get("description")?.value }}</td>
+            <td>{{ payment.get("units")?.value | number : "1.0-2" }}</td>
+            <td>£{{ payment.get("rate")?.value | number : "1.2-2" }}</td>
+            <td>£{{ payment.get("totalAmount")?.value | number : "1.2-2" }}</td>
+          </tr>
+          <tr class="total-row">
+            <td colspan="3"><strong>Total Earnings</strong></td>
+            <td>
+              <strong
+                >£{{
+                  payeForm.get("paymentSum")?.value | number : "1.2-2"
+                }}</strong
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Unit Rates Section -->
+    <div class="unit-rates-section" *ngIf="unitRates.controls.length > 0">
+      <h3>Unit Rates</h3>
+      <table class="payslip-table">
+        <thead>
+          <tr>
+            <th>Units</th>
+            <th>Rate</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let unitRate of unitRates.controls">
+            <td>{{ unitRate.get("units")?.value | number : "1.0-2" }}</td>
+            <td>£{{ unitRate.get("rate")?.value | number : "1.2-2" }}</td>
+            <td>
+              £{{ unitRate.get("totalAmount")?.value | number : "1.2-2" }}
+            </td>
+          </tr>
+          <tr class="total-row">
+            <td colspan="2"><strong>Company Income and Costs</strong></td>
+            <td>
+              <strong
+                >£{{
+                  payeForm.get("companyIncomeAndCosts")?.value
+                    | number : "1.2-2"
+                }}</strong
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Deductions Section -->
+    <div class="deductions-section">
+      <h3>Deductions</h3>
+      <table class="payslip-table">
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let deduction of deductions.controls">
+            <td>{{ deduction.get("description")?.value }}</td>
+            <td>£{{ deduction.get("amount")?.value | number : "1.2-2" }}</td>
+          </tr>
+          <tr class="total-row">
+            <td><strong>Total Deductions</strong></td>
+            <td>
+              <strong
+                >£{{
+                  payeForm.get("deductionSum")?.value | number : "1.2-2"
+                }}</strong
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Summary Section -->
+    <div class="summary-section">
+      <h3>Payment Summary</h3>
+      <div class="summary-grid">
+        <div class="summary-item">
+          <span>Total Gross Pay:</span>
+          <span
+            >£{{ payeForm.get("totalPayment")?.value | number : "1.2-2" }}</span
+          >
+        </div>
+        <div class="summary-item">
+          <span>Total Deductions:</span>
+          <span
+            >£{{ payeForm.get("deductionSum")?.value | number : "1.2-2" }}</span
+          >
+        </div>
+        <div class="summary-item">
+          <span>Expenses:</span>
+          <span>£{{ payeForm.get("expenses")?.value | number : "1.2-2" }}</span>
+        </div>
+        <div class="summary-item highlight">
+          <span><strong>Net Pay:</strong></span>
+          <span
+            ><strong
+              >£{{
+                payeForm.get("netPayment")?.value | number : "1.2-2"
+              }}</strong
+            ></span
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Tax Information -->
+    <div class="tax-section">
+      <h3>Tax Information</h3>
+      <div class="tax-grid">
+        <div class="tax-item">
+          <span>Taxable Pay:</span>
+          <span
+            >£{{
+              payeForm.get("totalTaxablePay")?.value | number : "1.2-2"
+            }}</span
+          >
+        </div>
+        <div class="tax-item">
+          <span>Earnings for NICs:</span>
+          <span
+            >£{{
+              payeForm.get("earningsForNICs")?.value | number : "1.2-2"
+            }}</span
+          >
+        </div>
+        <div class="tax-item">
+          <span>Total NIable Pay:</span>
+          <span
+            >£{{
+              payeForm.get("totalNlablePay")?.value | number : "1.2-2"
+            }}</span
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Client Information -->
+    <div class="client-section">
+      <h3>Client Information</h3>
+      <div class="client-grid">
+        <div class="client-item">
+          <span>Client Name:</span>
+          <span>{{ payeForm.get("clientName")?.value?.name || "N/A" }}</span>
+        </div>
+
+        <div class="client-item full-width">
+          <span>Client Address:</span>
+          <span>{{ payeForm.get("clientAddress")?.value || "N/A" }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="agency-section">
+      <h3>Agency Information</h3>
+      <div class="agency-grid">
+        <div class="agency-item">
+          <span>Agency Name:</span>
+          <span>{{ payeForm.get("agency")?.value || "N/A" }}</span>
+        </div>
+        <div class="agency-item">
+          <span>Description:</span>
+          <span>{{ payeForm.get("agencyDescription")?.value || "N/A" }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Message Section -->
+    <div class="message-section" *ngIf="payeForm.get('message')?.value">
+      <h3>Message</h3>
+      <p>{{ payeForm.get("message")?.value }}</p>
+    </div>
+
+    <!-- Footer -->
+    <div class="payslip-footer">
+      <p>Generated on: {{ currentDate | date : "medium" }}</p>
+      <p>This is an automated payslip. Please contact HR for any queries.</p>
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <button
+      type="button"
+      class="btn btn-outline-secondary me-2"
+      (click)="showPreview = false"
+    >
+      <i class="fa fa-x-circle me-2"></i>Close
+    </button>
+    <button type="button" class="btn btn-success me-2" (click)="printPayslip()">
+      <i class="fa fa-printer me-2"></i>Print
+    </button>
+    <button type="button" class="btn btn-primary" (click)="sendPayslip()">
+      <i class="fa fa-send me-2"></i>Send to Employee
+    </button>
+  </ng-template>
+</p-dialog>

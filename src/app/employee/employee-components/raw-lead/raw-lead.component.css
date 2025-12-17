@@ -1,0 +1,29 @@
+.mat-stepper-horizontal, .mat-stepper-vertical {
+    height: auto !important;
+  }
+  
+  .mat-step-content {
+    overflow: visible !important;
+  }
+
+
+
+  .card{
+    margin: 3rem;
+    transition: transform 0.3s ease; 
+    width: 360px;
+    border-top: 30px solid #178754 !important;
+    background-color: rgb(211, 211, 208);
+    color: rgb(40, 39, 39);
+    border-radius: 20px;
+  }
+  .card:hover {
+    transform: scale(1.05); /* Zoom in slightly */
+  }
+
+  .matStepper{
+    border-bottom: 15px solid #178754 !important;
+    border-radius: 30px;
+    padding: 2rem;
+    margin-top: 2rem !important;
+  }

@@ -1,0 +1,500 @@
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+  
+  @media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+      font-size: 3.5rem;
+    }
+  }
+  
+  .b-example-divider {
+    height: 3rem;
+    background-color: rgba(0, 0, 0, .1);
+    border: solid rgba(0, 0, 0, .15);
+    border-width: 1px 0;
+    box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+  }
+  
+  .b-example-vr {
+    flex-shrink: 0;
+    width: 1.5rem;
+    height: 100vh;
+  }
+  
+  .bi {
+    vertical-align: -.125em;
+    fill: currentColor;
+  }
+  
+  .nav-scroller {
+    position: relative;
+    z-index: 2;
+    height: 2.75rem;
+    overflow-y: hidden;
+  }
+  
+  .nav-scroller .nav {
+    display: flex;
+    flex-wrap: nowrap;
+    padding-bottom: 1rem;
+    margin-top: -1px;
+    overflow-x: auto;
+    text-align: center;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    background-color: black;
+  }
+  
+  body {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+  }
+  
+  html {
+    height: -webkit-fill-available;
+  }
+  
+  main {
+    height: 100vh;
+    height: -webkit-fill-available;
+    max-height: 100vh;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+  /* .dropdown-menu{
+    background-color: #047304;
+  } */
+  
+  .dropdown-toggle {
+    outline: 0;
+  }
+  
+  .btn-toggle {
+    padding: .25rem .5rem;
+    font-weight: 600;
+    color: rgba(0, 0, 0, .65);
+    /* background-color: transparent; */
+    background-color: #047304;
+  }
+  
+  .btn-toggle:hover,
+  .btn-toggle:focus {
+    color: rgba(0, 0, 0, .85);
+    /* background-color: #d2f4ea; */
+    background-color: #047304;
+  }
+  
+  .btn-toggle::before {
+    width: 1.25em;
+    line-height: 0;
+    content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgba%280,0,0,.5%29' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
+    transition: transform .35s ease;
+    transform-origin: .5em 50%;
+  }
+  
+  .btn-toggle[aria-expanded="true"] {
+    color: rgba(0, 0, 0, .85);
+  }
+  
+  .btn-toggle[aria-expanded="true"]::before {
+    transform: rotate(90deg);
+  }
+  
+  .btn-toggle-nav a {
+    padding: .1875rem .5rem;
+    margin-top: .125rem;
+    margin-left: 1.25rem;
+  }
+  
+  .btn-toggle-nav a:hover,
+  .btn-toggle-nav a:focus {
+    background-color: #d2f4ea;
+  }
+  
+  .scrollarea {
+    overflow-y: auto;
+  }
+  
+  
+  
+  /* custome styling start here */
+  .logo{
+    background-color: #edf0f1;
+  }
+  .logo,
+  .nav-link,
+  .dropdown {
+    color: black;
+  }
+  
+  .logo i {
+    font-size: 12px;
+  }
+  
+  .logo i:nth-child(2) {
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+  
+  .logo i:nth-child(3) {
+    margin-right: 2px;
+  }
+  
+  img.rounded-circle {
+    border: 1px solid black;
+  }
+  
+  .b-example-vr {
+    width: 0px !important;
+  }
+  
+  .active {
+    color: #12d3129e !important;
+    /* background-image: linear-gradient(to left top, #414141, #000000); */
+  }
+  
+  .d-flex.flex-column.flex-shrink-0.bg-light a:hover:not(.active, .logo) {
+    color: white !important;
+    background-image: linear-gradient(to left top, #414141, #000000);
+  }
+  
+  .content{
+    width: 100%;
+    min-height: 100vh;
+    height: auto;
+    overflow-y: auto;
+    background-color: #f4f9f4;
+  }
+  
+  .logo-humanoid{
+    width: 30px;
+    height: 20px;
+  }
+  
+  /* User Profile */
+  h3 {
+    font-size: 18px;
+    font-weight: 500;
+    color: #33363b;
+  }
+  
+  p{
+    font-size: 14px;
+    color: #868d9b;
+  }
+  
+  .card {
+    width: 360px;
+    height: auto;
+    background-color: #ffffff;
+    margin: 0 auto;
+    margin-top: 80px;
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.15);
+  }
+  
+  .card_profile_img {
+    width: 120px;
+    height: 120px;
+    background-color: #868d9b;
+    background: url("https://source.unsplash.com/7Sz71zuuW4k");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border: 2px solid #ffffff;
+    border-radius: 120px;
+    margin: 0 auto;
+    margin-top: -60px;
+  
+  }
+  
+  .card_background_img {
+    width: 100%;
+    height: 180px;
+    background-color: #e1e7ed;
+    background: url("https://source.unsplash.com/9wg5jCEPBsw");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .user_details p {
+    margin-bottom: 20px;
+    margin-top: -5px;
+  }
+  
+  .user_details h3 {
+    margin-top: 10px;
+  }
+  
+  .card_count {
+    padding: 30px;
+    border-top: 1px solid #dde1e7;
+  }
+  
+  .count {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+  }
+  
+  .count p {
+    margin-top: -10px;
+  }
+  
+  /* .btn1 {
+    padding: 16px;
+    width: 100%;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    background-color: #24c5a1;
+    color: #ffffff;
+    cursor: pointer;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+  } */
+  
+  /* User Profile */
+  .new-nav{
+    /* background-image: linear-gradient(to left top, #414141, #000000);
+    color: white; */
+    background-color: #ffffff;
+  }
+  /* rotate bell icon on hover */
+  .bell-icon {
+    /* Set the initial position of the bell icon */
+    display: inline-block;
+    transform-origin: center;
+  }
+  
+  /* Define the left and right rotation animations using keyframes */
+  @keyframes rotate-left {
+    from {
+      transform: rotate(20deg);
+    }
+    to {
+      transform: rotate(-30deg);
+    }
+  }
+  @keyframes rotate-right {
+    from {
+      transform: rotate(20deg);
+    }
+    to {
+      transform: rotate(10deg);
+    }
+  }
+  
+  /* Apply the left and right rotation animations on hover */
+  .bell-icon:hover {
+    animation-duration: 0.5s;
+    animation-fill-mode: both;
+    animation-timing-function: ease-in-out;
+  }
+  .bell-icon:hover:hover {
+    animation-name: rotate-left, rotate-right;
+    animation-duration: 1s, 1s;
+    animation-delay: 0s, 1s;
+    animation-direction: alternate, alternate;
+    animation-fill-mode: both;
+    animation-timing-function: ease-in-out;
+  }
+  
+  /*  */
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .main {
+    display: flex;
+  }
+  
+  .sidebar {
+    height: 100vh;
+    width: 260px;
+    /* background-color: #333; */
+    background-color: rgb(255, 255, 255);
+    /* color: #fff; */
+    padding: 15px;
+    transition: width 250ms ease-in;
+  }
+  .sideBarOff{
+    width: 0%;
+  
+    transition: width 250ms ease-in;
+  }
+  .sideBarOff .heading{
+    width: 0%;
+  }
+  .content {
+    max-height: 100vh;
+    overflow-y: auto;
+    width: 100%;
+    transition: width 1s;
+  }
+  .main-content{
+    padding:0px 20px 0px 20px;
+  }
+  
+  #dashboardSubMenuId {
+    list-style-type: disc;
+    color: #ebebeb !important;
+  }
+  #dashboardSubMenuId .active{
+    /* color: #ffffff; */
+    color: #12d3129e !important;
+  }
+  
+  .nav-item {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .nav-item> li {
+    margin-bottom: 10px;
+  }
+  
+  .nav-item > li > a {
+    text-decoration: none;
+    /* color: var(--off-white); */
+    color: #047304 !important;
+  }
+  
+  .sidebar ul li a {
+  
+    /* color: #D5D5E2; */
+    color: #047304 !important
+  }
+  
+  .sidebar ul li a:hover{
+  
+    /* color: var(--white-color); */
+    color: #12d3129e !important;
+  }
+  .nav-item > li > a > .activeColor{
+    /* color: var(--white-color); */
+    color: #12d3129e !important;
+  }
+  /* .sideBarDropDown .active{
+    color: #aaaaaa !important;
+    text-decoration: none !important;
+  } */
+  .dropDownIcon {
+    margin-left: 40%;
+  }
+  .rotate-icon {
+    transition: transform 0.5s ease;
+    transform: rotate(-180deg);
+  }
+  .rotate-icon-reverse {
+    transition: transform 0.5s ease;
+    transform: rotate(0deg);
+  }
+  /* p-megamenu */
+  :host::ng-deep .p-megamenu-panel {
+    left: auto !important;
+    right: 0 !important;
+    transform: translateX(0%) !important;
+  
+  }
+  
+  :host::ng-deep .p-megamenu-wrapper {
+    right: 0 !important;
+    left: auto !important;
+  }
+  :host::ng-deep .p-megamenu {
+   
+    background-color: transparent;
+    color:white;
+    border: none;
+  
+  }
+  
+  
+  :host::ng-deep .p-submenu-icon {
+    
+    display: none;
+  }
+  
+  .customfont{
+    font-size: 12px;
+  }
+  
+  .p-megamenu .p-megamenu-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link, .p-megamenu .p-megamenu-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link:not(.p-disabled):hover {
+    background: #EFF6FF;
+    margin-left: 23px !important;
+  }
+  
+  
+  
+  /* bs-megamenu start */
+  .dropdown-menu {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    border: none;
+    border-radius: 0;
+    padding: 0.7em;
+  }
+  @media only screen and (min-width: 992px) {
+    
+    .dropdown-menu.show {
+      display: flex;
+      left: auto !important;
+      right: 0 !important;
+      transform: translateX(0%) !important;
+    }
+  }
+  .dropdown-menu ul {
+    list-style: none;
+    padding: 0;
+    
+  }
+  .dropdown-menu li .dropdown-item {
+    color: gray;
+    font-size: 1em;
+    padding: 0.5em 1em;
+  }
+  .dropdown-menu li .dropdown-item:hover {
+    background-color: #f1f1f1;
+  }
+  .dropdown-menu li:first-child a {
+    font-weight: bold;
+    font-size: 1.2em;
+    text-transform: uppercase;
+    color: gray;
+  }
+  .dropdown-menu li:first-child a:hover {
+    background-color: #f1f1f1;
+  }
+  .sign_out{
+    cursor: pointer;
+  }
+  @media only screen and (max-width: 992px) {
+    .dropdown-menu.show {
+      flex-wrap: wrap;
+      max-height: 350px;
+      overflow-y: scroll;
+    }
+  }
+  @media only screen and (min-width: 992px) and (max-width: 1140px) {
+    .dropdown:hover .dropdown-menu {
+      width: 40vw;
+      flex-wrap: wrap;
+    }
+  }
+  .dropdown-toggle::after {
+    display: none;
+  }
+  /* bs-mega-menu */

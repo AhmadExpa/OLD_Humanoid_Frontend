@@ -1,0 +1,675 @@
+<!-- Updated-Table -->
+<p-table [columns]="selectedColumns" #dt [value]="paySlips" [tableStyle]="{'min-width': '50rem'}" dataKey="id"
+  [rowHover]="true" [reorderableColumns]="true" [rows]="5" editMode="row" [showCurrentPageReport]="true"
+  [rowsPerPageOptions]="[4, 25, 50]" [paginator]="true" [resizableColumns]="true" [totalRecords]="paySlips.length"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+  styleClass="p-datatable-gridlines"
+  [globalFilterFields]="['client.name', 'client.businessAndCompanyName', 'createdAt', 'paySlipWeeklyInformation','agency']">
+  <ng-template pTemplate="caption">
+    <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
+      selectedItemsLabel="{0} columns selected" [style]="{'min-width': '200px'}"
+      placeholder="Choose Columns"></p-multiSelect>
+
+    <span class="p-input-icon-left ms-3">
+      <i class="pi pi-search"></i>
+      <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+        placeholder="Global Search" />
+    </span>
+    <span>
+      <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt)"></button>
+    </span>
+  </ng-template>
+  <ng-template pTemplate="header" let-columns  pReorderableColumn>
+    <tr >
+      <th class="text-center" *ngFor="let col of columns" pResizableColumn>
+        {{col.header}}
+        <p-columnFilter type="text" [field]="col.field" display="menu"></p-columnFilter>
+      </th>
+      <th class="text-center">
+        <span>Weeks</span>
+      </th>
+      <th class="text-center">
+        <span>Perform-Actions</span>
+      </th>
+    </tr>
+    <tr>
+      <th class="text-center" *ngFor="let col of columns">
+        <input pInputText type="text" (input)="dt.filter($any($event.target).value, col.field, 'contains')"
+          [value]="$any(dt.filters[col.field])?.value || ''" [placeholder]="'Search by' + col.header" class="w-full">
+      </th>
+      <th class="text-center">
+        <span>Weeks-Details</span>
+      </th>
+      <th class="text-center">
+        <span>Delete</span>
+      </th>
+    </tr>
+
+  </ng-template>
+
+  <ng-template pTemplate="body" let-paySlips let-columns="columns" let-editing="editing" let-ri="rowIndex">
+    <tr [pEditableRow]="paySlips">
+      <td *ngFor="let col of columns">
+        <ng-container *ngIf="col.field === 'client.agency'; else otherFields">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-dropdown [options]="agencyOptions" [(ngModel)]="paySlips[col.field]" appendTo="body" [editable]="editing">
+              </p-dropdown>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ getField(paySlips, col.field) }}
+            </ng-template>
+          </p-cellEditor>
+        </ng-container>
+        <ng-template #otherFields>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [ngModel]="getNestedValue(paySlips, col.field)">
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ col.field === 'createdAt' ? formatCreatedAt(getField(paySlips, col.field)) : getField(paySlips, col.field) }}
+            </ng-template>
+          </p-cellEditor>
+        </ng-template>
+      </td>
+      <td>
+        <button (click)="getPaySlipById(paySlips?._id)" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Weeks Details</button>
+      </td>
+      <td class="text-center">
+        <!-- <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" class="p-button-success me-1" (click)="onRowEditInit(paySlips, ri)"></button>
+        <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(paySlips, ri)" class="p-button-success me-2"></button>
+        <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(paySlips, ri)" class="p-button-danger me-2"></button> -->
+        <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal5" (click)="activeModal(paySlips._id)"><i class="fa-solid fa-trash-can"></i></button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+
+<!-- Update the pTable component -->
+<!-- old-code -->
+ <!-- <ng-template pTemplate="body" let-paySlips let-columns="columns" let-editing="editing" let-ri="rowIndex">
+    <tr [pEditableRow]="paySlips">
+  
+      <td class="text-center" *ngFor="let col of columns">
+    
+        <ng-container *ngIf="col.field !== 'createdAt'; else specialField">
+          {{ getNestedValue(paySlips, col.field) }}
+        </ng-container>
+        <ng-template #specialField>
+      <td class="text-center" *ngIf="col.field === 'createdAt'">{{ paySlips[col.field] | date }}</td>
+     
+  </ng-template>
+  </td>
+  <td class="text-center">
+    <button (click)="getPaySlipById(paySlips?._id)" class="btn btn-outline-primary" data-bs-toggle="modal"
+      data-bs-target="#exampleModal">Weeks Details</button>
+  </td>
+  <td class="text-center">
+    <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
+    class="p-button-success me-1" (click)="onRowEditInit(paySlips?._id, ri)"></button>
+   <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check"
+    (click)="onRowEditSave(paySlips?._id, ri)" class="p-button-success" class="me-2"></button>
+   <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
+    (click)="onRowEditCancel(paySlips?._id, ri)" class="p-button-danger me-2"></button>
+  
+    <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal5"
+      (click)="activeModal(paySlips?._id)"><i class="fa-solid fa-trash-can"></i></button>
+  </td>
+  </tr>
+  </ng-template> -->
+<!-- Updated-Table -->
+
+
+
+
+<!-- View-Weeks Modal -->
+<div class="modal fade" id="staticBackdrop3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <h3>Weeks</h3>
+          <h5 *ngFor="let weeks of paySlips?.paySlipWeeklyInformation">{{weeks + ','}}</h5>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Understood</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- View-Weeks Modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Humanoidcrm</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- <div class="row text-center">
+          <div class="col">
+            <img src="https://www.pngkit.com/png/full/72-729913_user-blank-avatar-png.png" alt=""
+              class="img-fluid rounded mb-3">
+            <h4 class="mt-2">{{ paySlipIndividualData?.client?.name }}</h4>
+            <div class="container text-center border-bottom">
+              <div class="accordion accordion-flush w-100" id="accordionFlushExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="flush-headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                      data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                      <h4 class="mt-2">{{ paySlipIndividualData?.client?.name }} Details</h4>
+                    </button>
+                  </h2>
+                  <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                    data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                      <div class="table-responsive">
+                        <table class="table table-borderless">
+                          <thead>
+                            <tr>
+                              <th>Client Name</th>
+                              <th>Bussiness And Company Name</th>
+                              <th>NINO</th>
+                              <th>Address</th>
+                              <th>Date of Birth</th>
+                              <th>Joining date</th>
+                              <th>Email</th>
+                              <th>Uk PostCode</th>
+                              <th>Gender</th>
+                              <th>Sort Code</th>
+                              <th>Bank Account Number</th>
+                              <th>Created At</th>
+                              <th>Updated At</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>{{ paySlipIndividualData?.client?.name }}</td>
+                              <td>{{ paySlipIndividualData?.client?.businessAndCompanyName }}</td>
+                              <td>{{ paySlipIndividualData?.client?.nino }}</td>
+                              <td>{{ paySlipIndividualData?.client?.address }}</td>
+                              <td>{{ paySlipIndividualData?.client?.dob | date }}</td>
+                              <td>{{ paySlipIndividualData?.client?.joiningDate | date }}</td>
+                              <td> {{ paySlipIndividualData?.client?.email }}</td>
+                              <td> {{ paySlipIndividualData?.client?.ukPostCode }}</td>
+                              <td> {{ paySlipIndividualData?.client?.gender }}</td>
+                              <td> {{ paySlipIndividualData?.client?.sortCode }}</td>
+                              <td> {{ paySlipIndividualData?.client?.bankAccountNumber }}</td>
+                              <td> {{ paySlipIndividualData?.client?.createdAt | date }}</td>
+                              <td> {{ paySlipIndividualData?.client?.updatedAt | date }}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+        <div class="row">
+          <div class="accordion accordion-flush" id="accordionFlushExample">
+            <!-- <div class="accordion-item">
+              <h2 class="accordion-header" id="flush-headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseOne">
+                  Rti Code
+                </button>
+              </h2>
+              <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                  <p>{{paySlipIndividualData?.rtiCodeXml}}</p>
+                </div>
+              </div>
+            </div> -->
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="flush-headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                  Download Pay Slips
+                </button>
+              </h2>
+              <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
+                data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                  <div class="btn-group mx-2" *ngFor="let data of paySlipIndividualData?.paySlipWeeklyInformation">
+                    <a class="btn btn-outline-primary px-2 rounded-0" data-bs-toggle="offcanvas"
+                      data-bs-target="#offcanvasExample" aria-controls="offcanvasExample"
+                      (click)="getWeeklySlip({week:data.week})">Week {{data.week}}
+                    </a>
+                    <a class="btn btn-outline-danger rounded-0" data-bs-toggle="modal" data-bs-target="#exampleModal4"
+                      (click)="activeWeekModal(data)"><i class="fas fa-trash"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- prime-Ng Table -->
+            <p-table [value]="paySlipIndividualData?.paySlipWeeklyInformation" [tableStyle]="{ 'min-width': '50rem' }">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>Weeks</th>
+                  <th style="text-align: right;">Perform Actions</th>
+                </tr>
+              </ng-template>
+
+              <ng-template pTemplate="body" let-data>
+                <tr>
+                  <td>
+                    Week {{ data?.week }}
+                  </td>
+                  <td style="text-align: right;">
+                    <button type="button" class="btn btn-outline-primary me-2" data-bs-toggle="offcanvas"
+                      data-bs-target="#offcanvasExample" aria-controls="offcanvasExample"
+                      (click)="getWeeklySlip({ week: data?.week })">Payslip</button>
+                    <button type="button" class="btn btn-outline-danger rounded-0" data-bs-toggle="modal"
+                      data-bs-target="#exampleModal4" (click)="activeWeekModal(data)">Delete</button>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+
+
+            <!-- prime-Ng Table -->
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+
+      <!-- Canvas -->
+      <div class="offcanvas offcanvas-end w-50" tabindex="-1" id="offcanvasExample"
+        aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header">
+          <div>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div>
+            <button printTitle="" [useExistingCss]="true" type="button" class="btn btn-outline-dark mx-2"
+              data-bs-dismiss="offcanvas" printSectionId="print-section" ngxPrint>Download</button>
+          </div>
+        </div>
+        <div class="offcanvas-body">
+         
+
+
+
+
+          <!-- <div class="container-fluid overflow-auto" id="print-section" #PaySlip>
+            <div class="row "> -->
+
+              <!-- bexbury-pay-slip-logo Starts -->
+              <!-- <div class="text-center bexbury-pay-slip-logo">
+                <img [src]="imageUrl" class="w-25" alt="...">
+              </div> -->
+              <!-- bexbury-pay-slip-logo Ends -->
+
+              <!-- payment-remittance-advice Starts -->
+              <!-- <div class="col-12">
+                <div class="text-center border border-dark border-2 rounded p-2 mt-3">
+                  <strong>
+                    <h5>Payment Remittance Advice</h5>
+                  </strong>
+                </div>
+              </div>
+
+              <div class="d-flex mt-2">
+                <div class="col-6">
+                  <div class="text-center text-uppercase float-start border border-dark border-2 rounded p-2">
+                    <strong>
+                      <p class="d-inline">paid in week ending</p>
+                    </strong>
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <div class="text-center text-uppercase float-end p-2 border border-dark border-2 rounded p-2 ">
+                    <strong>
+                      <p class="d-inline">{{paySlipIndividualData?.updatedAt | date}}</p>
+                    </strong>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <div class="text-center mt-3">
+                  <strong>
+                    <h5>Private and Confidential</h5>
+                  </strong>
+                </div>
+              </div>
+
+              <table class="table mt-5 table table-borderless mx-2">
+                <tbody>
+
+
+                  <tr>
+                    <th scope="row">
+                      <p class="fw-2"> Name:</p>
+                    </th>
+                    <td>
+                      <p>{{paySlipIndividualData?.client?.name}}</p>
+                    </td>
+                  </tr>
+
+
+
+                  <tr>
+                    <th scope="row">
+                      <p class="fw-2">Address:</p>
+                    </th>
+                    <td *ngIf="paySlipIndividualData?.client?.agency === 'payrollbusiness' || paySlipIndividualData?.client?.agency === 'purplepayumbrella' || paySlipIndividualData?.client?.agency === 'planetpayroll'">
+                      <p>{{
+                        paySlipIndividualData?.client?.addressLineOne 
+                        ||
+                        '4th Floor, Silverstream House 45 Fitzroy Street,'
+                        }}, {{paySlipIndividualData?.client?.postCode}}</p>
+                         <p *ngIf="!paySlipIndividualData?.client?.addressLineOne">Fitzrovia London W1T 6EB</p>
+                    </td>
+                    <td *ngIf="paySlipIndividualData?.client?.agency === 'sweetumbrella' || paySlipIndividualData?.client?.agency === 'fentonbarnesltd'">
+                      <p>4th Floor, Silverstream House 45 Fitzroy Street,</p>
+                      <p>Fitzrovia London W1T 6EB</p>
+                    </td>
+                  </tr>
+                  
+                </tbody>
+              </table>
+
+
+              <div class="table-responsive">
+                <table class="table table-borderless">
+
+                  <thead>
+                    <tr>
+                      <th scope="col">Date</th>
+                      <th scope="col">Unit</th>
+                      <th scope="col">Rate</th>
+                      <th scope="col">Total Pay</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <tr *ngFor="let data of timeSheetData">
+                      <td scope="row">{{data?.from | date}}</td>
+                      <td> {{data?.unit}}</td>
+                      <td>£ {{data?.rate}}</td>
+                      <td>£ {{data?.totalPay}}</td>
+                    </tr>
+
+
+
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td class="d-inline-block "><span class="fw-bold"
+                          style="background-color: #f8f8f8; border-radius: 5px; padding: 10px;">Total TS value</span>
+                      </td>
+                      <td>£ {{totalTsValue}}</td>
+                    </tr>
+
+                    <tr>
+                      <td class="d-inline-block"><span class="fw-bold"
+                          style="background-color: #f8f8f8; border-radius: 5px; padding: 8px;">Umbrella Company
+                          Fee</span></td>
+                      <td></td>
+                      <td class="d-inline-block "><span class="fw-bold"
+                          style="background-color: #f8f8f8; border-radius: 5px; padding: 8px; ">Margin Fee</span></td>
+                      <td class="my-2">£ {{totalDeduction}}</td>
+                    </tr>
+
+                    <tr *ngIf="deductionSheetData.length>0">
+                      <td></td>
+                      <td></td>
+                      <td class="d-inline-block"><span class="fw-bolder"
+                          style="background-color: #f8f8f8; border-radius: 5px; padding: 8px; ">Deductions</span></td>
+                      <td class="my-2">£ {{totalDeductions}}</td>
+
+                    </tr>
+
+                    <tr *ngIf="deductionSheetData.length<=0">
+                      <td></td>
+                      <td></td>
+                      <td class="d-inline-block "><span class="fw-bold"
+                          style="background-color: #f8f8f8; border-radius: 5px; padding: 8px;">Gross Amount</span></td>
+                      <td>£ {{grossAmount}}</td>
+                    </tr>
+                    <tr *ngIf="deductionSheetData.length>0">
+                      <td></td>
+                      <td></td>
+                      <td class="d-inline-block "><span class="fw-bold"
+                          style="background-color: #f8f8f8; border-radius: 5px; padding: 8px; ">Gross Amount</span></td>
+                      <td class="my-2">£ {{totalDeductionValue}}</td>
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+
+
+            </div>
+
+          </div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <div class="container payslip-container" id="print-section" #PaySlip>
+            <!-- Header -->
+            <div class="row">
+              <div class="col-6">
+                <div class="box">
+                  <!-- <strong>{{paySlipIndividualData?.client?.name}}</strong><br /> -->
+                  <div>
+                    <strong>{{ paySlipIndividualData?.client?.name }}</strong><br />
+                  
+                    <div *ngIf="paySlipIndividualData?.client?.agency === 'payrollbusiness' || 
+                                paySlipIndividualData?.client?.agency === 'purplepayumbrella' || 
+                                paySlipIndividualData?.client?.agency === 'planetpayroll'">
+                      {{ paySlipIndividualData?.client?.addressLineOne || 
+                        '4th Floor, Silverstream House 45 Fitzroy Street,' 
+                      }}, {{ paySlipIndividualData?.client?.postCode }}
+                    </div>
+                    
+                    <div *ngIf="!paySlipIndividualData?.client?.addressLineOne">
+                      Fitzrovia London W1T 6EB
+                    </div>
+                  
+                    <div *ngIf="paySlipIndividualData?.client?.agency === 'sweetumbrella' || 
+                                paySlipIndividualData?.client?.agency === 'fentonbarnesltd'">
+                      4th Floor, Silverstream House 45 Fitzroy Street, Fitzrovia London W1T 6EB
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+              <div class="col-6 text-center mb-4">
+                <img
+                  style="width: 50%; margin-bottom: 0.5rem; border-radius: 6px;"
+                  [src]="imageUrl"
+                  alt="Planet Payroll Logo"
+                  class="company-logo"
+                />
+                <h5>Payment Remittance Advice</h5>
+                <p><strong>PAID IN WEEK ENDING</strong> {{paySlipIndividualData?.updatedAt | date}}</p>
+              </div>
+            </div>
+      
+            <!-- Employee Details -->
+            <!-- <div class="payslip-section">
+              <h5>1. Employee Details</h5>
+              <div>
+                <strong>{{ paySlipIndividualData?.client?.name }}</strong><br />
+              
+                <div *ngIf="paySlipIndividualData?.client?.agency === 'payrollbusiness' || 
+                            paySlipIndividualData?.client?.agency === 'purplepayumbrella' || 
+                            paySlipIndividualData?.client?.agency === 'planetpayroll'">
+                  {{ paySlipIndividualData?.client?.addressLineOne || 
+                    '4th Floor, Silverstream House 45 Fitzroy Street,' 
+                  }}, {{ paySlipIndividualData?.client?.postCode }}
+                </div>
+                
+                <div *ngIf="!paySlipIndividualData?.client?.addressLineOne">
+                  Fitzrovia London W1T 6EB
+                </div>
+              
+                <div *ngIf="paySlipIndividualData?.client?.agency === 'sweetumbrella' || 
+                            paySlipIndividualData?.client?.agency === 'fentonbarnesltd'">
+                  4th Floor, Silverstream House 45 Fitzroy Street, Fitzrovia London W1T 6EB
+                </div>
+              </div>
+              
+            </div> -->
+      
+            <!-- Payment Breakdown -->
+            <div class="payslip-section">
+              <h5> Payment Breakdown</h5>
+              <table class="table table-bordered payslip-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Unit</th>
+                    <th>Rate</th>
+                    <th>Total Pay</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of timeSheetData">
+                    <td>{{data?.from | date}}</td>
+                    <td>{{data?.unit}}</td>
+                    <td>£ {{data?.rate}}</td>
+                    <td>£ {{data?.totalPay}}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p><strong>Total TS Value:</strong> £ {{totalTsValue}}</p>
+            </div>
+            <!-- Deductions -->
+            <div class="payslip-section">
+              <h5> Deductions</h5>
+              <table class="table table-bordered payslip-table">
+                <thead>
+                  <tr>
+                    <th>Accomodation</th>
+                    <th>Other</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>£{{totalAccomodationDeductions}}</td>
+                    <td>£{{totalOthersDeductions}}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p><strong>Total Deductions:</strong> £ {{totalDeductions}}</p>
+            </div>
+            <!-- Company Fee -->
+            <div class="payslip-section">
+              <h5> Umbrella Company Fee</h5>
+              <p><strong>Margin Fee:</strong> £ {{totalDeduction}}</p>
+            </div>
+      
+            <!-- Gross Amount -->
+            <div class="payslip-section">
+              <h5> Gross Amount</h5>
+              <p *ngIf="deductionSheetData.length<=0"><strong>Gross Amount:</strong> £ {{grossAmount}}</p>
+              <p *ngIf="deductionSheetData.length>0"><strong>Gross Amount:</strong> £ {{totalDeductionValue}}</p>
+
+            </div>
+      
+            <!-- Net Pay -->
+            <!-- <div class="payslip-section">
+              <h5>5. Net Pay</h5>
+              <p class="net-pay">Net Pay: £463</p>
+            </div> -->
+          </div>
+
+
+
+
+
+          
+          <button type="button submit-button" class="btn btn-outline-dark w-100"
+            (click)="sendEmailToClient(paySlipIndividualData?.client)"><span>Send Email To Client</span> <small class="loadingspinner d-inline-block ms-2" *ngIf="sendingEmail"></small></button>
+        </div>
+
+
+
+        
+      </div>
+      <!-- Canvas -->
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+
+<!-- Confirmation Modal  -->
+<!-- Modal -->
+<div class="modal fade" id="exampleModal5" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" data-bs-dismiss="modal" class="btn btn-outline-danger"
+          (click)="deletePaySlip(paySlipId)">Are you
+          sure you want to Delete it?</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Confirmation Modal -->
+
+
+
+<!-- Confirmation Week delete Modal -->
+<!-- Modal -->
+<div class="modal fade" id="exampleModal4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" data-bs-dismiss="modal" class="btn btn-outline-danger"
+          (click)="deleteParticularField(weekId)">Are you
+          sure you want to Delete it?</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Confirmation Modal -->
+
+
+
+ <!-- <td *ngIf="col.field === 'paySlipWeeklyInformation'">
+        <ng-container *ngFor="let subData of col.field">
+      <td>{{ subData.week}}</td>
+      </ng-container>
+      </td> -->

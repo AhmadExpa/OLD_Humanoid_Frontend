@@ -1,0 +1,16 @@
+.writingstyle{
+    font-family: Helvetica;
+}
+
+.custom-height {
+  height: 4vh;
+}
+
+.pattern{
+  background: url('../../../../../assets/pattern.png');
+  background-position:center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 220vh;
+  width: 100%;
+}

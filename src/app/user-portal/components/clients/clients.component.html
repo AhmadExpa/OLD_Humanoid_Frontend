@@ -1,0 +1,384 @@
+<div class="container-fluid mt-5">
+    <div class="row">
+      <div class="col-md-12 mb-3">
+        <p-toolbar styleClass="mb-4 gap-2">
+          <ng-template pTemplate="left">
+        <span> List of Clients</span>
+  
+          </ng-template>
+        </p-toolbar>
+        <!-- <p-dialog [(visible)]="clientDialog" [style]="{ width: '850px' }" header="Client Details" [modal]="true"
+          styleClass="p-fluid">
+    
+            <form (ngSubmit)="submitClientForm()" [formGroup]="clientForm">
+                  <div class="row my-2">
+  
+  
+                    <div class="col-md-1">
+                      <label for="title-name" class="mt-1 text-secondary writingstyle">Title Name</label>
+                    </div>
+                    <div class="col-md-5">
+  
+                      <div class="form-floating">
+  
+                        <select class="form-select rounded p-1 w-75 custom-height" id="title-name"
+                          aria-label="Floating label select example" formControlName="titleName">
+                          <option value="Ms.">Ms.</option>
+                          <option value="Mrs. ">Mrs.</option>
+                          <option value="Mr. ">Mr.</option>
+                          <option value="Dr. ">Dr.</option>
+                        </select>
+                      
+                      </div>
+                      <div class="error  text-danger"
+                        *ngIf="clientForm.controls['titleName'].invalid && (clientForm.controls['titleName'].dirty || clientForm.controls['titleName'].touched)">
+                        <span *ngIf="clientForm.controls['titleName'].errors.required">
+                          <small>Field Required!</small>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-1">
+                      <label for="gender" class="mt-1 text-secondary writingstyle">Gender</label>
+                    </div>
+                    <div class="col-md-5">
+                      <div class="form-floating mb-3">
+                        <input type="text" class="form-control p-1 custom-height w-75" id="foreName" placeholder="Gender"
+                          formControlName="gender">
+  
+                      </div>
+                      <div class="error  text-danger"
+                        *ngIf="clientForm.controls['gender'].invalid && (clientForm.controls['gender'].dirty || clientForm.controls['gender'].touched)">
+                        <span *ngIf="(clientForm.controls['gender'].errors.pattern)">
+                          Only Alphabets allowed</span>
+                        <span *ngIf="clientForm.controls['gender'].errors.required">
+                          <small>Field Required!</small>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-1">
+                      <label for="foreName" class="mt-1 text-secondary writingstyle">First Name</label>
+                    </div>
+                    <div class="col-md-5">
+                      <div class="form-floating mb-3">
+                        <input type="text" class="form-control p-1 custom-height w-75" id="foreName" placeholder="surName"
+                          formControlName="foreName">
+  
+                      </div>
+                      <div class="error  text-danger"
+                        *ngIf="clientForm.controls['foreName'].invalid && (clientForm.controls['foreName'].dirty || clientForm.controls['foreName'].touched)">
+                        <span *ngIf="(clientForm.controls['foreName'].errors.pattern)">
+                          Only Alphabets allowed</span>
+                        <span *ngIf="clientForm.controls['foreName'].errors.required">
+                          <small>Field Required!</small>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-1">
+                      <label for="surName" class="mt-1 text-secondary writingstyle">Last Name</label>
+                    </div>
+                    <div class="col-md-5">
+                      <div class="form-floating mb-3">
+                        <input type="text" class="form-control p-1 custom-height w-75" id="surName" placeholder="surName"
+                          formControlName="surName">
+  
+                      </div>
+                      <div class="error  text-danger"
+                        *ngIf="clientForm.controls['surName'].invalid && (clientForm.controls['surName'].dirty || clientForm.controls['surName'].touched)">
+                        <span *ngIf="(clientForm.controls['surName'].errors.pattern)">
+                          Only Alphabets allowed</span>
+                        <span *ngIf="clientForm.controls['surName'].errors.required">
+                          <small>Field Required!</small>
+                        </span>
+                      </div>
+                    </div>
+  
+                  </div>
+                  <div class="row my-2">
+                    <div class="col-md-1">
+                      <label for="email" class="mt-1 text-secondary writingstyle">Email</label>
+                    </div>
+                    <div class="col-md-5">
+                      <div class="form-floating mb-3">
+                        <input type="email" class="form-control p-1 custom-height w-75" id="email" placeholder="email"
+                          formControlName="email">
+  
+                      </div>
+                      <div class="error  text-danger"
+                        *ngIf="clientForm.controls['email'].invalid && (clientForm.controls['email'].dirty || clientForm.controls['email'].touched)">
+                        <span *ngIf="clientForm.controls['email'].errors.email">
+                          <small>Use correct pattern as example@example.com</small></span>
+                        <span *ngIf="clientForm.controls['email'].errors.required">
+                          <small>Field Required!</small>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-1">
+                      <label for="marginFee" class="mt-1 text-secondary writingstyle">Margin Fee</label>
+                    </div>
+                    <div class="col-md-5">
+                      <div class="">
+                        <input class="form-control p-1 custom-height w-75" type="text"
+                          aria-label=".form-control-sm example" formControlName="marginFee">
+  
+                     
+                        <div class="error  text-danger"
+                          *ngIf="clientForm.controls['marginFee'].invalid && (clientForm.controls['marginFee'].dirty || clientForm.controls['marginFee'].touched)">
+                          <span *ngIf="clientForm.controls['marginFee'].errors.required">
+                            <small>Field Required!</small>
+                          </span>
+                          <span *ngIf="(clientForm.controls['marginFee'].errors.pattern)">
+                            only numbers allowed</span>
+                        </div>
+                      
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row my-2">
+                    <div class="col-md-1">
+                      <label for="surName" class="mt-1 text-secondary writingstyle">Business</label>
+                    </div>
+                    <div class="col-md-5">
+                      <div class="form-floating mb-3">
+                        <input type="text" class="form-control p-1 custom-height w-75" id="businessAndCompanyName"
+                          placeholder="businessAndCompanyName" formControlName="businessAndCompanyName">
+  
+                      </div>
+                      <div class="error  text-danger"
+                        *ngIf="clientForm.controls['businessAndCompanyName'].invalid && (clientForm.controls['businessAndCompanyName'].dirty || clientForm.controls['businessAndCompanyName'].touched)">
+                        <span *ngIf="clientForm.controls['businessAndCompanyName'].errors.required">
+                          <small>Field Required!</small>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-1">
+                      <label for="sortCode" class="mt-1 text-secondary writingstyle">Sort Code</label>
+                    </div>
+                    <div class="col-md-5">
+                      <div class="form-floating mb-3">
+                        <input type="text" class="form-control p-1 custom-height w-75" id="sortCode"
+                          placeholder="sortCode" formControlName="sortCode">
+  
+                      </div>
+                      <div class="error  text-danger"
+                        *ngIf="clientForm.controls['sortCode'].invalid && (clientForm.controls['sortCode'].dirty || clientForm.controls['sortCode'].touched)">
+                        <span
+                          *ngIf="clientForm.controls['sortCode'].errors.minlength || clientForm.controls['sortCode'].errors.maxlength ">
+                          <small>Number should be atleast 6 digits</small></span>
+                        <span *ngIf="(clientForm.controls['sortCode'].errors.pattern)">
+                          only numbers allowed</span>
+                        <span *ngIf="clientForm.controls['sortCode'].errors.required">
+                          <small>Field Required!</small>
+                        </span>
+                      </div>
+                    </div>
+  
+                  </div>
+  
+  
+  
+                  <div class="row">
+                    <div class="col-md-1">
+                      <label for="bankAccountNumber" class="mt-1 text-secondary writingstyle">Bank Account</label>
+                    </div>
+                    <div class="col-md-5">
+                      <div class="form-floating mb-3">
+                        <input type="text" class="form-control p-1 custom-height w-75" id="bankAccountNumber"
+                          placeholder="bankAccountNumber" formControlName="bankAccountNumber">
+  
+                      </div>
+                      <div class="error  text-danger"
+                        *ngIf="clientForm.controls['bankAccountNumber'].invalid && (clientForm.controls['bankAccountNumber'].dirty || clientForm.controls['bankAccountNumber'].touched)">
+                        <span
+                          *ngIf="clientForm.controls['bankAccountNumber'].errors.minlength || clientForm.controls['bankAccountNumber'].errors.maxlength ">
+                          <small>Number should be atleast 8 digits</small></span>
+                        <span *ngIf="(clientForm.controls['bankAccountNumber'].errors.pattern)">
+                          only numbers allowed</span>
+                        <span *ngIf="clientForm.controls['bankAccountNumber'].errors.required">
+                          <small>Field Required!</small>
+                        </span>
+                      </div>
+                    </div>
+  
+                    <div class="col-md-5">
+                      <div class="mb-3">
+  
+                        <input style="width:96%;" class="form-control form-control p-1 custom-height" id="formFileSm"
+                          type="file" formControlName="fileValidator" (change)="getFile($event)" multiple #FileSelect>
+  
+                      </div>
+                      <div class="error  text-danger"
+                        *ngIf="clientForm.controls['fileValidator'].invalid && (clientForm.controls['fileValidator'].dirty || clientForm.controls['fileValidator'].touched)">
+                        <span *ngIf="clientForm.controls['fileValidator'].errors.required">
+                          <small>Field Required!</small>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+  
+  
+  
+  
+                  <div class="row">
+  
+                    <div class="col-md-1">
+                      <label for="comments" class="mt-1 text-secondary writingstyle">Leave Comment</label>
+                    </div>
+                    <div class="col-md-5">
+                      <div class="form-floating">
+                        <textarea class="form-control p-1 custom-height w-75" placeholder="Leave a comment here"
+                          id="comments" formControlName="comments"></textarea>
+  
+                      </div>
+                      <div class="error  text-danger"
+                        *ngIf="clientForm.controls['comments'].invalid && (clientForm.controls['comments'].dirty || clientForm.controls['comments'].touched)">
+                        <span
+                          *ngIf="clientForm.controls['comments'].errors.minlength || clientForm.controls['comments'].errors.maxlength ">
+                          <small>Comments should be atleast 6 character or 100 characters</small></span>
+                        <span *ngIf="clientForm.controls['comments'].errors.required">
+                          <small>Field Required!</small>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-1">
+                      <label for="phoneNumber" class="mt-1 text-secondary writingstyle">Phone Number</label>
+                    </div>
+                    <div class="col-md-5">
+                      <div class="form-floating mb-3">
+                        <input type="text" class="form-control p-1 custom-height w-75" id="phoneNumber"
+                          placeholder="phoneNumber" formControlName="phoneNumber">
+  
+                      </div>
+                      <div class="error  text-danger"
+                        *ngIf="clientForm.controls['phoneNumber'].invalid && (clientForm.controls['phoneNumber'].dirty || clientForm.controls['phoneNumber'].touched)">
+                        <span
+                          *ngIf="clientForm.controls['phoneNumber'].errors.minlength || clientForm.controls['phoneNumber'].errors.maxlength ">
+                          <small>Phone Number should be atleast 11 digits</small></span>
+                        <span *ngIf="(clientForm.controls['phoneNumber'].errors.pattern)">
+                          only numbers allowed</span>
+                        <span *ngIf="clientForm.controls['phoneNumber'].errors.required">
+                          <small>Field Required!</small>
+                        </span>
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-outline-primary mt-3 w-100">Create</button>
+                  </div>
+           
+                </form>
+       
+        </p-dialog> -->
+  
+        <p-table [columns]="selectedColumns" #dt [value]="clientsData" dataKey="id" [rowHover]="true"
+          [reorderableColumns]="true" [rows]="8" editMode="row" [showCurrentPageReport]="true"
+          [rowsPerPageOptions]="[4, 25, 50]" [paginator]="true" [resizableColumns]="true"
+          [totalRecords]="clientsData.length"
+          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+          styleClass="p-datatable-gridlines"
+          [globalFilterFields]="['titleName', 'foreName', 'surName', 'email', 'gender', 'businessAndCompanyName', 'marginFee', 'sortCode', 'bankAccountNumber', 'comments', 'phoneNumber','name']">
+          <ng-template pTemplate="caption">
+  
+            <div class="table-header">
+              <!-- <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success me-3"
+              (click)="openNew()"></button> -->
+           
+              <!-- Multi-Select -->
+              <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
+                selectedItemsLabel="{0} columns selected" [style]="{'min-width': '200px'}"
+                placeholder="Choose Columns"></p-multiSelect>
+              <!-- Multi-Select -->
+              <span class="p-input-icon-left ms-3">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+                  placeholder="Global Search" />
+              </span>
+              <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt)"
+                class="ms-4"></button>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns" pResizableColumn pReorderableColumn>
+                {{col.header}}
+              
+                <p-columnFilter type="text" [field]="col.field" display="menu"></p-columnFilter>
+              </th>
+              <th pResizableColumn *ngIf="clientEdit === true">
+                <span>Perform-Actions</span>
+              </th>
+  
+            </tr>
+  
+            <tr>
+              
+              <th *ngFor="let col of columns">
+                <input pInputText type="text" (input)="dt.filter($any($event.target).value, col.field, 'contains')"
+                  [value]="$any(dt.filters[col.field])?.value || ''" [placeholder]="'Search by ' + col.field"
+                  class="w-full">
+              </th>
+              <th *ngIf="clientEdit === true">
+                <span>Perform-Actions</span>
+              </th>
+            </tr>
+            <tr>
+            </tr>
+  
+          </ng-template>
+  
+          <ng-template pTemplate="body" let-clientsData let-columns="columns" let-editing="editing" let-ri="rowIndex">
+            <tr [pEditableRow]="clientsData">
+              <td *ngFor="let col of columns">
+                <p-cellEditor>
+  
+                  <ng-template pTemplate="input">
+                    <input pInputText type="text" [(ngModel)]="clientsData[col.field]" required>
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{clientsData[col.field]}}
+                  </ng-template>
+                </p-cellEditor>
+              </td>
+              <td style="text-align:center" *ngIf="clientEdit === true">
+                <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
+                  class="p-button-success me-1" (click)="onRowEditInit(clientsData, ri)"></button>
+  
+                <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check"
+                  (click)="onRowEditSave(clientsData, ri)" class="p-button-success" class="me-2"></button>
+                <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
+                  (click)="onRowEditCancel(clientsData, ri)" class="p-button-danger me-2"></button>
+                <p-button icon="pi pi-trash" styleClass="p-button-danger" class="me-1" data-bs-toggle="modal"
+                  (click)="activeModal({_id:clientsData?._id,modal:'hard'})" data-bs-target="#exampleModal1"></p-button>
+                <p-button icon="pi pi-trash" styleClass="p-button-warning" data-bs-toggle="modal"
+                  (click)="activeModal({_id:clientsData?._id,modal:'soft'})" data-bs-target="#exampleModal1"></p-button>
+              </td>
+            </tr>
+  
+  
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+  <!-- updated-table -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{activeSoftDeleteModal ? 'Archived' : activeHardDeleteModal ?
+            'Delete' : ''}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" data-bs-dismiss="modal" class="btn"
+            [ngClass]=" activeSoftDeleteModal ? 'btn-outline-success' : activeHardDeleteModal ? 'btn-outline-danger' : '' "
+            (click)="activeSoftDeleteModal ? softDeleteClientWithId(clientId) : activeHardDeleteModal ? hardDeleteClientWithId(clientId) : null">Are
+            you sure you want to {{activeSoftDeleteModal ? 'Archived' : activeHardDeleteModal ? 'Delete' : ''}}
+            it?</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->

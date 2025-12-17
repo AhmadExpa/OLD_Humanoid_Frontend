@@ -1,0 +1,312 @@
+<div class="container-fluid">
+  <div class="row">
+    <h3>Sweet Umbrella LTD</h3>
+  </div>
+  <div class="row">
+    <div class="background bg-light pt-1">
+      <h3>Timesheet</h3>
+    </div>
+  </div>
+  <form [formGroup]="timeSheetForm" (ngSubmit)="submitData()">
+    <div class="row my-3">
+      <div class="col-md-2">
+        <label for="exampleFormControlSelect1" class="my-3">Candidate</label>
+      </div>
+      <div class="col-md-4">
+   
+      <div class="form-floating">
+        <p-dropdown [options]="candidateNames" [(ngModel)]="selectedCandidate" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Choose a Client" styleClass="w-100" formControlName="client">
+          <ng-template let-selectedCandidate pTemplate="selectedItem">
+            <div class="flex align-items-center gap-2">
+              <!-- Add your custom styling or image for the selected item if needed -->
+              <div>{{ selectedCandidate?.name || 'Choose a Client' }}</div>
+            </div>
+          </ng-template>
+          <ng-template let-candidate pTemplate="item">
+            <div class="flex align-items-center gap-2">
+              <!-- Add your custom styling or image for each item if needed -->
+              <div>{{ candidate?.name }}</div>
+            </div>
+          </ng-template>
+        </p-dropdown>
+        
+      </div>
+
+        <div class="error  text-danger"
+          *ngIf="timeSheetForm.controls['client'].invalid && (timeSheetForm.controls['client'].dirty || timeSheetForm.controls['client'].touched)">
+          <span *ngIf="timeSheetForm.controls['client'].errors.required">
+            <small>Field Required!</small>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="row my-3">
+      <div class="col-md-2">
+        <label for="" class="my-3">Comments</label>
+      </div>
+      <div class="col-md-4">
+        <div class="form-floating">
+          <!-- <input type="text" name="" id="" readonly [value]="selectedCandidate?.comments"> -->
+          <input pInputText type="text" placeholder="Comments"[value]="selectedCandidate?.comments" class="w-100" />
+          </div>
+      </div>
+    </div>
+    <div class="row my-3">
+      <div class="col-md-2">
+        <label for="" class="my-3">Use Margin Fee</label>
+      </div>
+      <div class="col-md-4">
+        <div class="form-floating">
+          <select class="form-select" id="useMarginFee" aria-label="Floating label select example"
+            formControlName="useMarginFee">
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+          <label for="useMarginFee">User Margin Fee</label>
+        </div>
+        <div class="error  text-danger"
+          *ngIf="timeSheetForm.controls['useMarginFee'].invalid && (timeSheetForm.controls['useMarginFee'].dirty || timeSheetForm.controls['useMarginFee'].touched)">
+          <span *ngIf="timeSheetForm.controls['useMarginFee'].errors.required">
+            <small>Field Required!</small>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <label for="" class="my-3">Agency</label>
+      </div>
+
+      <div class="col-md-4">
+        <div class="form-floating" >
+          <select class="form-select" id="agency" aria-label="Floating label select example"
+            formControlName="agency">
+            <option *ngFor="let item of getAllUmbrellaServiceData" [ngValue]="item">{{item?.companyName}}</option>
+          </select>
+          <label for="Agency">Agency Names</label>
+        </div>
+        <div class="error  text-danger"
+          *ngIf="timeSheetForm.controls['agency'].invalid && (timeSheetForm.controls['agency'].dirty || timeSheetForm.controls['agency'].touched)">
+          <span *ngIf="timeSheetForm.controls['agency'].errors.required">
+            <small>Field Required!</small>
+          </span>
+        </div>
+      </div>
+      
+      <div class="col-md-6"></div>
+    </div>
+
+    <div class="row my-3">
+      <div class="col-md-2">
+        <label for="" class="my-3">Week</label>
+      </div>
+      <div class="col-md-4">
+        <div class="form-floating mx-1">
+          <input type="number" class="form-control w-100" id="week" placeholder="week" formControlName="week" (change)="checkWeek($event)">
+          <label for="week">Week</label>
+        </div>
+        <div class="error  text-danger"
+          *ngIf="timeSheetForm.controls['week'].invalid && (timeSheetForm.controls['week'].dirty || timeSheetForm.controls['week'].touched)">
+          <span *ngIf="timeSheetForm.controls['week'].errors.required">
+            <small>Field Required!</small>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <ng-container *ngIf="!timeSheetForm.invalid && showTimeSheetControls">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="heading">
+            <h3>Timesheet</h3>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <!-- Table -->
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead class="table-light">
+                <tr>
+                  <th scope="col" class="text-center">Date</th>
+                 
+                  <th scope="col" class="text-center">Unit</th>
+                  <th scope="col" class="text-center">Rate</th>
+                  <th scope="col" class="text-center">TotalPay</th>
+                  <th scope="col" class="text-center">Selected Week</th>
+                  <th scope="col" class="text-center">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container formArrayName="timeSheetControlsArray">
+                  <tr *ngFor="let rowData of initRowData().controls; let i=index" [formGroupName]="i">
+                    <td scope="col">
+                      <input type="date" class="form-control w-100" placeholder="From" formControlName="from">
+                    </td>
+                    <!-- <td scope="col"> <input type="date" class="form-control w-100" placeholder="To"
+                        formControlName="to">
+                    </td> -->
+                    <td scope="col"> <input type="number" class="form-control w-100" placeholder="Unit"
+                        formControlName="unit"></td>
+                    <td scope="col"> <input type="number" class="form-control w-100" placeholder="Rate"
+                        formControlName="rate" (change)="totalTimeSheet(i)"></td>
+                    <td scope="col"> <input type="number" class="form-control w-100" placeholder="Total Pay"
+                        formControlName="totalPay" formControlName="totalPay" (input)="onTotalPayChange($event)"></td>
+                    <td scope="col"> <input type="number" class="form-control w-100"
+                        formControlName="paySlipWeek" readonly></td>
+                    <td scope="col" class="text-center"><i class="fas fa-trash text-danger"
+                        (click)="removeTimeSheetRow(i)"></i></td>
+                  </tr>
+                  <tr *ngIf="showInputField === true">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <div class="input-group mb-3">
+                        <input type="text" class="form-control" [value]="totalPaySum" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-danger mt-0" type="button" (click)="showDialog()" [disabled]="totalPaySum === 0">Change Rule</button>
+                        </div>
+                      </div>
+                    </td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </ng-container>
+                <tr>
+                  <th scope="row" colspan="7" class="text-center pink"><span (click)="addRow()">+ Add New</span></th>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="heading">
+            <h3>Deductions</h3>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <!-- Table -->
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead class="table-light">
+                <tr>
+                  <th scope="col" class="text-center">Category</th>
+                  <th scope="col" class="text-center">Amount</th>
+                  <th scope="col" class="text-center">Date</th>
+                  <th scope="col" class="text-center">Selected Week</th>
+                  <th scope="col" class="text-center">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container formArrayName="deductionControlsArray">
+                  <tr *ngFor="let rowData of initDeductionRowData().controls; let i=index" [formGroupName]="i">
+                    <!-- <td scope="col"> <input type="number" class="form-control w-100" placeholder="Deduction"
+                        formControlName="dedutcions" (change)="totalDeduction(i)"></td> -->
+
+
+                        <td scope="col"> <p-dropdown 
+                          class="form-control w-100"
+                          [options]="accomodationCategories" 
+                         
+                          optionLabel="name"
+                          placeholder="Select a Category" 
+                          formControlName="deductionCategory" 
+                          appendTo="body"
+                          (onChange)="totalDeduction(i)"></p-dropdown></td>
+                        
+
+
+                    <td scope="col"> <input type="text" class="form-control w-100" placeholder="Amount"
+                        formControlName="deductionAmount"></td>
+                    <td scope="col"> <input type="date" class="form-control w-100" placeholder="To"
+                        formControlName="date">
+                    </td>
+                        <td scope="col"> <input type="number" class="form-control w-100"
+                          formControlName="paySlipWeek" readonly></td>
+                    <td scope="col" class="text-center"><i class="fas fa-trash text-danger"
+                        (click)="removeDeductionRow(i)"></i></td>
+                  </tr>
+                </ng-container>
+                <tr>
+                  <th scope="row" colspan="5" class="text-center pink"><span (click)="addDeductionRow()">+ Add
+                      New</span>
+                  </th>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="buttons mb-3 w-100">
+            <button type="submit" class="btn btn-outline-dark w-100" [disabled]="timeSheetForm.pristine || timeSheetForm.invalid">Submit</button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </form>
+</div>
+
+
+
+<!-- Prime-Ng Modal -->
+<!-- <p-dialog header="Change Rule" [(visible)]="visible" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false">
+<form [formGroup]="modalForm" (ngSubmit)="initModalValues()">
+  <div class="mb-3">
+    <div class="form-floating">
+      <select class="form-select scrollable-dropdown" id="client" aria-label="Floating label select example" formControlName="client" formControlName="ruleName" (change)="flagForRule($event)">
+        <option selected></option>
+         <option *ngFor="let data of rules" [value]="data.value">{{data.name}}</option>
+       </select> 
+       <label for="clientName">Choose Rule</label>
+     </div>
+  </div>
+  <div class="mb-3" *ngIf="!!this.ruleName">
+    <label for="exampleInputPassword1" class="form-label">Add Percentage Value</label>
+    <input type="text" class="form-control" id="exampleInputPassword1" formControlName="ruleValue">
+  </div>
+  <div class="mb-3">
+    <button class="btn btn-outline-primary" [disabled]="modalForm.pristine || modalForm.invalid">Save</button>
+  </div>
+</form>
+</p-dialog> -->
+
+<p-dialog header="Change Rule" [(visible)]="visible" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false">
+  <form [formGroup]="modalForm" (ngSubmit)="initModalValues()">
+    <div class="mb-3">
+      <div class="form-floating">
+        <select class="form-select scrollable-dropdown" id="client" aria-label="Floating label select example" formControlName="client" (change)="flagForRule($event)">
+          <option selected></option>
+          <option value="MARGIN_RULE_VALUE">Add Margin Rule</option>
+          <option value="PERCENTAGE_RULE_VALUE">Add Percentage Rule</option>
+        </select> 
+        <label for="clientName">Choose Rule</label>
+      </div>
+    </div>
+    <div class="mb-3" *ngIf="this.ruleName === 'PERCENTAGE_RULE_VALUE'">
+      <label for="exampleInputPassword1" class="form-label">Add Percentage Value</label>
+      <input type="text" class="form-control" id="exampleInputPassword1" formControlName="ruleValue">
+    </div>
+    <div class="mb-3" *ngIf="this.ruleName === 'MARGIN_RULE_VALUE'">
+      <label for="exampleInputPassword2" class="form-label">Add Margin Value</label>
+      <input type="text" class="form-control" id="exampleInputPassword2" formControlName="ruleValue">
+    </div>
+    <div class="mb-3">
+      <button class="btn btn-outline-primary" [disabled]="modalForm.get('ruleValue').value === null"  (click)="closeModal()">Save</button>
+    </div>
+  </form>
+</p-dialog>
+
+
+
+
+
+

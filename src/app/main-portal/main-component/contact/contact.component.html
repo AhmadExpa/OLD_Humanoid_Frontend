@@ -1,0 +1,217 @@
+<div class="main-contact-wrapper overflow-hidden">
+
+    <div class="text-center main-heading">
+        <h1>We’re here for you</h1>
+    </div>
+
+    <div class="contact-wrapper container mt-5">
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="card">
+
+                    <div class="card-body">
+                        <h5 class="card-title pb-5">Contact Support</h5>
+                        <a class="anchor-underline-transition" href="#">Learn More <i
+                                class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+
+                    <div class="card-body">
+                        <h5 class="card-title pb-5">Sales Department</h5>
+                        <a class="anchor-underline-transition" href="#">Learn More <i
+                                class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+
+                    <div class="card-body">
+                        <h5 class="card-title pb-5">Help Center</h5>
+                        <a class="anchor-underline-transition" href="#">Learn More <i
+                                class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<section class="ftco-section my-5" id="contact">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+                <!-- <h2 class="heading-section">Contact Form #04</h2> -->
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="wrapper">
+                    <div class="row no-gutters">
+                        <div class="col-md-6">
+                            <div class="contact-wrap w-100 p-lg-5 p-4">
+                                <h3 class="mb-4">Send us a message</h3>
+                                <div id="form-message-warning" class="mb-4"></div>
+                                <form (ngSubmit)="submitContactForm()" [formGroup]="contactForm">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group mb-3">
+                                                <label for="name">Name</label>
+                                                <input type="text" class="form-control custom-placeholder"
+                                                    formControlName="firstName" name="name" id="name"
+                                                    placeholder="Name">
+                                            </div>
+
+                                            <!-- validation -->
+                                            <div class="error text-danger" *ngIf="contactForm.controls['firstName'].invalid
+                                                && (contactForm.controls['firstName'].dirty
+                                                ||
+                                                contactForm.controls['firstName'].touched)">
+                                                <span *ngIf="(contactForm.controls['firstName'].errors.pattern)">
+                                                    Only Alphabest Allowed !!</span>
+                                                <span *ngIf="contactForm.controls['firstName'].errors.required">
+                                                    <small class="">Field Required!</small>
+                                                </span>
+                                            </div>
+                                            <!-- validation -->
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group mb-3">
+                                                <label for="email">Email</label>
+                                                <input type="email" class="form-control custom-placeholder" formControlName="email"
+                                                    name="email" id="email" placeholder="Email">
+                                            </div>
+                                            <!-- validation -->
+                                            <div class="error text-danger" *ngIf="contactForm.controls['email'].invalid
+                                                && (contactForm.controls['email'].dirty ||
+                                                contactForm.controls['email'].touched)">
+                                                <span *ngIf="contactForm.controls['email'].errors.required">
+                                                    <small>Field Required!</small>
+                                                </span>
+
+                                                <span *ngIf="contactForm.controls['email'].errors.email">
+                                                    <small>Enter Valid Email</small>
+                                                </span>
+                                            </div>
+                                            <!-- validation -->
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group mb-3">
+                                                <label for="subject">Subject</label>
+                                                <input type="text" class="form-control custom-placeholder" formControlName="Subject"
+                                                    name="subject" id="subject" placeholder="Subject">
+                                            </div>
+                                            <!-- validation -->
+                                            <div class="error  text-danger"
+                                                *ngIf="contactForm.controls['Subject'].invalid && (contactForm.controls['Subject'].dirty || contactForm.controls['Subject'].touched)">
+                                                <span *ngIf="contactForm.controls['Subject'].errors.maxlength ">
+                                                    <small>Subject should not more than 20 characters</small></span>
+                                                <span *ngIf="contactForm.controls['Subject'].errors.required">
+                                                    <small>Field Required!</small>
+                                                </span>
+                                            </div>
+                                            <!-- validation -->
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group mb-3">
+                                                <label for="message">Message</label>
+                                                <textarea name="message" class="form-control custom-placeholder" formControlName="message"
+                                                    id="message" cols="30" rows="6" placeholder="Message"></textarea>
+                                            </div>
+                                            <!-- validation -->
+                                            <div class="error  text-danger"
+                                                *ngIf="contactForm.controls['message'].invalid && (contactForm.controls['message'].dirty || contactForm.controls['message'].touched)">
+                                                <span *ngIf="contactForm.controls['message'].errors.maxlength ">
+                                                    <small>Message should not more than 500 characters</small></span>
+                                                <span *ngIf="contactForm.controls['message'].errors.required">
+                                                    <small>Field Required!</small>
+                                                </span>
+                                            </div>
+                                            <!-- validation -->
+                                        </div>
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn btn-primary"
+                                                [disabled]="contactForm.pristine || contactForm.invalid">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-md-6 d-flex align-items-stretch">
+                            <div class="info-wrap w-100 p-lg-5 p-4 img">
+                                <h3>Contact us</h3>
+                                <a class="my-4 text-success">We're open for any suggestion or just to have a chat</a>
+                                <div class="dbox w-100 d-flex align-items-start mt-3">
+                                    <div class="icon d-flex align-items-center justify-content-center">
+                                        <span class="fa fa-map-marker text-success"></span>
+                                    </div>
+                                    <div class="text pl-3">
+                                        <p><span>Address:</span>
+                                            <a>123 Main Street
+                                                Anytown, USA</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="dbox w-100 d-flex align-items-center">
+                                    <div class="icon d-flex align-items-center justify-content-center">
+                                        <span class="fa fa-phone text-success"></span>
+                                    </div>
+                                    <div class="text pl-3">
+                                        <p><span>Phone:</span> <a>+ 1243 0000 87</a></p>
+                                    </div>
+                                </div>
+                                <div class="dbox w-100 d-flex align-items-center">
+                                    <div class="icon d-flex align-items-center justify-content-center">
+                                        <span class="fa fa-paper-plane text-success"></span>
+                                    </div>
+                                    <div class="text pl-3 ">
+                                        <p><span>Email:</span> <a>Dummy_@hotmail.com</a></p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="social-media order-lg-last">
+                                        <p class="mb-0 d-flex">
+                                            <!-- <a  class="d-flex mx-4 align-items-center justify-content-center"><span class="fa fa-facebook"></span></a> -->
+                                            <a class="d-flex mx-2 align-items-center justify-content-center"
+                                                role="button"><span
+                                                    class="fa fa-twitter text-outline-primary"></span></a>
+                                            <a href="https://instagram.com/forestumbrella?igshid=YmMyMTA2M2Y="
+                                                target="_blank"
+                                                class="d-flex mx-2 align-items-center justify-content-center"><span
+                                                    class="fa fa-instagram text-outline-primary"></span></a>
+                                            <a href="https://twitter.com/umbrella_forest?s=11&t=t2zLE28WfP69zchx9i5Q8w"
+                                                target="_blank"
+                                                class="d-flex mx-2 align-items-center justify-content-center"><span
+                                                    class="fa fa-linkedin text-outline-primary"></span></a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <!-- <div class="dbox w-100 d-flex align-items-center"> -->
+                                <!-- <div class="mx-auto icon d-flex align-items-center justify-content-center">
+                                <a  class="fa mx-2 fa-linkedin"></a>
+                                <a href="https://instagram.com/forestumbrella?igshid=YmMyMTA2M2Y=" target="_blank" class="fa mx-2 fa-instagram"></a>
+                                <a class="fa mx-2 fa-facebook"></a>
+                                <a href="https://twitter.com/umbrella_forest?s=11&t=t2zLE28WfP69zchx9i5Q8w" target="_blank" class="fa mx-2 fa-twitter"></a>
+
+                            </div> -->
+                                <!-- <div class="text pl-3">
+                            <p><span>Website</span> <a>yoursite.com</a></p>
+                          </div>
+                           -->
+                                <!-- </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,95 @@
+<!-- main-endorsement-wrapper start -->
+<div class="main-endorsement-wrapper overflow-hidden">
+
+    <!-- endorsement-main-banner-wrapper starts -->
+    <div class="endorsement-main-banner-wrapper container">
+
+        <div class="text-content">
+            <h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit ullam praesentium fuga vitae harum
+                eaque.</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, dicta!</p>
+            <button type="button" class="btn btn-outline-primary">Primary</button>
+        </div>
+
+
+    </div>
+    <!-- endorsement-main-banner-wrapper ends -->
+
+    <!-- button-wrapper start -->
+    <div class="button-wrapper container d-flex justify-content-center">
+
+        <div class="button-content-wrapper">
+            <button type="button" class="btn btn-outline-primary">Lorem, ipsum <i
+                    class="fa-solid fa-chevron-down"></i></button>
+            <span class="border-button mx-4"></span>
+            <button type="button" class="btn btn-outline-primary">Lorem, ipsum.</button>
+            <button type="button" class="btn btn-outline-primary">Lorem, ipsum.</button>
+            <button type="button" class="btn btn-outline-primary">Lorem, ipsum.</button>
+            <button type="button" class="btn btn-outline-primary">Lorem, ipsum.</button>
+        </div>
+
+        <div class="filter-button d-lg-none d-xl-block d-xl-none d-xxl-block d-xxl-none">
+            <button type="button"
+                class="btn btn-outline-primary px-4 d-lg-none d-xl-block d-xl-none d-xxl-block d-xxl-none"><img
+                    src="../../../../assets/New-Assets/adjustment.png" alt=""> Filters Content</button>
+        </div>
+
+    </div>
+    <!-- button-wrapper end -->
+
+
+    <!-- card-container start -->
+    <div class="card-container container my-5">
+
+        <div>
+            <h2 class="opacity-75">Top Stories</h2>
+        </div>
+
+        <div class="row">
+
+
+            <div class="col-md-6 col-lg-4" *ngFor="let data of cardData">
+                <div class="card">
+                    <img [src]="data.img" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{data.title}}</h5>
+                        <p class="card-text">{{data.description}}</p>
+                        <a routerLink="../individual-endorsement" [class]="data.button">Go to profile</a>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <!-- card-container end -->
+
+
+    <!-- card-container-2 start -->
+    <div class="card-container-2 container my-5">
+
+        <div>
+            <h2 class="opacity-75 my-4">Reduce Costs</h2>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-6 col-lg-4" *ngFor="let data of cardData">
+                <div class="card">
+                    <img [src]="data.img" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{data.title}}</h5>
+                        <p class="card-text">{{data.description}}</p>
+                        <a routerLink="../individual-endorsement" [class]="data.button">Go to profile</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- card-container-2 end -->
+
+
+</div>
+<!-- main-endorsement-wrapper end -->

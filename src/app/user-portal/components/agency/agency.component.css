@@ -1,0 +1,9 @@
+input {
+    height: 4vh;
+}
+.writingstyle{
+    font-family: Helvetica;
+}
+.custom-height {
+    height: 4vh;
+  }

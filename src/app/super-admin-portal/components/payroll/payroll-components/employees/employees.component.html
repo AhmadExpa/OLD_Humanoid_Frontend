@@ -1,0 +1,1196 @@
+<div class="container-fluid mt-4">
+    <!-- heading and subheading div -->
+    <div>
+      <h2 class="fw-bolder employee-heading">Employees</h2>
+      <p>Create and manage your employee records.</p>
+    </div>
+  
+    <div
+      class="d-flex flex-row border border-success rounded-3 my-3 custom-div"
+      style="width: fit-content"
+    >
+      <div
+        class="col-auto bg-success border border-success rounded-start overflow-hidden p-2 d-flex justify-content-center align-items-center"
+      >
+        <i class="pi-info-circle pi" style="font-size: 1.2rem; color: white"></i>
+      </div>
+      <div class="col py-3 px-3 d-flex flex-column justify-content-center">
+        <h6 class="fw-bold mb-1">
+          You must update some employees record before you can pay them.
+        </h6>
+        <p class="" style="line-height: 1.1rem; font-size: 0.9rem">
+          Select the employee's name to go to their record and update the
+          information.
+        </p>
+      </div>
+    </div>
+  
+  
+  <!-- Implemeting PrimeNg Table -->
+  <div class="card mt-5">
+  
+    <!-- dialog-box -->
+    <p-dialog [(visible)]="employeeDialog" [style]="{ width: '850px' }"
+        header="Product Details" [modal]="true"
+        styleClass="p-fluid">
+        <!-- Calling Create Employee compnent -->
+        <app-create-employee (employeeInfo)="gettingNewEmpoyeesFromChild($event)"></app-create-employee>
+        <!-- Calling Create Employee compnent -->
+    </p-dialog>
+    <!-- dialog-box -->
+  
+    <!-- table start from here -->
+    <p-table [columns]="cols"
+        #dt
+  
+        [value]="getAllEmployeesData"
+  
+        [tableStyle]="{ 'min-width': '50rem' }"
+        dataKey="id"
+        [rowHover]="true"
+        [reorderableColumns]="true" [rows]="20" editMode="row"
+        [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[4, 25, 50]" [paginator]="true"
+        [resizableColumns]="true"
+        [totalRecords]="getAllEmployeesData.length"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [filterDelay]="0"
+        styleClass="p-datatable-gridlines"
+        [globalFilterFields]="['foreName', 'surName', 'payCycle', 'receivedBy', 'paySLipMessage', 'paymentMethods']">
+        <!-- create-Empoyee -->
+        <ng-template pTemplate="caption">
+  
+            <div class="table-header">
+  
+  
+                <!-- create-Empoyee-Dialog -->
+                <button pButton pRipple label="New" icon="pi pi-plus"
+                    class="p-button-success me-3"
+                    (click)="openNew()"></button>
+                <!-- create-Empoyee-Dialog -->
+  
+  
+                <!-- Global-Search -->
+                <span class="p-input-icon-left ms-3">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text"
+                        (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+                        placeholder="Global Search" />
+                </span>
+                <!-- Global-Search -->
+  
+                <!-- Multi-Select -->
+                <span class="ms-2">
+                    <p-multiSelect [options]="cols" 
+                    [(ngModel)]="selectedColumns" 
+                    optionLabel="header"
+                    selectedItemsLabel="{0} columns selected" 
+                    [style]="{'min-width': '200px'}"
+                    placeholder="Choose Columns"></p-multiSelect>
+                </span>
+                <!-- Multi-Select -->
+  
+                <!-- clear-Filter -->
+                <button pButton label="Clear" class="p-button-outlined"
+                    icon="pi pi-filter-slash" (click)="clear(dt)"
+                    class="ms-4"></button>
+                <!-- clear-Filter -->
+            </div>
+  
+        </ng-template>
+        <!-- create-Empoyee -->
+  
+  
+                <!-- Global-Search -->
+                <span class="p-input-icon-left ms-3">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text"
+                        (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+                        placeholder="Global Search" />
+                </span>
+                <!-- Global-Search -->
+  
+                <!-- Multi-Select -->
+                <span class="ms-2">
+                    <p-multiSelect [options]="cols" 
+                    [(ngModel)]="selectedColumns" 
+                    optionLabel="header"
+                    selectedItemsLabel="{0} columns selected" 
+                    [style]="{'min-width': '200px'}"
+                    placeholder="Choose Columns"></p-multiSelect>
+                </span>
+                <!-- Multi-Select -->
+  
+                <!-- clear-Filter -->
+                <button pButton label="Clear" class="p-button-outlined"
+                    icon="pi pi-filter-slash" (click)="clear(dt)"
+                    class="ms-4"></button>
+                <!-- clear-Filter -->
+           
+  
+      
+        <!-- create-Empoyee -->
+  
+  
+        <ng-template pTemplate="header"  let-columns>
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{ col.header }}
+                </th>
+                <th>
+                    Perform Tasks
+                </th>
+                
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-cols let-rowData let-columns="columns">
+            <tr>
+                <td *ngFor="let col of columns">
+                    {{ rowData[col.field] }}
+                </td>
+                <td>
+                    <button type="button" class="btn btn-outline-primary " data-bs-toggle="modal" data-bs-target="#updateModal" (click)="getEmployeeById(cols._id)">Update</button>
+                    <button type="button" class="btn btn-outline-warning mx-3" data-bs-toggle="modal" data-bs-target="#exampleModal1"  (click)="activeModal({_id:cols?._id,modal:'soft'})">Soft-Delete</button>
+                    <button type="button" class="btn btn-outline-danger " data-bs-toggle="modal" data-bs-target="#exampleModal1" (click)="activeModal({_id:cols?._id,modal:'hard'})">Hard-Delete</button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <!-- table end here -->
+  
+  
+  
+    <!-- Confirmation Modal  -->
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="exampleModal1"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+            {{
+              activeSoftDeleteModal
+                ? "Archived"
+                : activeHardDeleteModal
+                ? "Delete"
+                : ""
+            }}
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-outline-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            data-bs-dismiss="modal"
+            class="btn"
+            [ngClass]="
+              activeSoftDeleteModal
+                ? 'btn-outline-success'
+                : activeHardDeleteModal
+                ? 'btn-outline-danger'
+                : ''
+            "
+            (click)="
+              activeSoftDeleteModal
+                ? softDeleteEmployee(employeeId)
+                : activeHardDeleteModal
+                ? deleteEmployee(employeeId)
+                : null
+            "
+          >
+            Are you sure you want to
+            {{
+              activeSoftDeleteModal
+                ? "Archived"
+                : activeHardDeleteModal
+                ? "Delete"
+                : ""
+            }}
+            it?
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->
+  <!-- Confirmation Modal -->
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    <!-- modal Start -->
+  
+  <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="updateModalLabel">Update Employee</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Form or content to update employee goes here -->
+          <form [formGroup]="UpDatePayrollEmployeeForm"> 
+            <!-- first row for Personal Details and Contact Details Colums  -->
+            <div class="row">
+              <div class="col-6">
+                <h6 class="fw-bold fs-5 mb-4">Personal Details</h6>
+                <!--Start Single text field with label and error message  -->
+                <div class="row mb-3">
+                  <div class="col-auto">
+                    <label class="fw-bold" for="username">Forename*</label>
+                  </div>
+                  <div class="col">
+                    <input
+                      formControlName="foreName"
+                      pInputText
+                      id="username"
+                      aria-describedby="username-help"
+                    /><br />
+                    <!-- <app-validation-errors
+                      [control]="createEmployeeForm.get('foreName')"
+                      [customMessages]="{
+                        required: 'Please enter your ForeName' ,
+                        pattern: 'Only Characters A-Z are allowed'
+                      }"
+                    ></app-validation-errors> -->
+                  </div>
+                </div>
+                <!--End Single text field with label and error message  -->
+                <div class="row mb-3">
+                  <div class="col-auto">
+                    <label class="fw-bold" for="username">Surname*</label>
+                  </div>
+                  <div class="col">
+                    <input
+                      formControlName="surName"
+                      pInputText
+                      id="username"
+                      aria-describedby="username-help"
+                    /><br />
+                    <!-- <app-validation-errors
+                      [control]="createEmployeeForm.get('foreName')"
+                      [customMessages]="{
+                        required: 'Please enter your Fore Name.',
+                        pattern: 'Only Characters A-Z are allowed'
+                      }"
+                    ></app-validation-errors> -->
+                  </div>
+                </div>
+        
+                <div class="row mb-3">
+                  <div class="col-auto">
+                    <label class="fw-bold" for="username">NI Number</label>
+                  </div>
+                  <div class="col">
+                    <input
+                      formControlName="niNumber"
+                      pInputText
+                      type="text"
+                      id="username"
+                      aria-describedby="username-help"
+                    /><br />
+                    <!-- <app-validation-errors
+                    [control]="createEmployeeForm.get('niNumber')"
+                    [customMessages]="{
+                      required: 'Please enter niNumber.'
+                    }"
+                  ></app-validation-errors> -->
+                  </div>
+                </div>
+        
+                <div class="row">
+                  <div class="col-auto">
+                    <label class="fw-bold" for="username">Date of Birth*</label>
+                  </div>
+                  <div class="col">
+                    <p-calendar
+                      formControlName="dob"
+                      [showIcon]="true"
+                      inputId="icondisplay"
+                    /><br />
+        
+                    <!-- <app-validation-errors
+                    [control]="createEmployeeForm.get('dob')"
+                    [customMessages]="{
+                      required: 'Please select dob.'
+                    }"
+                  ></app-validation-errors> -->
+                  </div>
+                </div>
+  
+                <div class="row mb-3">
+                  <div class="col-auto">
+                    <label class="fw-bold" for="username">Gender*</label>
+                  </div>
+                  <div class="col">
+                    <p-dropdown
+                      formControlName="gender"
+                      [options]="[{name:'male'},{name:'female'}]"
+                      optionLabel="name"
+                      placeholder="Select Gender"
+                    />
+                    <br />
+                    <app-validation-errors
+                      [control]="UpDatePayrollEmployeeForm.get('gender')"
+                      [customMessages]="{
+                        required: 'please select gender'
+                      }"
+                    ></app-validation-errors>
+                  </div>
+                </div>
+              </div>
+              <!-- contact details Section -->
+              <div class="col-6">
+                <h6 class="fw-bold fs-5 mb-4">Personal Details</h6>
+        
+                <div class="row mb-3">
+                  <div class="col-auto">
+                    <label class="fw-bold" for="address1">Address 1</label>
+                  </div>
+                  <div class="col">
+                    <input
+                      formControlName="address1"
+                      pInputText
+                      id="address1"
+                      aria-describedby="username-help"
+                    /><br />
+                    <!-- <app-validation-errors
+                    [control]="createEmployeeForm.get('address1')"
+                    [customMessages]="{
+                      required: 'Please enter Address.'
+                    }"
+                  ></app-validation-errors> -->
+                  </div>
+                </div>
+        
+                <div class="row mb-3">
+                  <div class="col-auto">
+                    <label class="fw-bold" for="address2">Address 2</label>
+                  </div>
+                  <div class="col">
+                    <input
+                      formControlName="address2"
+                      pInputText
+                      id="address2"
+                      aria-describedby="username-help"
+                    /><br />
+                    <small hidden id="username-help"> Enter your username </small>
+                  </div>
+                </div>
+        
+                <div class="row mb-3">
+                  <div class="col-auto">
+                    <label class="fw-bold" for="city">Town/City</label>
+                  </div>
+                  <div class="col">
+                    <input
+                      formControlName="city"
+                      pInputText
+                      id="city"
+                      aria-describedby="username-help"
+                    /><br />
+                    <!-- <app-validation-errors
+                    [control]="createEmployeeForm.get('city')"
+                    [customMessages]="{
+                      required: 'Please enter your City.',
+                      pattern: 'Only Characters A-Z are allowed'
+                    }"
+                  ></app-validation-errors> -->
+                  </div>
+                </div>
+        
+                <div class="row mb-3">
+                  <div class="col-auto">
+                    <label class="fw-bold" for="postCode">Postcode</label>
+                  </div>
+                  <div class="col">
+                    <input
+                      formControlName="postCode"
+                      type="text"
+                      pInputText
+                      id="postCode"
+                      aria-describedby="username-help"
+                    /><br />
+                    <!-- <app-validation-errors
+                    [control]="createEmployeeForm.get('postCode')"
+                    [customMessages]="{
+                      required: 'Please enter postCode.'
+                    }"
+                  ></app-validation-errors> -->
+                  </div>
+                </div>
+        
+                <div class="row mb-3">
+                  <div class="col-auto">
+                    <label class="fw-bold" for="username">Country</label>
+                  </div>
+                  <div class="col">
+                    <p-dropdown
+                      formControlName="country"
+                      [options]="countries"
+                      optionLabel="name"
+                      placeholder="Select a Country"
+                    />
+                    <br />
+                    <!-- <small id="username-help">
+                      {{ formControls?.country?.name ? formControls?.country?.name : formControls?.country }}
+                    </small> -->
+                  </div>
+                </div>
+        
+                <div class="row mb-3">
+                  <div class="col-auto">
+                    <label class="fw-bold" for="telephone">Telephone</label>
+                  </div>
+                  <div class="col">
+                    <input
+                      formControlName="telephone"
+                      type="tel"
+                      pInputText
+                      id="telephone"
+                      aria-describedby="username-help"
+                    /><br />
+                    <small hidden id="username-help"> Enter your username </small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr />
+            <!-- Second row for Employment Details and DirectorShip Details  -->
+            <div class="row mt-2">
+              <!-- Employment Details Section  -->
+              <div class="col-6">
+                <h6 class="fw-bold fs-5 mb-4">Employment Details</h6>
+                <div class="row mb-3">
+                  <div class="col-auto">
+                    <label class="fw-bold" for="username">Pay Cycle*</label>
+                  </div>
+                  <div class="col">
+                    <p-dropdown
+                      formControlName="payCycle"
+                      [options]="countries"
+                      optionLabel="name"
+                      placeholder="Select pay cycle"
+                    />
+                    <br />
+                    <!-- <small id="username-help">
+                      {{ formControls?.payCycle?.name ? formControls?.payCycle?.name : formControls?.payCycle }}
+                    </small> -->
+                  </div>
+                </div>
+        
+                <div class="row mb-3">
+                  <div class="col-auto">
+                    <label class="fw-bold" for="username"
+                      >Contracted Weekly Hours</label
+                    >
+                  </div>
+                  <div class="col">
+                    <p-dropdown
+                      formControlName="contractedWeeklyHours"
+                      [options]="countries"
+                      optionLabel="name"
+                      placeholder="Select Hours"
+                    />
+                    <br />
+                    <!-- <small id="username-help">
+                      {{ formControls?.country?.name ? formControls?.country?.name : formControls?.country }}
+                    </small> -->
+                  </div>
+                </div>
+        
+                <div class="row mb-3">
+                  <div class="col-auto">
+                    <label class="fw-bold" for="username">Works Number</label>
+                  </div>
+                  <div class="col">
+                    <input
+                      formControlName="worksNumber"
+                      type="text"
+                      pInputText
+                      id="username"
+                      aria-describedby="username-help"
+                    /><br />
+                    <small hidden id="username-help"> Enter your username </small>
+                  </div>
+                </div>
+        
+                <div class="row mb-3">
+                  <div class="col-auto">
+                    <label class="fw-bold" for="username">RTI Pay ID</label>
+                  </div>
+                  <div class="col">
+                    <input
+                      formControlName="rtiPayId"
+                      type="text"
+                      pInputText
+                      id="username"
+                      aria-describedby="username-help"
+                    /><br />
+                    <small hidden id="username-help"> Enter your username </small>
+                  </div>
+                </div>
+        
+                <div class="row mb-3">
+                  <div class="col-auto">
+                    <label class="fw-bold" for="username">Start Date*</label>
+                  </div>
+                  <div class="col">
+                    <p-calendar
+                      formControlName="startDate"
+                      [showIcon]="true"
+                      inputId="icondisplay"
+                    /><br />
+        
+                    <app-validation-errors
+                    [control]="UpDatePayrollEmployeeForm.get('startDate')"
+                    [customMessages]="{
+                      dateRangeInvalid: 'Start Date should be less than End Date'
+                    }"
+                  ></app-validation-errors>
+                  </div>
+                </div>
+        
+                <div class="row mb-3">
+                  <div class="col-auto">
+                    <label class="fw-bold" for="username">End Date*</label>
+                  </div>
+                  <div class="col">
+                    <p-calendar
+                      formControlName="endDate"
+                      [showIcon]="true"
+                      inputId="icondisplay"
+                    /><br />
+        
+                    <app-validation-errors
+                    [control]="UpDatePayrollEmployeeForm.get('endDate')"
+                    [customMessages]="{
+                      dateRangeInvalid: 'End Date should be greater than Start Date'
+                    }"
+                  ></app-validation-errors>
+                  </div>
+                </div>
+        
+                <div class="row mb-3">
+                  <div class="col-auto">
+                    <label class="fw-bold" for="username">Payment Method</label>
+                  </div>
+                  <div class="col">
+                    <p-dropdown
+                      formControlName="paymentMethod"
+                      [options]="paymentMethods"
+                      optionLabel="name"
+                      placeholder="Select Payment Method"
+                    />
+                    <br />
+                    <!-- <small id="username-help">
+                      {{ formControls?.paymentMethod?.name ? formControls?.paymentMethod?.name : formControls?.paymentMethod }}
+                    </small> -->
+                  </div>
+                </div>
+        
+                <!-- fields to show if Bank Transfer method are selected by client  -->
+                <div
+                  class="row mb-3"
+                  *ngIf="formControls?.paymentMethod?.name == 'Bank Transfer'"
+                >
+                  <div class="col-auto">
+                    <label class="fw-bold" for="username">Bank A/C Number</label>
+                  </div>
+                  <div class="col">
+                    <input
+                      formControlName="bankAccountNumber"
+                      type="text"
+                      pInputText
+                      id="username"
+                      aria-describedby="username-help"
+                    /><br />
+                    <small hidden id="username-help"> Enter your username </small>
+                  </div>
+                </div>
+        
+                <div
+                  class="row mb-3"
+                  *ngIf="formControls?.paymentMethod?.name == 'Bank Transfer'"
+                >
+                  <div class="col-auto">
+                    <label class="fw-bold" for="username">Bank A/C</label>
+                  </div>
+                  <div class="col">
+                    <input
+                      formControlName="bankAc"
+                      type="text"
+                      pInputText
+                      id="username"
+                      aria-describedby="username-help"
+                    /><br />
+                    <small hidden id="username-help"> Enter your username </small>
+                  </div>
+                </div>
+        
+                <div
+                  class="row mb-3"
+                  *ngIf="formControls?.paymentMethod?.name == 'Bank Transfer'"
+                >
+                  <div class="col-auto">
+                    <label class="fw-bold" for="username">Sort Code</label>
+                  </div>
+                  <div class="col">
+                    <input
+                      formControlName="sortCode"
+                      type="text"
+                      pInputText
+                      id="username"
+                      aria-describedby="username-help"
+                    /><br />
+                    <small hidden id="username-help"> Enter your username </small>
+                  </div>
+                </div>
+                <!-- fields to show if Bank Transfer method are selected by client  -->
+        
+                <div class="row mb-3">
+                  <div class="col-auto">
+                    <label class="fw-bold" for="username"
+                      >Exclude from auto Enrolment</label
+                    >
+                  </div>
+                  <div class="col">
+                    <p-checkbox
+                      formControlName="autoIncrement"
+                      [binary]="true"
+                      inputId="binary"
+                    />
+                    <br />
+                    <small hidden id="username-help"> Enter your username </small>
+                  </div>
+                </div>
+        
+                <div class="row mb-3">
+                  <!-- <div class="col-auto">
+                      <label class="fw-bold" for="username">Exclude from auto Enrolment</label>
+                    </div> -->
+                  <div class="col">
+                    <p-accordion [activeIndex]="0">
+                      <p-accordionTab header="When Should I exclude and Employee?">
+                        <p>
+                          Auto enrolment legislation does not apply to all employees,
+                          for example, non-UK workers and some directors. The Pensions
+                          Regulator will confirm this for you.
+                        </p>
+                      </p-accordionTab>
+                    </p-accordion>
+                  </div>
+                </div>
+        
+                <div class="row mb-3">
+                  <div class="col-auto">
+                    <label class="fw-bold" for="username">Deemed Employee</label>
+                  </div>
+                  <div class="col">
+                    <p-checkbox
+                      formControlName="deemedEmployee"
+                      [binary]="true"
+                      inputId="binary"
+                    />
+                    <br />
+                    <small hidden id="username-help"> Enter your username </small>
+                  </div>
+                </div>
+        
+                <div class="row mb-3">
+                  <!-- <div class="col-auto">
+                        <label class="fw-bold" for="username">Exclude from auto Enrolment</label>
+                      </div> -->
+                  <div class="col">
+                    <p-accordion [activeIndex]="0">
+                      <p-accordionTab header="More Information about Deemed Employees">
+                        <p>
+                          Auto enrolment legislation does not apply to all employees,
+                          for example, non-UK workers and some directors. The Pensions
+                          Regulator will confirm this for you.
+                        </p>
+                      </p-accordionTab>
+                    </p-accordion>
+                  </div>
+                </div>
+              </div>
+              <!-- Directorship Details Section  -->
+              <div class="col-6">
+                <h6 class="fw-bold fs-5 mb-4">Directorship Details</h6>
+        
+                <div class="row mb-3">
+                  <div class="col-auto">
+                    <label class="fw-bold" for="username">Is a Director?</label>
+                  </div>
+                  <div class="col">
+                    <p-checkbox
+                      formControlName="isDirector"
+                      [binary]="true"
+                      inputId="binary"
+                    />
+                    <br />
+                    <small hidden id="username-help"> Enter your username </small>
+                  </div>
+                </div>
+        
+                <div class="row mb-3" *ngIf="formControls?.isDirector == true">
+                  <div class="col-auto">
+                    <label class="fw-bold" for="username">DirectorShip Started</label>
+                  </div>
+                  <div class="col">
+                    <p-dropdown
+                      formControlName="directorShipStarted"
+                      [options]="directorShipStarted"
+                      optionLabel="name"
+                      placeholder="Select Starting Basis"
+                    />
+                    <br />
+                    <!-- <small id="username-help">
+                      {{ formControls?.directorShipStarted?.name ? formControls?.directorShipStarted?.name : formControls?.directorShipStarted }}
+                    </small> -->
+                  </div>
+                </div>
+        
+                <div
+                  class="row mb-2"
+                  *ngIf="
+                  formControls?.directorShipStarted?.name == 'On or After 6/04/2024'
+                "
+                >
+                  <div class="col-auto">
+                    <label class="fw-bold" for="username">Enter Specific Date</label>
+                  </div>
+                  <div class="col">
+                    <p-calendar
+                      formControlName="enterSpecificDate"
+                      [showIcon]="true"
+                      inputId="icondisplay"
+                    /><br />
+        
+                    <small hidden id="username-help"> Enter your username </small>
+                  </div>
+                </div>
+        
+                <div class="row mb-3" *ngIf="formControls?.isDirector == true">
+                  <div class="col-auto">
+                    <label class="fw-bold" for="username">Preferred Calc Method</label>
+                  </div>
+                  <div class="col">
+                    <p-dropdown
+                      formControlName="prefferedCalcMethod"
+                      [options]="directorShipStarted"
+                      optionLabel="name"
+                      placeholder="Select Starting Basis"
+                    />
+                    <br />
+                    <!-- <small id="username-help">
+                      {{ formControls?.directorShipStarted?.name ? formControls?.directorShipStarted?.name : formControls?.directorShipStarted }}
+                    </small> -->
+                  </div>
+                </div>
+        
+                <div class="row mb-3">
+                  <div class="col-auto">
+                    <label class="fw-bold" for="username"
+                      >Pay Document Preferences</label
+                    >
+                    <p>
+                      Choose how your employee will receive their payslips and P60s.
+                    </p>
+                  </div>
+                </div>
+        
+                <div class="row mb-3">
+                  <div class="col-auto">
+                    <label class="fw-bold" for="username">Received by*</label>
+                  </div>
+                  <div class="col">
+                    <div class="col mb-2">
+                      <p-radioButton
+                        name="receivedBy"
+                        formControlName="receivedBy"
+                        value="email"
+                      />
+                      <label class="mx-2"> Email </label>
+                    </div>
+        
+                    <div class="col">
+                      <p-radioButton
+                        name="receivedBy"
+                        formControlName="receivedBy"
+                        value="print"
+                      />
+                      <label class="mx-2"> Print </label>
+                    </div>
+                  </div>
+                </div>
+        
+                <div class="row mb-3">
+                  <div class="col-auto">
+                    <label class="fw-bold" for="username">Email Address</label>
+                  </div>
+                  <div class="col">
+                    <input
+                      formControlName="email"
+                      type="email"
+                      pInputText
+                      id="username"
+                      aria-describedby="username-help"
+                    /><br />
+                    <small hidden id="username-help"> Enter your username </small>
+                  </div>
+                </div>
+        
+                <!-- if Email is selected from Received BY Field  -->
+        
+                <div class="row mb-3" *ngIf="formControls?.receivedBy == 'email'">
+                  <div class="col-auto">
+                    <label class="fw-bold" for="username">Password</label>
+                  </div>
+                  <div class="col">
+                    <input
+                      formControlName="emailPassword"
+                      type="password"
+                      pInputText
+                      id="username"
+                      aria-describedby="username-help"
+                    /><br />
+                    <small hidden id="username-help"> Enter your username </small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr />
+            <!-- third row for Previous Tax Details section  -->
+            <div class="row">
+              <div class="col-12">
+                <h6 class="fw-bold fs-5 mb-4">Previous Tax Details</h6>
+        
+                <div class="row mb-3">
+                  <div class="col-auto">
+                    <label class="fw-bold" for="username">Starting Basis*</label>
+                  </div>
+                  <div class="col">
+                    <p-dropdown
+                      formControlName="startingBasics"
+                      [options]="startingBasics"
+                      optionLabel="name"
+                      placeholder="Select Starting Basis"
+                    />
+                    <br />
+                    <small hidden id="username-help"> Enter your username </small>
+                  </div>
+                </div>
+        
+                <!-- if "this is an existing employee" willl be selected by the user  -->
+        
+                <div
+                  class="row mb-3"
+                  *ngIf="
+                    formControls?.startingBasics?.name ==
+                      'Employee Declaration:P45-Select category Below' ||
+                    formControls?.startingBasics?.name ==
+                      'Employee Declaration:P46-Select category Below'
+                  "
+                >
+                  <div class="col-auto">
+                    <label class="fw-bold" for="username">Circumstances*</label>
+                  </div>
+                  <div class="col">
+                    <p-dropdown
+                      formControlName="circumstances"
+                      [options]="circumstances"
+                      optionLabel="name"
+                      placeholder="Select Circumstances"
+                    />
+                    <br />
+                    <small hidden id="username-help"> Enter your username </small>
+                  </div>
+                </div>
+        
+                <div
+                  class="row mb-3"
+                  *ngIf="
+                    formControls?.startingBasics?.name ==
+                    'Employee Declaration:P45-Select category Below'
+                  "
+                >
+                  <div class="col-auto">
+                    <label class="fw-bold" for="username">Leaving Date</label>
+                  </div>
+                  <div class="col">
+                    <p-calendar
+                      formControlName="leavingDate"
+                      [showIcon]="true"
+                      inputId="icondisplay"
+                    /><br />
+        
+                    <small hidden id="username-help"> Enter your username </small>
+                  </div>
+                </div>
+        
+                <div
+                  class="row mb-3"
+                  *ngIf="
+                    formControls?.startingBasics?.name ==
+                      'This is an existing employee' ||
+                    formControls?.startingBasics?.name ==
+                      'Employee Declaration:P45-Select category Below' ||
+                    formControls?.startingBasics?.name ==
+                      'Employee Declaration:P46-Select category Below'
+                  "
+                >
+                  <div class="col-auto">
+                    <label class="fw-bold" for="username">NI Category</label>
+                  </div>
+                  <div class="col">
+                    <p-dropdown
+                      formControlName="niCategory"
+                      [options]="niCategory"
+                      optionLabel="name"
+                      placeholder="Select Starting Basis"
+                    />
+                    <br />
+                    <small hidden id="username-help"> Enter your username </small>
+                  </div>
+                </div>
+        
+                <!-- if "V(Veterans Standard Rate)" will be selected by user -->
+                <div
+                  class="row mb-3"
+                  *ngIf="formControls?.niCategory?.name == 'V (Veterans Standard Rate)'"
+                >
+                  <div class="col-auto">
+                    <label class="fw-bold" for="username"
+                      >First Date of Civilian Employment*</label
+                    >
+                  </div>
+                  <div class="col">
+                    <p-calendar
+                      formControlName="firstDateofCivilianEmployment"
+                      [showIcon]="true"
+                      inputId="icondisplay"
+                    /><br />
+        
+                    <small hidden id="username-help"> Enter your username </small>
+                  </div>
+                </div>
+        
+                <div
+                  class="row mb-3"
+                  *ngIf="
+                    formControls?.startingBasics?.name ==
+                      'This is an existing employee' ||
+                    formControls?.startingBasics?.name ==
+                      'Employee Declaration:P45-Select category Below'
+                  "
+                >
+                  <div class="col-auto">
+                    <label class="fw-bold" for="username">Tax Code</label>
+                  </div>
+                  <div class="col">
+                    <input
+                      formControlName="taxCode"
+                      type="email"
+                      pInputText
+                      id="username"
+                      aria-describedby="username-help"
+                    /><br />
+                    <small hidden id="username-help"> Enter your username </small>
+                  </div>
+                </div>
+        
+                <div
+                  class="row mb-3"
+                  *ngIf="
+                    formControls?.startingBasics?.name ==
+                      'This is an existing employee' ||
+                    formControls?.startingBasics?.name ==
+                      'Employee Declaration:P45-Select category Below'
+                  "
+                >
+                  <div class="col-auto">
+                    <label class="fw-bold" for="username">Week 1/Month 1</label>
+                  </div>
+                  <div class="col">
+                    <p-checkbox
+                      formControlName="week1Month1"
+                      [binary]="true"
+                      inputId="binary"
+                    />
+                    <br />
+                    <small hidden id="username-help"> Enter your username </small>
+                  </div>
+                </div>
+                <!-- if "this is an existing employee" willl be selected by the user  -->
+        
+                <div
+                  class="row mb-3"
+                  *ngIf="
+                    formControls?.startingBasics?.name ==
+                    'Employee Declaration:P45-Select category Below'
+                  "
+                >
+                  <div class="col-auto">
+                    <label class="fw-bold" for="username">Final Pay Period</label>
+                  </div>
+                  <div class="col">
+                    <p-dropdown
+                      formControlName="finalPayPeriod"
+                      [options]="niCategory"
+                      optionLabel="name"
+                      placeholder="Select Starting Basis"
+                    />
+                    <span>
+                      <input
+                        formControlName="customFinalPayPeriod"
+                        type="number"
+                        pInputText
+                        id="username"
+                        aria-describedby="username-help"
+                      />
+                    </span>
+                    <br />
+        
+                    <small hidden id="username-help"> Enter your username </small>
+                  </div>
+                </div>
+        
+                <div
+                  class="row mb-3"
+                  *ngIf="
+                    formControls?.startingBasics?.name ==
+                    'Employee Declaration:P45-Select category Below'
+                  "
+                >
+                  <div class="col-auto">
+                    <label class="fw-bold" for="username">Total Pay to Date</label>
+                  </div>
+                  <div class="col">
+                    <input
+                      formControlName="totalPaytoDate"
+                      type="number"
+                      pInputText
+                      id="username"
+                      value="0.00"
+                      aria-describedby="username-help"
+                      readonly
+                    /><br />
+        
+                    <small hidden id="username-help"> Enter your username </small>
+                  </div>
+                </div>
+        
+                <div
+                  class="row mb-3"
+                  *ngIf="
+                    formControls?.startingBasics?.name ==
+                    'Employee Declaration:P45-Select category Below'
+                  "
+                >
+                  <div class="col-auto">
+                    <label class="fw-bold" for="username">Total Tax to Date</label>
+                  </div>
+                  <div class="col">
+                    <input
+                      formControlName="totalTaxtoDate"
+                      type="number"
+                      pInputText
+                      id="username"
+                      value="0.00"
+                      aria-describedby="username-help"
+                      readonly
+                    /><br />
+        
+                    <small hidden id="username-help"> Enter your username </small>
+                  </div>
+                </div>
+        
+                <div
+                  class="row mb-3"
+                  *ngIf="
+                    formControls?.startingBasics?.name ==
+                      'Employee Declaration:P45-Select category Below' ||
+                    formControls?.startingBasics?.name ==
+                      'Employee Declaration:P46-Select category Below'
+                  "
+                >
+                  <div class="col-auto">
+                    <label class="fw-bold" for="username">Student Loan</label>
+                  </div>
+                  <div class="col">
+                    <p-checkbox
+                      formControlName="studentLoan"
+                      [binary]="true"
+                      inputId="binary"
+                    />
+                    <br />
+                    <small hidden id="username-help"> Enter your username </small>
+                  </div>
+                </div>
+        
+                <div
+                  class="row mb-3"
+                  *ngIf="
+                    formControls?.startingBasics?.name ==
+                      'Employee Declaration:P45-Select category Below' ||
+                    formControls?.startingBasics?.name ==
+                      'Employee Declaration:P46-Select category Below'
+                  "
+                >
+                  <div class="col-auto">
+                    <label class="fw-bold" for="username">Post Graduate Loan</label>
+                  </div>
+                  <div class="col">
+                    <p-checkbox
+                      formControlName="postGraduateLoan"
+                      [binary]="true"
+                      inputId="binary"
+                    />
+                    <br />
+                    <small hidden id="username-help"> Enter your username </small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" (click)="updateEmployee()" class="btn btn-primary" data-bs-dismiss="modal" >Update changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- modal End -->
+  </div>
+  <!-- Implemeting PrimeNg Table -->
+  </div>
+  <!-- Implemeting PrimeNg Table -->
+  
+  
+  
+  

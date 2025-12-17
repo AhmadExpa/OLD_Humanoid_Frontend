@@ -1,0 +1,22 @@
+.summary_cards{
+    display: flex;
+    justify-content: space-between;
+}
+.bg-color{
+    background-color: #19875485;
+    color: black;
+}
+
+.btn_radius{
+   border-radius: 17px; 
+   margin-top: 15px;
+}
+.pay_run_container{
+    margin-top: 80px;
+}
+.delete{
+    cursor: pointer;
+}
+.edit{
+    cursor: pointer;
+}

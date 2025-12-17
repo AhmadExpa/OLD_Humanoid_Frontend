@@ -1,0 +1,414 @@
+<div class="container-fluid py-4">
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white p-3">
+      <h3 class="mb-0"><i class="pi pi-calendar me-2"></i>Payslip Timeline</h3>
+      <button
+        pButton
+        icon="pi pi-arrow-left"
+        label="Go Back"
+        class="p-button"
+        routerLink="/super-admin-portal/paye-slips"
+      ></button>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <!-- Timeline Column -->
+        <div class="col-lg-3 border-end pe-4">
+          <div class="timeline-container position-relative">
+            <div class="timeline-line position-absolute h-100 start-50"></div>
+
+            <div
+              *ngFor="let slip of payslips"
+              class="timeline-item position-relative mb-5"
+            >
+              <div class="timeline-badge bg-primary rounded-circle shadow-sm">
+                <i class="pi pi-file"></i>
+              </div>
+              <div class="timeline-date p-2 bg-light rounded shadow-sm">
+                {{ slip.payDate | date : "mediumDate" }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payslip Content Column -->
+        <div class="col-lg-9">
+          <div
+            *ngFor="let slip of payslips"
+            class="payslip-card mb-4 p-4 shadow-sm rounded bg-light"
+          >
+            <div class="row align-items-center">
+              <div class="col-md-8">
+                <h5 class="text-primary mb-1">
+                  <i class="pi pi-user me-2"></i>{{ slip.clientName }}
+                </h5>
+                <p class="mb-2 text-muted">
+                  <i class="pi pi-building me-2"></i>{{ slip.agency }}
+                </p>
+                <div class="d-flex">
+                  <span class="badge bg-info me-2">
+                    <i class="pi pi-id-card me-1"></i>{{ slip.employeeNumber }}
+                  </span>
+                  <span class="badge bg-secondary">
+                    <i class="pi pi-credit-card me-1"></i>{{ slip.niNumber }}
+                  </span>
+                </div>
+              </div>
+
+              <div class="col-md-4 text-end">
+                <div class="btn-group">
+                  <button
+                    pButton
+                    icon="pi pi-trash"
+                    class="p-button-danger me-2"
+                    (click)="deletePaySlip(slip._id)"
+                  ></button>
+
+                  <button
+                    pButton
+                    icon="pi pi-search"
+                    class="p-button-info"
+                    (click)="showPayslipPreview(slip._id)"
+                  >
+                    View Details
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-3">
+              <div class="col-md-3">
+                <div class="p-3 bg-white rounded shadow-sm text-center">
+                  <p class="mb-1 small text-muted">Net Payment</p>
+                  <h4 class="text-success">£{{ slip.netPayment }}</h4>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="p-3 bg-white rounded shadow-sm text-center">
+                  <p class="mb-1 small text-muted">Tax</p>
+                  <h4 class="text-danger">£{{ slip.totalTaxablePay }}</h4>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="p-3 bg-white rounded shadow-sm text-center">
+                  <p class="mb-1 small text-muted">Period Ending</p>
+                  <h5>{{ slip.periodEnding }}</h5>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="p-3 bg-white rounded shadow-sm text-center">
+                  <p class="mb-1 small text-muted">Status</p>
+                  <p-tag severity="success" value="Completed"></p-tag>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Payslip Preview Modal -->
+<p-dialog
+  header="Payslip Preview"
+  [(visible)]="showPreview"
+  [modal]="true"
+  [style]="{ width: '80vw', 'max-width': '900px' }"
+  [contentStyle]="{ 'max-height': '80vh', 'overflow-y': 'auto' }"
+>
+  <ng-container *ngIf="selectedPayslip">
+    <div class="payslip-container">
+      <!-- Payslip Header -->
+      <div class="payslip-header">
+        <div class="company-info">
+          <h2>
+            {{ selectedPayslip.companyName || "Company Name" }}
+          </h2>
+          <div class="header-grid">
+            <p class="header-item">
+              Company Margin: £{{
+                selectedPayslip.companyMargin | number : "1.2-2"
+              }}
+            </p>
+            <p class="header-item">
+              Company Income and Costs: £{{
+                selectedPayslip.companyIncomeAndCosts | number : "1.2-2"
+              }}
+            </p>
+            <p class="header-item">
+              Employee's NI:£{{ selectedPayslip.employeeNI | number : "1.2-2" }}
+            </p>
+          </div>
+        </div>
+        <div class="payslip-title">
+          <h1>PAYSLIP</h1>
+          <p class="pay-period">
+            {{ selectedPayslip.payDate | date : "MMMM yyyy" }}
+          </p>
+          <p>PAYE Reference: {{ selectedPayslip.payeReference || "N/A" }}</p>
+        </div>
+      </div>
+
+      <!-- Employee Information -->
+      <div class="employee-section">
+        <div class="employee-details">
+          <h3>Employee Details</h3>
+          <p>
+            <strong>Name:</strong>
+            {{ selectedPayslip.clientName || "N/A" }}
+          </p>
+          <p>
+            <strong>Employee No:</strong>
+            {{ selectedPayslip.employeeNumber || "N/A" }}
+          </p>
+          <p>
+            <strong>NI Number:</strong>
+            {{ selectedPayslip.niNumber || "N/A" }}
+          </p>
+          <p>
+            <strong>Tax Code:</strong>
+            {{ selectedPayslip.taxCode || "N/A" }}
+          </p>
+        </div>
+
+        <div class="payment-details">
+          <h3>Payment Details</h3>
+          <p>
+            <strong>Pay Date:</strong>
+            {{ selectedPayslip.payDate | date : "dd/MM/yyyy" }}
+          </p>
+          <p>
+            <strong>Pay Frequency:</strong>
+            {{ selectedPayslip.payFrequency || "N/A" }}
+          </p>
+          <p>
+            <strong>Periods:</strong>
+            {{ selectedPayslip.periods || "N/A" }}
+          </p>
+          <p>
+            <strong>Tax Period:</strong>
+            {{ selectedPayslip.taxPeriod || "N/A" }}
+          </p>
+          <p>
+            <strong>Period Ending:</strong>
+            {{ selectedPayslip.periodEnding || "N/A" }}
+          </p>
+        </div>
+      </div>
+
+      <!-- Agency Information -->
+      <div
+        class="agency-section"
+        *ngIf="selectedPayslip.agency || selectedPayslip.agencyDescription"
+      >
+        <h3>Agency Information</h3>
+        <div class="agency-grid">
+          <div class="agency-item">
+            <span>Agency Name:</span>
+            <span>{{ selectedPayslip.agency || "N/A" }}</span>
+          </div>
+          <div class="agency-item">
+            <span>Description:</span>
+            <span>{{ selectedPayslip.agencyDescription || "N/A" }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Earnings Section -->
+      <div class="earnings-section">
+        <h3>Earnings</h3>
+        <table class="payslip-table">
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th>Units</th>
+              <th>Rate</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let payment of selectedPayslip.payments">
+              <td>{{ payment.description }}</td>
+              <td>{{ payment.units | number : "1.0-2" }}</td>
+              <td>£{{ payment.rate | number : "1.2-2" }}</td>
+              <td>£{{ payment.totalAmount | number : "1.2-2" }}</td>
+            </tr>
+            <tr class="total-row">
+              <td colspan="3"><strong>Total Earnings</strong></td>
+              <td>
+                <strong
+                  >£{{ selectedPayslip.paymentSum | number : "1.2-2" }}</strong
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Unit Rates Section -->
+      <div
+        class="unit-rates-section"
+        *ngIf="selectedPayslip.unitRates.length > 0"
+      >
+        <h3>Unit Rates</h3>
+        <table class="payslip-table">
+          <thead>
+            <tr>
+              <th>Units</th>
+              <th>Rate</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let unitRate of selectedPayslip.unitRates">
+              <td>{{ unitRate.units | number : "1.0-2" }}</td>
+              <td>£{{ unitRate.rate | number : "1.2-2" }}</td>
+              <td>£{{ unitRate.totalAmount | number : "1.2-2" }}</td>
+            </tr>
+            <tr class="total-row">
+              <td colspan="2"><strong>Company Income and Costs</strong></td>
+              <td>
+                <strong
+                  >£{{
+                    selectedPayslip.companyIncomeAndCosts | number : "1.2-2"
+                  }}</strong
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Deductions Section -->
+      <div class="deductions-section">
+        <h3>Deductions</h3>
+        <table class="payslip-table">
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let deduction of selectedPayslip.deductions">
+              <td>{{ deduction.description }}</td>
+              <td>£{{ deduction.amount | number : "1.2-2" }}</td>
+            </tr>
+            <tr class="total-row">
+              <td><strong>Total Deductions</strong></td>
+              <td>
+                <strong
+                  >£{{
+                    selectedPayslip.deductionSum | number : "1.2-2"
+                  }}</strong
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Summary Section -->
+      <div class="summary-section">
+        <h3>Payment Summary</h3>
+        <div class="summary-grid">
+          <div class="summary-item">
+            <span>Total Gross Pay:</span>
+            <span>£{{ selectedPayslip.totalPayment | number : "1.2-2" }}</span>
+          </div>
+          <div class="summary-item">
+            <span>Total Deductions:</span>
+            <span>£{{ selectedPayslip.deductionSum | number : "1.2-2" }}</span>
+          </div>
+          <div class="summary-item">
+            <span>Expenses:</span>
+            <span>£{{ selectedPayslip.expenses | number : "1.2-2" }}</span>
+          </div>
+          <div class="summary-item highlight">
+            <span><strong>Net Pay:</strong></span>
+            <span
+              ><strong
+                >£{{ selectedPayslip.netPayment | number : "1.2-2" }}</strong
+              ></span
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Tax Information -->
+      <div class="tax-section">
+        <h3>Tax Information</h3>
+        <div class="tax-grid">
+          <div class="tax-item">
+            <span>Taxable Pay:</span>
+            <span
+              >£{{ selectedPayslip.totalTaxablePay | number : "1.2-2" }}</span
+            >
+          </div>
+          <div class="tax-item">
+            <span>Earnings for NICs:</span>
+            <span
+              >£{{ selectedPayslip.earningsForNICs | number : "1.2-2" }}</span
+            >
+          </div>
+          <div class="tax-item">
+            <span>Total NIable Pay:</span>
+            <span
+              >£{{ selectedPayslip.totalNlablePay | number : "1.2-2" }}</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Client Information -->
+      <div class="client-section">
+        <h3>Client Information</h3>
+        <div class="client-grid">
+          <div class="client-item">
+            <span>Client Name:</span>
+            <span>{{ selectedPayslip.clientName || "N/A" }}</span>
+          </div>
+
+          <div class="client-item full-width">
+            <span>Client Address:</span>
+            <span>{{ selectedPayslip.clientAddress || "N/A" }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="agency-section">
+        <h3>Agency Information</h3>
+        <div class="agency-grid">
+          <div class="agency-item">
+            <span>Agency Name:</span>
+            <span>{{ selectedPayslip.agency || "N/A" }}</span>
+          </div>
+          <div class="agency-item">
+            <span>Description:</span>
+            <span>{{ selectedPayslip.agencyDescription || "N/A" }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Message Section -->
+      <div class="message-section" *ngIf="selectedPayslip.message">
+        <h3>Message</h3>
+        <p>{{ selectedPayslip.message }}</p>
+      </div>
+
+      <!-- Footer -->
+      <div class="payslip-footer">
+        <p>This is an automated payslip. Please contact HR for any queries.</p>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template pTemplate="footer">
+    <button
+      type="button"
+      class="btn btn-outline-secondary me-2"
+      (click)="showPreview = false"
+    >
+      <i class="fa fa-x-circle me-2"></i>Close
+    </button>
+  </ng-template>
+</p-dialog>

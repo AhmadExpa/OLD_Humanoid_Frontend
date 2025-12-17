@@ -1,0 +1,170 @@
+<div class="container-fluid">
+    <div class="fs-4 bg-success text-white text-center rounded-3 p-4 mt-3">
+      Raw Leads
+    </div>
+  
+    <!-- <button
+      mat-raised-button
+      (click)="isLinear = !isLinear"
+      id="toggle-linear"
+      class="my-3"
+    >
+      {{ !isLinear ? "Enable linear mode" : "Disable linear mode" }}
+    </button> -->
+    <mat-stepper *ngIf="showcard" [linear]="false" #stepper class="my-3 matStepper">
+      <mat-step [stepControl]="firstFormGroup">
+        <ng-template matStepLabel>Raw Leads</ng-template>
+        <div  class="row mx-5" >
+          <div class="col-3 my-3" *ngFor="let lead of rawLeads">
+            <!-- card for raw lead  -->
+            <div
+              class="card "
+              style=""
+            >
+              <p class="fs-6 mx-5 my-3  pt-4">
+                <b class="fw-bold fs-5 opacity-75 text-success ">Name:</b> &nbsp;
+                {{ lead?.name }}
+              </p>
+              <p-tag *ngIf="delayLead" class="position-absolute top-0 end-0 m-3 " icon="pi pi-history" [rounded]="true" severity="info" value="Delayed" />
+  
+              
+              
+              <p></p>
+              <p class="fs-6 mx-5">
+                <b class="fw-bold fs-5 opacity-75 text-success">Phone:</b> &nbsp;
+                {{ lead?.phoneNumber }}
+              </p>
+              <p></p>
+              <p class="fs-6 mx-5">
+                <b class="fw-bold fs-5 opacity-75 text-success">Status:</b> &nbsp;
+                {{ lead?.status }}
+              </p>
+              <p>
+                <button
+                  mat-button
+                  matStepperNext
+                  class="mx-5 w-50 mt-4 mb-3 bg-success"
+                  (click)="nextOption(lead)"
+                >
+                  Next
+                </button>
+              </p>
+            </div>
+  
+            <!-- card for raw lead  -->
+          </div>
+        </div>
+       
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup" label="Status">
+        <form
+          [formGroup]="secondFormGroup"
+          class=""
+          style="background-color: rgb(72, 70, 70); "
+        >
+          <div class="row p-5 m-0" style="background-color: rgb(72, 70, 70)">
+            <div class="col-4 w-auto justify-content-center mb-3">
+              <div class="d-flex">
+                <label class="fw-bold fs-5 opacity-75 text-white mt-2" for="name"
+                  >Name</label
+                >
+                <div>
+                  <input
+                    style="background-color: rgb(72, 70, 70)"
+                    class="w-auto mx-2 "
+                    pInputText
+                    id="name"
+                    [placeholder]="selectedLead.name"
+                    aria-describedby="username-help"
+                    readonly
+                  />
+                </div>
+              </div>
+            </div>
+  
+            <div class="col-4 w-auto mb-3">
+              <div class="d-flex">
+                <label
+                  class="fw-bold fs-5 opacity-75 text-white text-center mt-2"
+                  for="name"
+                  >Phone Number</label
+                >
+                <div>
+                  <input
+                    style="background-color: rgb(72, 70, 70)"
+                    class="w-auto mx-2"
+                    pInputText
+                    id="name"
+                    [placeholder]="selectedLead?.phoneNumber"
+                    aria-describedby="username-help"
+                    readonly
+                  />
+                </div>
+              </div>
+            </div>
+  
+            <!-- <div class="row mb-3" *ngIf="formControls?.isDirector == true"> -->
+            <div class="col-12 mt-5 d-flex">
+              <label class="fw-bold fs-5 opacity-75 text-white mt-2" for="name"
+                >Change Status</label
+              >
+              <div class="col mx-3">
+                <p-dropdown
+                  class="overflow-auto"
+                  formControlName="status"
+                  [options]="statusOptions"
+                  optionLabel="name"
+                  placeholder="Select Status"
+                />
+                <!-- <br /> -->
+                <!-- <app-validation-errors
+                    [control]="secondFormGroup.get('name')"
+                    [customMessages]="{
+                      required: 'Select when directorship Started'
+                    }"
+                  ></app-validation-errors> -->
+              </div>
+            </div>
+  
+            <!-- </div> -->
+          </div>
+  
+          <div
+            class="d-flex  mt-5"
+            style="background-color: rgb(72, 70, 70)"
+          >
+            <button
+              mat-button
+              matStepperPrevious
+              class="mx-5 px-4 mt-4 mb-3 bg-danger"
+            >
+              Back
+            </button>
+            <button
+              mat-button
+              matStepperNext
+              class=" mt-4 px-4 mb-3 bg-success"
+              (click)="changeStatus(selectedLead?._id)"
+              [disabled]="!secondFormGroup.get('status')?.value?.value"
+            >
+              Next
+            </button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step >
+        <ng-template matStepLabel >Done</ng-template>
+        <p class="fs-3 fw-bold text-white opacity-75 my-3 py-4 ">You are now <b class="text-success">done</b>.</p>
+        <div>
+          <button mat-button matStepperPrevious class="bg-danger mx-2">Back</button>
+          <button mat-button class="bg-success mx-2" (click)="resetAndGetLead()">Reset</button>
+        </div>
+      </mat-step>
+    </mat-stepper>
+  
+  
+    <!-- <ng-template *ngIf="!showcard"> -->
+      <h3 class=" fw-bold fs-5 opacity-50 text-center mt-5" *ngIf="!showcard">No Raw Lead Found</h3>
+    <!-- </ng-template> -->
+  </div>
+  

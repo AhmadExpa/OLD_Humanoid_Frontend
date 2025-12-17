@@ -1,0 +1,191 @@
+<div class="container my-5" *ngIf="showHead">
+    <div class="row">
+      <div class="head mb-2">
+        <h4>Lets Create Apps</h4>
+      </div>
+    </div>
+    <hr style="height:17px;">
+    <div class="row">
+      <div class="col col-lg-4 col-xl-4 col-md-6 col-sm-12 d-flex justify-content-center mb-3"
+        *ngFor="let item of getAllFormdata">
+        <div class="property-card">
+          <a>
+            <div>
+              <img [src]="item?.imageDetails[0]?.imageUrl" class="img-fluid">
+              <div class="property-image-title">
+              </div>
+            </div>
+          </a>
+          <div class="property-description">
+            <h5>{{item?.companyName}}</h5>
+            <p>{{item?.companyDirector}}</p>
+          </div>
+          <a>
+            <div class="property-social-icons d-flex justify-content-center" routerLink="./pay-slip">
+              <i class="fa-solid fa-plus text-light"></i>
+            </div>
+          </a>
+          <a>
+            <div class="property-social-icons2 d-flex justify-content-center" role="button">
+              <div class="icon d-flex justify-content-center">
+                <i class="fa-solid fa-trash" data-bs-toggle="modal"
+                data-bs-target="#exampleModal2"  (click)="activeModal(item._id)" ></i>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div *ngIf="userRole">
+    <div class="container" *ngIf="showHead" >
+      <button type="button" *ngIf="showForm === false" class="btn btn-outline-success w-100" (click)="displayForm()">Create
+        Umbrella App</button>
+    
+      <button type="button" *ngIf="showForm === true" class="btn btn-outline-danger w-100" (click)="CloseForm()">Close The
+        Box</button>
+    
+      <div class="row mb-3" *ngIf="showForm === true">
+        <form (ngSubmit)="submitForm()" [formGroup]="umbrellaForm">
+    
+    
+          <div class="form-floating mb-3 mt-3">
+            <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com"
+              formControlName="companyName">
+            <label for="floatingInput">Company Name</label>
+    
+            <!-- validation -->
+            <div class="error  text-danger"
+              *ngIf="umbrellaForm.controls['companyName'].invalid && (umbrellaForm.controls['companyName'].dirty || umbrellaForm.controls['companyName'].touched)">
+              <span
+                *ngIf="umbrellaForm.controls['companyName'].errors.minlength || umbrellaForm.controls['companyName'].errors.maxlength ">
+                <small>Name between 4 to 20 Characters!</small></span>
+              <span *ngIf="(umbrellaForm.controls['companyName'].errors.pattern)">
+                Only Alphabets & Spaces Allowed</span>
+              <span *ngIf="umbrellaForm.controls['companyName'].errors.required">
+                <small>Field Required!</small>
+              </span>
+            </div>
+            <!-- validation -->
+    
+          </div>
+    
+          <div class="form-floating mb-3 mt-3">
+            <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com"
+              formControlName="companyEmail">
+            <label for="floatingInput">Company Email</label>
+    
+            <!-- validation -->
+            <div class="error  text-danger"
+                  *ngIf="umbrellaForm.controls['companyEmail'].invalid && (umbrellaForm.controls['companyEmail'].dirty || umbrellaForm.controls['companyEmail'].touched)">
+                  <span *ngIf="umbrellaForm.controls['companyEmail'].errors.email">
+                    <small>Use correct pattern as example@example.com</small></span>
+                  <span *ngIf="umbrellaForm.controls['companyEmail'].errors.required">
+                    <small>Field Required!</small>
+                  </span>
+                </div>
+            <!-- validation -->
+    
+          </div>
+    
+          <div class="form-floating mb-3 mt-3">
+            <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com"
+              formControlName="companyNumber">
+            <label for="floatingInput">Company Number</label>
+    
+            <!-- validation -->
+            <div class="error  text-danger"
+                *ngIf="umbrellaForm.controls['companyNumber'].invalid && (umbrellaForm.controls['companyNumber'].dirty || umbrellaForm.controls['companyNumber'].touched)">
+                <span
+                  *ngIf="umbrellaForm.controls['companyNumber'].errors.minlength || umbrellaForm.controls['companyNumber'].errors.maxlength ">
+                  <small>Phone Number should be atleast 11 digits</small></span>
+                  <span *ngIf="(umbrellaForm.controls['companyNumber'].errors.pattern)">
+                    only numbers allowed</span>
+                <span *ngIf="umbrellaForm.controls['companyNumber'].errors.required">
+                  <small>Field Required!</small>
+                </span>
+              </div>
+            <!-- validation -->
+    
+          </div>
+    
+          <div class="form-floating mb-3 mt-3">
+            <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com"
+              formControlName="companyWebsiteUrl">
+            <label for="floatingInput">Company Website Url</label>
+    
+            <!-- validation -->
+            <div class="error  text-danger"
+              *ngIf="umbrellaForm.controls['companyWebsiteUrl'].invalid && (umbrellaForm.controls['companyWebsiteUrl'].dirty || umbrellaForm.controls['companyWebsiteUrl'].touched)">
+              <span *ngIf="(umbrellaForm.controls['companyWebsiteUrl'].errors?.pattern)">
+                Please enter a valid website URL.
+              </span>
+              <span *ngIf="umbrellaForm.controls['companyWebsiteUrl'].errors.required">
+                <small>Field Required!</small>
+              </span>
+            </div>
+            <!-- validation -->
+    
+          </div>
+    
+          <div class="form-floating mb-3 mt-3">
+            <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com"
+              formControlName="companyDirector">
+            <label for="floatingInput">Company Director</label>
+    
+            <!-- validation -->
+            <div class="error  text-danger"
+              *ngIf="umbrellaForm.controls['companyDirector'].invalid && (umbrellaForm.controls['companyDirector'].dirty || umbrellaForm.controls['companyDirector'].touched)">
+              <span
+                *ngIf="umbrellaForm.controls['companyDirector'].errors.minlength || umbrellaForm.controls['companyDirector'].errors.maxlength ">
+                <small>Name between 4 to 20 Characters!</small></span>
+              <span *ngIf="(umbrellaForm.controls['companyDirector'].errors.pattern)">
+                Only Alphabets & Spaces Allowed</span>
+              <span *ngIf="umbrellaForm.controls['companyDirector'].errors.required">
+                <small>Field Required!</small>
+              </span>
+            </div>
+            <!-- validation -->
+    
+          </div>
+    
+          <div class="mb-3">
+            <label class="form-label">Choose Logo</label>
+            <input type="file" #FileSelect class="form-control" formControlName="companyLogo" (change)="getImage($event)">
+    
+            <div class="error  text-danger"
+              *ngIf="umbrellaForm.controls['companyLogo'].invalid && (umbrellaForm.controls['companyLogo'].dirty || umbrellaForm.controls['companyLogo'].touched)">
+              <span *ngIf="umbrellaForm.controls['companyLogo'].errors.required">
+                <small>Field Required!</small>
+              </span>
+            </div>
+    
+          </div>
+    
+          <button type="submit" [disabled]="umbrellaForm.pristine || umbrellaForm.invalid"
+            class="btn btn-outline-primary w-100">Submit</button>
+        </form>
+      </div>
+    </div>
+    
+    <!-- Confirmation Modal  -->
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" data-bs-dismiss="modal" class="btn btn-outline-danger" (click)="deleteCompany(companyId)">Are you
+                      sure you want to Delete it?</button>
+              </div>
+          </div>
+      </div>
+    </div>
+    <!-- Confirmation Modal -->
+  </div>
+  <router-outlet></router-outlet>

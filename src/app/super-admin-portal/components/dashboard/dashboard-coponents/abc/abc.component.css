@@ -1,0 +1,18 @@
+.container-fluid{
+    border: 1px solid grey;
+    border-radius: 5px;
+}
+
+.ngx-pagination .current{
+    background: black !important;
+}
+
+/* Individual Client Carsoul */
+/* ========== 07. Horace ========== */
+.carousel-item{
+  width: 100%;
+  height: 400px;
+  display: block;
+}
+/* Individual Client Carsoul */
+

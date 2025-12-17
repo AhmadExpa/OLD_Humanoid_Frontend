@@ -1,0 +1,96 @@
+<!-- <header class="navbar" [ngClass]="{'scrolled': isScrolled}">
+    <div class="navbar-container container">
+        <a class="navbar-brand logo">
+            <img src="../../../../assets/logo-no-background.png" alt="" width="150" height="24" >
+          </a>
+        <input type="checkbox" name="" id="">
+        <div class="hamburger-lines">
+            <span class="line line1"></span>
+            <span class="line line2"></span>
+            <span class="line line3"></span>
+        </div>
+        <ul class="menu-items mx-md-auto">
+            <li class="link nav-item"><a routerLink="/home"    routerLinkActive='active'>Home</a></li>
+            
+            <li class="link nav-item"><a routerLink="/about"   routerLinkActive='active'>About</a></li>
+            <li class="link nav-item"><a routerLink="/contact" routerLinkActive='active'>Contact</a></li>
+            <li><a routerLink="/login"><i class="fa-solid fa-right-to-bracket"></i></a></li>
+        </ul>
+    </div>
+</header> -->
+
+
+
+
+<nav class="fixed-top">
+    <div class="wrapper">
+        <div class="logo"><a href="#">Humanoid CRM</a></div>
+        <input type="radio" name="slider" id="menu-btn">
+        <input type="radio" name="slider" id="close-btn">
+        <ul class="nav-links ms-auto">
+            <label for="close-btn" class="btn close-btn text-white"><i class="fas fa-times"></i></label>
+            <li>
+                <a href="#" class="desktop-item ms-2">Mega Menu</a>
+                <input type="checkbox" id="showMega">
+                <label for="showMega" class="mobile-item">Mega Menu</label>
+                <div class="mega-box">
+                    <div class="content">
+
+                        <div class="row">
+                            <div class="card">
+                                <img class="card-img-top" src="../../../../assets/mega-menu.jpg" alt="Card image cap">
+                                <div class="card-body">
+                                    <small>
+                                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                            Iste vitae vero cumque..</p>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <header>Design Services</header>
+                            <ul class="mega-links">
+                                <li><a href="#">Graphics</a></li>
+                                <li><a href="#">Vectors</a></li>
+                                <li><a href="#">Business cards</a></li>
+                                <li><a href="#">Custom logo</a></li>
+                            </ul>
+                        </div>
+                        <div class="row">
+                            <header>Email Services</header>
+                            <ul class="mega-links">
+                                <li><a href="#">Personal Email</a></li>
+                                <li><a href="#">Business Email</a></li>
+                                <li><a href="#">Mobile Email</a></li>
+                                <li><a href="#">Web Marketing</a></li>
+                            </ul>
+                        </div>
+                        <div class="row">
+                            <header>Security services</header>
+                            <ul class="mega-links">
+                                <li><a href="#">Site Seal</a></li>
+                                <li><a href="#">VPS Hosting</a></li>
+                                <li><a href="#">Privacy Seal</a></li>
+                                <li><a href="#">Website design</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li><a routerLink="/home">Home</a></li>
+            <li><a routerLink="/about">About</a></li>
+            <li><a routerLink="/contact">Contact</a></li>
+            <!-- <li class="second-link"><a href="#">Price</a></li>
+            <li><a href="#">Contact-Sale</a></li> -->
+            <li><a routerLink="/login">Login</a></li>
+            <li class="button" routerLink="/googleSignin"><button class="signin" role="button"
+                    routerLink="/googleSignin">Get-Started
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button></li>
+        </ul>
+
+
+        <label for="menu-btn" class="btn menu-btn text-dark"><i class="fas fa-bars"></i></label>
+    </div>
+</nav>

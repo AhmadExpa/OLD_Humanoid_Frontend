@@ -1,0 +1,12 @@
+button.custom-button:active {
+    background-color: #17a2b8 !important;
+    border: none !important;
+  }
+button.custom-button:hover {
+    background-color: #17a2b8 !important;
+}
+
+.custom-button{
+    border: 1px solid #17a2b8 !important;
+}
+

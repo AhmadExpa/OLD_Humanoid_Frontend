@@ -1,0 +1,65 @@
+<div class="app-main__outer">
+    <div class="app-main__inner">
+        <div class="row">
+            <div class="col-md-12 col-lg-6">
+                <div class="mb-3 card">
+                    <div class="card-header-tab card-header-tab-animation card-header">
+                        <div class="card-header-title">
+                            <i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
+                            Line Chart
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <canvas baseChart class="chart" [data]="lineChartData" [options]="lineChartOptions"
+                            [type]="lineChartType" (chartHover)="chartHovered($event)"
+                            (chartClick)="chartClicked($event)"></canvas>
+                        <table>
+                            <tr>
+                                <th *ngFor="let label of lineChartData.labels">{{label}}</th>
+                            </tr>
+                            <tr *ngFor="let d of lineChartData.datasets; let i=index" [class]="'line-'+i">
+                                <td *ngFor="let label of lineChartData.labels; let j=index">{{d && d.data[j]}}</td>
+                            </tr>
+                        </table>
+                        <div class="button-row">
+                            <button mat-button mat-raised-button color="primary"
+                                (click)="changeColor()">Recolor</button>
+                            <button mat-button mat-raised-button color="primary" (click)="hideOne()">Toggle Series
+                                B</button>
+                            <button mat-button mat-raised-button color="primary" (click)="changeLabel()">Change
+                                Label</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-6">
+                <div class="mb-3 card">
+                    <div class="card-header-tab card-header-tab-animation card-header">
+                        <div class="card-header-title">
+                            <i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
+                            Pie Chart
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <canvas baseChart class="chart" [data]="pieChartData" [type]="pieChartType"
+                            [options]="pieChartOptions" >
+                        </canvas>
+
+
+                        <div class="button-row">
+                            <button mat-button mat-raised-button color="primary" (click)="toggleLegend()">Toggle
+                                Legend</button>
+                            <button mat-button mat-raised-button color="primary" (click)="changeLabels()">Change
+                                Labels</button>
+                            <button mat-button mat-raised-button color="primary" (click)="addSlice()">Add Slice</button>
+                            <button mat-button mat-raised-button color="primary" (click)="removeSlice()">Remove
+                                Slice</button>
+                            <button mat-button mat-raised-button color="primary" (click)="changeLegendPosition()">Change
+                                Legend Position</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
